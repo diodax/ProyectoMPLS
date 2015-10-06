@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -18,13 +19,14 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.5</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -164,33 +166,77 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TopologiaController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Data\dsTopologia.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTopologia.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsUsuarios.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsUsuarios.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Accounts\AccountsViewModel.cs" />
+    <Compile Include="Models\Accounts\Usuario.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ModuleAuthorize.cs" />
     <Compile Include="Models\Topologia\Enlace.cs" />
     <Compile Include="Models\Topologia\LSP.cs" />
+    <Compile Include="Models\Topologia\Proyecto.cs" />
     <Compile Include="Models\Topologia\Router.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\router.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Data\dsUsuarios.xsc">
+      <DependentUpon>dsUsuarios.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsTopologia.xsc">
+      <DependentUpon>dsTopologia.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsTopologia.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTopologia.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Data\dsTopologia.xss">
+      <DependentUpon>dsTopologia.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsUsuarios.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsUsuarios.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Data\dsUsuarios.xss">
+      <DependentUpon>dsUsuarios.xsd</DependentUpon>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -200,6 +246,79 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\plugins\backbone-min.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\Arrowheads.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\assets\spectrum.css" />
+    <Content Include="Scripts\plugins\gojs\extensions\assets\spectrum.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\BalloonLink.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMN.css" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMN.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMN.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMNClasses.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMNdata\BasicOrderProcess.png" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMNdata\OMG BPMN by Example Figure 5.1.png" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMNdata\OMG BPMN by Example Figure 5.2.png" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMNdata\OMG BPMN by Example Figure 5.3.png" />
+    <Content Include="Scripts\plugins\gojs\extensions\Buttons.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\CheckBoxes.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\ColumnResizing.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\ColumnResizingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\DragCreating.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\DragCreatingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\DragZooming.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\DragZoomingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\DrawCommandHandler.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\ExtendedBrush.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\Fishbone.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\FishboneLayout.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\FloorPlanEditor.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\FloorPlanMonitor.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\FreehandDrawing.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\FreehandDrawingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\GeometryReshapingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\go.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\goSamples.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\GuidedDraggingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\index.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\Inspector.css" />
+    <Content Include="Scripts\plugins\gojs\extensions\Inspector.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\Inspector.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\LinkLabelDragging.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\LinkLabelDraggingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\LinkShifting.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\LinkShiftingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\NodeLabelDragging.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\NodeLabelDraggingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\Parallel.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\ParallelLayout.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\PolygonDrawing.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\PolygonDrawingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\PolylineLinking.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\PolylineLinkingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\PortShifting.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\PortShiftingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\RealtimeDragSelecting.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\RealtimeDragSelectingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\ResizeMultipleTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\Robot.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\Robot.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\RotateMultipleTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\RowResizingTool.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\ScrollingTable.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\ScrollingTable.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\Serpentine.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\SerpentineLayout.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\Spiral.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\SpiralLayout.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\Table.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\TableLayout.js" />
+    <Content Include="Scripts\plugins\gojs\extensions\TreeMap.html" />
+    <Content Include="Scripts\plugins\gojs\extensions\TreeMapLayout.js" />
+    <Content Include="Scripts\plugins\gojs\go-debug.js" />
+    <Content Include="Scripts\plugins\gojs\go.js" />
+    <Content Include="Scripts\plugins\joint.css" />
+    <Content Include="Scripts\plugins\joint.js" />
+    <Content Include="Scripts\plugins\lodash.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -214,8 +333,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -237,10 +354,19 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Home\Demo.cshtml" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMNdata\BasicOrderProcess.json" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMNdata\OMG BPMN by Example Figure 5.1.json" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMNdata\OMG BPMN by Example Figure 5.2.json" />
+    <Content Include="Scripts\plugins\gojs\extensions\BPMNdata\OMG BPMN by Example Figure 5.3.json" />
+    <Content Include="Views\Home\Welcome.cshtml" />
+    <Content Include="Views\Usuario\Registrar.cshtml" />
+    <Content Include="Views\Usuario\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Login\" />
+    <Folder Include="Views\Topologia\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -250,11 +376,19 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\plugins\gojs\goJS.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
@@ -268,7 +402,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>10223</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:10223/</IISUrl>
+          <IISUrl>https://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

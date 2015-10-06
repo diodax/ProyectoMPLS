@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "JointJS Demo Page";
+}
+
+<h2>GoJS Demo Page</h2>
+
+<!-- The DIV for a Diagram needs an explicit size or else we will not see anything.
+     In this case we also add a background color so we can see that area. -->
+
+<span id="paletteSpan" style="display: inline-block; vertical-align: top">
+    <b>Palette 1 (blues):</b><br>
+    <div id="myPaletteDiv" style="width: 120px; height: 450px; position: relative; background-color: #DAE4E4;"></div> 
+</span>
+
+<span id="diagramSpan" style="display: inline-block; vertical-align: top">
+    <b>Diagram:</b><br>
+    <div id="myDiagramDiv" style="width: 700px; height: 450px; position: relative; background-color: #DAE4E4;"></div>
+</span>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $ = go.GraphObject.make;
+        //var myDiagram = $(go.Diagram, "myDiagramDiv");
+
+        var myDiagram = $(go.Diagram, "myDiagramDiv", {
+            initialContentAlignment: go.Spot.Center,        // center Diagram contents
+            "undoManager.isEnabled": true,                   // enable Ctrl-Z to undo and Ctrl-Y to redo
+            //layout: $(go.TreeLayout,                        // specify a Diagram.layout that arranges trees
+            //    { angle: 90, layerSpacing: 35 })
+        });
+
+        myDiagram.allowDrop = true;  // permit accepting drag-and-drops
+
+        // define a simple Node template
+        myDiagram.nodeTemplate =
+          $(go.Node, "Auto",
+            // the entire node will have a light-blue background
+            //{ background: "#44CCFF" },
+            $(go.Picture,
+              // Pictures should normally have an explicit width and height.
+              // This picture has a red background, only visible when there is no source set
+              // or when the image is partially transparent.
+              { margin: 10, width: 80, height: 80 },
+              // Picture.source is data bound to the "source" attribute of the model data
+              new go.Binding("source")),
+            $(go.TextBlock,
+              "Router1",  // the initial value for TextBlock.text
+              // some room around the text, a larger font, and a white stroke:
+              { margin: 12, stroke: "black", font: "bold 16px sans-serif", editable: true },
+              // TextBlock.text is data bound to the "name" attribute of the model data
+              new go.Binding("text", "name"))
+          );
+
+        var image = '@Url.Content("~/Content/Images/")' + 'router.png';
+
+        var model = $(go.GraphLinksModel);
+        model.nodeDataArray =
+        [
+          { key: "A", name: "Router1", source: image },
+          { key: "B", name: "Router2", source: image },
+          { key: "C", name: "Router3", source: image }
+        ];
+        model.linkDataArray =
+        [
+          { from: "A", to: "B" },
+          { from: "B", to: "C" }
+        ];
+        myDiagram.model = model;
+
+        var myPalette = $(go.Palette, "myPaletteDiv");
+
+        // the Palette's node template is different from the main Diagram's
+        myPalette.nodeTemplate =
+          $(go.Node, "Horizontal",
+            $(go.Picture,
+              { width: 14, height: 14 },
+              new go.Binding("source")),
+            $(go.TextBlock,
+              new go.Binding("text", "color"))
+          );
+
+        // the list of data to show in the Palette
+        myPalette.model.nodeDataArray = [
+          { source: image, color: "cyan" },
+          { source: image, color: "lightcyan" },
+          { source: image, color: "aquamarine" },
+          { source: image, color: "turquoise" },
+          { source: image, color: "powderblue" },
+          { source: image, color: "lightblue" },
+          { source: image, color: "lightskyblue" },
+          { source: image, color: "deepskyblue" }
+        ];
+
+
+    });
+</script>
