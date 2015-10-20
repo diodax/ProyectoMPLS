@@ -5,23 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
-    <!--JointJS Dependencies-->
-    @*<link rel="stylesheet" type="text/css" href="~/Scripts/plugins/joint.css" />
-    <script src="~/Scripts/plugins/lodash.min.js"></script>
-    <script src="~/Scripts/plugins/backbone-min.js"></script>
-    <script src="~/Scripts/plugins/joint.js"></script>*@
-
-    <!--GoJS plugin-->
-    <script src="~/Scripts/plugins/gojs/go-debug.js"></script>  @*TODO: Cambiar por go.js en la version final*@
-
+    <!-- MetisMenu CSS -->
+    <link href="~/Scripts/plugins/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/Content/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/timeline.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -50,5 +44,16 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/Scripts/plugins/metisMenu/dist/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Scripts/sb-admin-2.js"></script>
+    <!-- GoJS plugin -->
+    <script src="~/Scripts/plugins/gojs/go-debug.js"></script> @*TODO: Cambiar por go.js en la version final*@
+    @RenderSection("scripts", required: false)
 </body>
 </html>

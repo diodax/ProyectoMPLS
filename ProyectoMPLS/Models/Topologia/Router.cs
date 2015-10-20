@@ -11,7 +11,8 @@ namespace ProyectoMPLS.Models.Topologia
     public abstract class Router
     {
         public string idRouter { get; set; }
-        public string cNombre { get; set; }
+        public string cHostname { get; set; }
+        public List<Enlace> listaEnlaces { get; set; }
 
         //Coordenadas para la interfaz gráfica
         public int cx { get; set; }

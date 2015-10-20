@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoMPLS.Models.Topologia;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,11 +12,19 @@ namespace ProyectoMPLS.Controllers
         // GET: Topologia
         public ActionResult Index()
         {
+            string cUsuarioActual = Session["Usuario"].ToString();
+            List<Proyecto> listaProyectos = new List<Proyecto>();
+            listaProyectos = Proyecto.GetListaProyectos(cUsuarioActual);
+            return View(listaProyectos);
+        }
+
+        public ActionResult ImportFile()
+        {
             return View();
         }
 
-        // GET: Topologia/Details/5
-        public ActionResult Details(int id)
+        [HttpPost]
+        public ActionResult ImportFile(HttpPostedFileBase archivoCSV)
         {
             return View();
         }
