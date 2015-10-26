@@ -1,16 +1,15 @@
-﻿
+﻿@model ProyectoMPLS.Models.Topologia.Proyecto
+
 @{
-    ViewBag.Title = "JointJS Demo Page";
+    ViewBag.Title = "Editar";
 }
 
-<h2>GoJS Demo Page</h2>
-
-<!-- The DIV for a Diagram needs an explicit size or else we will not see anything.
-     In this case we also add a background color so we can see that area. -->
+<h2>Editar Topología</h2>
+@Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
 
 <span id="paletteSpan" style="display: inline-block; vertical-align: top">
     <b>Palette 1 (blues):</b><br>
-    <div id="myPaletteDiv" style="width: 120px; height: 450px; position: relative; background-color: #DAE4E4;"></div> 
+    <div id="myPaletteDiv" style="width: 120px; height: 450px; position: relative; background-color: #DAE4E4;"></div>
 </span>
 
 <span id="diagramSpan" style="display: inline-block; vertical-align: top">
@@ -18,16 +17,14 @@
     <div id="myDiagramDiv" style="width: 700px; height: 450px; position: relative; background-color: #DAE4E4;"></div>
 </span>
 
-
-
 @section scripts
-{    
+{   
     <script type="text/javascript">
     $(document).ready(function () {
-        var $ = go.GraphObject.make;
+        var $$ = go.GraphObject.make;
         //var myDiagram = $(go.Diagram, "myDiagramDiv");
 
-        var myDiagram = $(go.Diagram, "myDiagramDiv", {
+        var myDiagram = $$(go.Diagram, "myDiagramDiv", {
             initialContentAlignment: go.Spot.Center,        // center Diagram contents
             "undoManager.isEnabled": true,                   // enable Ctrl-Z to undo and Ctrl-Y to redo
             //layout: $(go.TreeLayout,                        // specify a Diagram.layout that arranges trees
@@ -38,17 +35,17 @@
 
         // define a simple Node template
         myDiagram.nodeTemplate =
-          $(go.Node, "Auto",
+          $$(go.Node, "Auto",
             // the entire node will have a light-blue background
             //{ background: "#44CCFF" },
-            $(go.Picture,
+            $$(go.Picture,
               // Pictures should normally have an explicit width and height.
               // This picture has a red background, only visible when there is no source set
               // or when the image is partially transparent.
               { margin: 10, width: 80, height: 80 },
               // Picture.source is data bound to the "source" attribute of the model data
               new go.Binding("source")),
-            $(go.TextBlock,
+            $$(go.TextBlock,
               "Router1",  // the initial value for TextBlock.text
               // some room around the text, a larger font, and a white stroke:
               { margin: 12, stroke: "black", font: "bold 16px sans-serif", editable: true },
@@ -58,29 +55,54 @@
 
         var image = '@Url.Content("~/Content/Images/")' + 'router.png';
 
-        var model = $(go.GraphLinksModel);
-        model.nodeDataArray =
-        [
-          { key: "A", name: "Router1", source: image },
-          { key: "B", name: "Router2", source: image },
-          { key: "C", name: "Router3", source: image }
-        ];
-        model.linkDataArray =
-        [
-          { from: "A", to: "B" },
-          { from: "B", to: "C" }
-        ];
-        myDiagram.model = model;
+        $.ajax({
+            url: '@Url.Action("GetJsonTopologia", new { controller = "Topologia" })',
+            type: 'POST',
+            //contentType: "application/json",
+            //datatype: "json",
+            data: { idProyecto: $("#tbxIdProyecto").val() },
+            success: function (result) {
+                //Inicio AJAX --
+                var image2 = '@Url.Content("~/Content/Images/")' + 'router.png';
+                var model = $$(go.GraphLinksModel);
 
-        var myPalette = $(go.Palette, "myPaletteDiv");
+                var arrayRouters = [];
+                $.each(result.routers, function (i, item) {
+                    arrayRouters.push({ "key": result.routers[i].idRouter, "name": result.routers[i].cHostname, "source": image2 });
+                });
+
+                //$(result.routers).each(function () {
+                //    arrayRouters.push({ "key": $(this).idRouter, "name": $(this).cHostname, source: image2 });
+                //});
+                model.nodeDataArray = arrayRouters;
+
+                var arrayLinks = [];
+                $.each(result.enlaces, function (i, item) {
+                    arrayLinks.push({ "from": result.enlaces[i].idRouterA, "to": result.enlaces[i].idRouterB });
+                });
+
+                //$(result.enlaces).each(function () {
+                //    arrayLinks.push({ "from": $(this).idRouterA, "to": $(this).idRouterB });
+                //});
+                console.log(arrayRouters);
+                console.log(arrayLinks);
+
+                model.linkDataArray = arrayLinks;
+                myDiagram.model = model;
+                //Fin AJAX --
+            },
+            error: function (error) { $("#error").html(error); }
+        });
+
+        var myPalette = $$(go.Palette, "myPaletteDiv");
 
         // the Palette's node template is different from the main Diagram's
         myPalette.nodeTemplate =
-          $(go.Node, "Horizontal",
-            $(go.Picture,
+          $$(go.Node, "Horizontal",
+            $$(go.Picture,
               { width: 14, height: 14 },
               new go.Binding("source")),
-            $(go.TextBlock,
+            $$(go.TextBlock,
               new go.Binding("text", "color"))
           );
 
@@ -98,5 +120,9 @@
 
 
     });
-</script>  
+</script>
 }
+
+
+
+

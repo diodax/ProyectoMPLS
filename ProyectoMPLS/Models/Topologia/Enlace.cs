@@ -10,8 +10,10 @@ namespace ProyectoMPLS.Models.Topologia
     /// </summary>
     public class Enlace
     {
-        public string idEnlace { get; set; }
+        public int idEnlace { get; set; }
         public string cNombre { get; set; }
+        public int idRouterA { get; set; }
+        public int idRouterB { get; set; }
 
         public double nBandwidth { get; set; }
         public double nPesoAdministrativo { get; set; } 

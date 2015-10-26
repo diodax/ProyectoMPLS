@@ -1,57 +1,175 @@
 ﻿@model IEnumerable<ProyectoMPLS.Models.Topologia.Proyecto>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Dashboard";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Dashboard</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.idProyecto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cUserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cTitulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dtFechaCreacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dtFechaUltEdicion)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">26</div>
+                        <div>New Comments!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">12</div>
+                        <div>New Tasks!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("ImportFile", "Comunicacion", null)">
+                <div class="panel-footer">
+                    <span class="pull-left">Importar Topología</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-shopping-cart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">124</div>
+                        <div>New Orders!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-support fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">13</div>
+                        <div>Support Tickets!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.idProyecto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cUserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cTitulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dtFechaCreacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dtFechaUltEdicion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
 
-</table>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Listado de Proyectos
+            </div>
+            <div class="panel-body">
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.idProyecto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cUserName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cTitulo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.dtFechaCreacion)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.dtFechaUltEdicion)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.idProyecto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cUserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cTitulo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.dtFechaCreacion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.dtFechaUltEdicion)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" }) 
+                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" }) 
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+
+
+
+                
+        </div>
+</div>

@@ -188,6 +188,9 @@
     <Compile Include="Models\Accounts\AccountsViewModel.cs" />
     <Compile Include="Models\Accounts\Usuario.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Comunicacion\ProyectoArchivoViewModel.cs" />
+    <Compile Include="Models\Comunicacion\ProyectoRaspberryViewModel.cs" />
+    <Compile Include="Models\Comunicacion\ProyectoVacioViewModel.cs" />
     <Compile Include="Models\Comunicacion\Tabla.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModuleAuthorize.cs" />
@@ -673,6 +676,7 @@
     <Content Include="Scripts\plugins\datatables-responsive\examples\initialisation\.DS_Store" />
     <Content Include="Scripts\plugins\datatables-responsive\make.sh" />
     <Content Include="Scripts\plugins\datatables-responsive\Readme.md" />
+    <Content Include="Views\Topologia\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

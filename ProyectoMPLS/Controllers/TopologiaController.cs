@@ -1,4 +1,5 @@
-﻿using ProyectoMPLS.Models.Topologia;
+﻿using ProyectoMPLS.Models.Comunicacion;
+using ProyectoMPLS.Models.Topologia;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,43 +19,59 @@ namespace ProyectoMPLS.Controllers
             return View(listaProyectos);
         }
 
-        public ActionResult ImportFile()
+        // GET: Topologia/CrearProyectoVacio
+        public ActionResult CrearProyectoVacio()
         {
-            return View();
+            string cUsuarioActual = Session["Usuario"].ToString();
+            ProyectoVacioViewModel newModel = new ProyectoVacioViewModel();
+            newModel.cUserName = cUsuarioActual;
+            return View(newModel);
         }
 
+        // POST: Topologia/CrearProyectoVacio
         [HttpPost]
-        public ActionResult ImportFile(HttpPostedFileBase archivoCSV)
+        public ActionResult Create(ProyectoVacioViewModel newModel)
         {
-            return View();
-        }
-
-        // GET: Topologia/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Topologia/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                newModel.InsertProyecto();
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return View(newModel);
             }
         }
 
-        // GET: Topologia/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Topologia/CrearProyectoRP
+        public ActionResult CrearProyectoRP()
         {
-            return View();
+            string cUsuarioActual = Session["Usuario"].ToString();
+            ProyectoRaspberryViewModel newModel = new ProyectoRaspberryViewModel();
+            newModel.cUserName = cUsuarioActual;
+            return View(newModel);
+        }
+
+        // POST: Topologia/CrearProyectoRP
+        [HttpPost]
+        public ActionResult CrearProyectoRP(ProyectoRaspberryViewModel newModel)
+        {
+            if (ModelState.IsValid)
+            {
+                int idProyecto = newModel.InsertProyecto();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(newModel);
+            }
+        }
+
+        // GET: Topologia/Editar/5
+        public ActionResult Editar(int idProyecto)
+        {
+            Proyecto newModel = new Proyecto(idProyecto);
+            return View(newModel);
         }
 
         // POST: Topologia/Edit/5
@@ -93,6 +110,12 @@ namespace ProyectoMPLS.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult GetJsonTopologia(int idProyecto)
+        {
+            Proyecto temp = new Proyecto(idProyecto);
+            return Json(new { routers = temp.listadoRouters, enlaces = temp.listadoEnlaces });
         }
     }
 }
