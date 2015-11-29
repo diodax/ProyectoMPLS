@@ -19,6 +19,9 @@ namespace ProyectoMPLS.Models.Topologia
         public double nPesoAdministrativo { get; set; } 
         public string cAfinidad { get; set; }
 
+        //Nuevos parametros
+        public double nBandwidthReservado { get; set; }
+
         //Coodernadas para la interfaz gráfica
         public int x1 { get; set; }
         public int y1 { get; set; }

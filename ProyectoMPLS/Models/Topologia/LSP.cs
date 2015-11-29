@@ -10,8 +10,20 @@ namespace ProyectoMPLS.Models.Topologia
     /// </summary>
     public class LSP
     {
-        public string idLSP { get; set; }
+        public int idLSP { get; set; }
         public string cNombre { get; set; }
+        public double nBandwidth { get; set; }
+        
+        //Nuevos parametros
+        public int idLEROrigen { get; set; }
+        public int idLERDestino { get; set; }
+
+        public int nSetupPriority { get; set; }
+        public int nHoldPriority { get; set; }
+
+        public List<Enlace> listaEnlaces { get; set; }
+        public List<Router> listaNodos { get; set; }
+
     }
 
     public class Nodo

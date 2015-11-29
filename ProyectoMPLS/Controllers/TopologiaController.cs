@@ -1,7 +1,10 @@
 ﻿using ProyectoMPLS.Models.Comunicacion;
 using ProyectoMPLS.Models.Topologia;
+using Renci.SshNet;
+using Renci.SshNet.Sftp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +22,8 @@ namespace ProyectoMPLS.Controllers
             return View(listaProyectos);
         }
 
+        #region CrearProyecto
+
         // GET: Topologia/CrearProyectoVacio
         public ActionResult CrearProyectoVacio()
         {
@@ -30,7 +35,7 @@ namespace ProyectoMPLS.Controllers
 
         // POST: Topologia/CrearProyectoVacio
         [HttpPost]
-        public ActionResult Create(ProyectoVacioViewModel newModel)
+        public ActionResult CrearProyectoVacio(ProyectoVacioViewModel newModel)
         {
             if (ModelState.IsValid)
             {
@@ -43,18 +48,16 @@ namespace ProyectoMPLS.Controllers
             }
         }
 
-        // GET: Topologia/CrearProyectoRP
-        public ActionResult CrearProyectoRP()
+        public ActionResult CrearProyectoArchivo()
         {
             string cUsuarioActual = Session["Usuario"].ToString();
-            ProyectoRaspberryViewModel newModel = new ProyectoRaspberryViewModel();
+            ProyectoArchivoViewModel newModel = new ProyectoArchivoViewModel();
             newModel.cUserName = cUsuarioActual;
             return View(newModel);
         }
 
-        // POST: Topologia/CrearProyectoRP
         [HttpPost]
-        public ActionResult CrearProyectoRP(ProyectoRaspberryViewModel newModel)
+        public ActionResult CrearProyectoArchivo(ProyectoArchivoViewModel newModel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +69,111 @@ namespace ProyectoMPLS.Controllers
                 return View(newModel);
             }
         }
+
+
+        // GET: Topologia/CrearProyectoRP
+        public ActionResult CrearProyectoRP()
+        {
+            string cUsuarioActual = Session["Usuario"].ToString();
+            ProyectoRaspberryViewModel newModel = new ProyectoRaspberryViewModel();
+            newModel.cUserName = cUsuarioActual;
+
+            //Just for testing purposes
+            newModel.cRaspberryIP = "192.168.43.117"; //"148.101.128.39";  "64.32.76.83";
+            newModel.nPuerto = 15000;   //22;
+            newModel.cRouterIP = "192.168.2.1";
+            newModel.cCommunityString = "public";
+            newModel.cFileName = "test_v1";
+
+            return View(newModel);
+        }
+
+        // POST: Topologia/CrearProyectoRP
+        [HttpPost]
+        public ActionResult CrearProyectoRP(ProyectoRaspberryViewModel newModel)
+        {
+            if (ModelState.IsValid)
+            {
+                int idProyecto = newModel.InsertProyecto();
+                string answer = ConexionSSH.EjecutarOSPFDiscovery(newModel.cRaspberryIP, newModel.nPuerto, newModel.cRouterIP, newModel.cCommunityString);
+                //string answer = ""; //ConexionSSH.EjecutarOSPFDiscovery(newModel.cRaspberryIP, newModel.nPuerto, newModel.cRouterIP, newModel.cCommunityString);
+
+                List<Tabla> tablaDatos = new List<Tabla>();
+                
+                #region response
+                /*
+                answer = @"Hostname; OSPFRouterID; OSPFNeighborRouterID; OSPFNeighborIP\n\n" +
+                           @"R6; 6.6.6.6; 5.5.5.5, 4.4.4.4; 10.0.4.5, 10.0.4.14\n\n" +
+                           @"R5; 5.5.5.5; 1.1.1.1, 6.6.6.6, 4.4.4.4; 10.0.4.1, 10.0.4.6, 10.0.4.10\n\n" +
+                           @"R4; 4.4.4.4; 3.3.3.3, 5.5.5.5, 6.6.6.6; 10.0.3.1, 10.0.4.9, 10.0.4.13\n\n" +
+                           @"R4; 4.4.4.4; 3.3.3.3, 5.5.5.5, 6.6.6.6; 10.0.3.1, 10.0.4.9, 10.0.4.13\n\n" +
+                           @"R1; 1.1.1.1; 2.2.2.2, 5.5.5.5; 10.0.1.2, 10.0.4.2\n\n" + 
+                           @"R3; 3.3.3.3; 2.2.2.2, 4.4.4.4; 10.0.2.1, 10.0.3.2\n\n" +                     
+                           @"R3; 3.3.3.3; 2.2.2.2, 4.4.4.4; 10.0.2.1, 10.0.3.2\n\n" +                          
+                           @"R3; 3.3.3.3; 2.2.2.2, 4.4.4.4; 10.0.2.1, 10.0.3.2\n\n" +                          
+                           @"R3; 3.3.3.3; 2.2.2.2, 4.4.4.4; 10.0.2.1, 10.0.3.2\n\n" +                        
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" +                         
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" +                         
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" +                          
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"R2; 2.2.2.2; 1.1.1.1, 3.3.3.3; 10.0.1.1, 10.0.2.2\n\n" + 
+                           @"end of file\n";*/
+                #endregion
+
+                if (answer != "")
+                {
+                    string[] lines = answer.Split(new string[] { "\n\n" }, StringSplitOptions.None);
+                    // TODO: Parsear el archivo CSV
+
+                    List<string> templist = new List<string>();
+                    templist = lines.ToList();
+                    templist.RemoveAt(0);
+                    templist.RemoveAt(templist.Count - 1);
+
+                    foreach (var line in templist)
+                    {
+                        Tabla row = new Tabla();
+                        var values = line.Split(';');
+
+                        row.Hostname = values[0].Trim();
+                        row.OSPFRouterID = values[1].Trim();
+                        row.OSPFNeighborRouterID = values[2].Trim();
+                        row.OSPFNeighborIP = values[3].Trim();
+                        tablaDatos.Add(row);
+                    }
+                    Proyecto newModelP = new Proyecto(idProyecto);
+                    newModelP.GenerarTopologia(tablaDatos);
+                }
+                //return RedirectToAction("Index");
+                return RedirectToAction("Editar", new { idProyecto = idProyecto });
+            }
+            else
+            {
+                return View(newModel);
+            }
+        }
+
+        #endregion 
 
         // GET: Topologia/Editar/5
         public ActionResult Editar(int idProyecto)

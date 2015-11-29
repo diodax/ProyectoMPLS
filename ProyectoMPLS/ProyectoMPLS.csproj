@@ -51,6 +51,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Renci.SshNet, Version=2013.4.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2013.4.7\lib\net40\Renci.SshNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -188,6 +192,7 @@
     <Compile Include="Models\Accounts\AccountsViewModel.cs" />
     <Compile Include="Models\Accounts\Usuario.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Comunicacion\ConexionSSH.cs" />
     <Compile Include="Models\Comunicacion\ProyectoArchivoViewModel.cs" />
     <Compile Include="Models\Comunicacion\ProyectoRaspberryViewModel.cs" />
     <Compile Include="Models\Comunicacion\ProyectoVacioViewModel.cs" />
@@ -677,6 +682,8 @@
     <Content Include="Scripts\plugins\datatables-responsive\make.sh" />
     <Content Include="Scripts\plugins\datatables-responsive\Readme.md" />
     <Content Include="Views\Topologia\Editar.cshtml" />
+    <Content Include="Views\Topologia\CrearProyectoRP.cshtml" />
+    <Content Include="Views\Topologia\CrearProyectoArchivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

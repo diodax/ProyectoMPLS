@@ -88,7 +88,7 @@ namespace ProyectoMPLS.Models.Topologia
                 LSR temp = new LSR();
                 temp.idRouter = i + 1;
                 temp.cHostname = tablaDatos[i].Hostname;
-                temp.cRouterID = tablaDatos[i].OSPFRouterID;
+                temp.cRouterID = tablaDatos[i].OSPFRouterID.Trim();
                 temp.listaEnlaces = new List<Enlace>();
                 routerIDs.Add(temp.cRouterID, temp.idRouter);
                 listaRouters.Add(temp);
@@ -96,13 +96,13 @@ namespace ProyectoMPLS.Models.Topologia
 
             foreach(var item in tablaDatos)
             {
-                var values = item.OSPFNeighborRouterID.Split(';');
+                var values = item.OSPFNeighborRouterID.Split(',');
 
                 foreach(var value in values)
                 {
                     Enlace temp = new Enlace();
-                    int thisID = routerIDs[item.OSPFRouterID];
-                    int otherID = routerIDs[value.TrimStart()];
+                    int thisID = routerIDs[item.OSPFRouterID.Trim()];
+                    int otherID = routerIDs[value.Trim()];
                     
 
                     if (thisID < otherID)
