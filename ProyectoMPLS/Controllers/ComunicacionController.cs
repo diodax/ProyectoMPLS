@@ -1,4 +1,5 @@
 ﻿using ProyectoMPLS.Models.Comunicacion;
+using ProyectoMPLS.Models.Topologia;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,6 +46,8 @@ namespace ProyectoMPLS.Controllers
                 row.OSPFNeighborIP = values[3];
                 tablaDatos.Add(row);
             }
+            Proyecto newModel = new Proyecto(1);
+            newModel.GenerarTopologia(tablaDatos);
 
             return View(tablaDatos);
         }

@@ -18,7 +18,11 @@
     <div id="myDiagramDiv" style="width: 700px; height: 450px; position: relative; background-color: #DAE4E4;"></div>
 </span>
 
-<script type="text/javascript">
+
+
+@section scripts
+{    
+    <script type="text/javascript">
     $(document).ready(function () {
         var $ = go.GraphObject.make;
         //var myDiagram = $(go.Diagram, "myDiagramDiv");
@@ -94,4 +98,5 @@
 
 
     });
-</script>
+</script>  
+}
