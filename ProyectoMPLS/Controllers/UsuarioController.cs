@@ -58,7 +58,7 @@ namespace ProyectoMPLS.Controllers
 
         // POST: /Account/Login
         [HttpPost]
-        public ActionResult Login(LoginViewModel newUser)
+        public ActionResult Login(LoginViewModel newUser, string returnUrl)
         {
             //Login Code
             try
@@ -70,7 +70,19 @@ namespace ProyectoMPLS.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(newUser.cUserName, false);
                         Session["Usuario"] = newUser.cUserName;
-                        return RedirectToAction("Welcome", "Home");
+                        
+
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            //return RedirectToAction("Welcome", "Home");
+                            return RedirectToAction("Index", "Topologia");
+                        }
+
+
                     }
                     else
                     {
