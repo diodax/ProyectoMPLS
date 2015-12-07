@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* For some reason, Bootstrap's implementation of modal sizing doesn't work. Quick fix here*/
+@media screen and (min-width: 768px) {
+  .modal-lg{
+      width:900px;
+  }
+
+  .modal-sm{
+      width:300px;
+  }
+}

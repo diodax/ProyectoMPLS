@@ -22,6 +22,28 @@ namespace ProyectoMPLS.Controllers
             return View(listaProyectos);
         }
 
+        #region LSP
+
+        public ActionResult _IndexLSPs(int idProyecto)
+        {
+            List<LSP> listaLSPs = new List<LSP>();
+            listaLSPs = LSP.SelectListaLSP(idProyecto);
+            return PartialView(listaLSPs);
+        }
+
+        public ActionResult _CrearLSP()
+        {
+            LSP newModel = new LSP();
+            return PartialView();
+        }
+
+        public ActionResult _EditarLSP(LSP newModel)
+        {
+            return PartialView();
+        }
+
+        #endregion
+
         #region CrearProyecto
 
         // GET: Topologia/CrearProyectoVacio

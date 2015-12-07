@@ -222,6 +222,7 @@
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\timeline.css" />
+    <Content Include="Scripts\modalform.js" />
     <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -273,7 +274,6 @@
     <None Include="Data\dsTopologia.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsTopologia.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Data\dsTopologia.xss">
       <DependentUpon>dsTopologia.xsd</DependentUpon>
@@ -684,6 +684,8 @@
     <Content Include="Views\Topologia\Editar.cshtml" />
     <Content Include="Views\Topologia\CrearProyectoRP.cshtml" />
     <Content Include="Views\Topologia\CrearProyectoArchivo.cshtml" />
+    <Content Include="Views\Topologia\_IndexLSPs.cshtml" />
+    <Content Include="Views\Topologia\_CrearLSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
