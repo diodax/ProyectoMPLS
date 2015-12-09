@@ -19,7 +19,7 @@
                 @Html.ValidationMessageFor(model => model.cUserName, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.cEmail, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
@@ -31,7 +31,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.cPassword, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.cPassword, new { @class = "form-control" })
+                @*@Html.TextBoxFor(model => model.cPassword, new { @class = "form-control" })*@
+                @Html.PasswordFor(model => model.cPassword, new { @class = "form-control"} )
                 @Html.ValidationMessageFor(model => model.cPassword, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -39,7 +40,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.cConfirmarPassword, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.cConfirmarPassword, new { @class = "form-control" })
+                @*@Html.TextBoxFor(model => model.cConfirmarPassword, new { @class = "form-control" })*@
+                @Html.PasswordFor(model => model.cConfirmarPassword, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.cConfirmarPassword, "", new { @class = "text-danger" })
             </div>
         </div>
