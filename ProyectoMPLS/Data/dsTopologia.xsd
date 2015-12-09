@@ -2,14 +2,15 @@
 <xs:schema id="dsTopologia" targetNamespace="http://tempuri.org/dsTopologia.xsd" xmlns:mstns="http://tempuri.org/dsTopologia.xsd" xmlns="http://tempuri.org/dsTopologia.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ProyectoMPLSConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ProyectoMPLSConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ProyectoMPLS.Properties.Settings.GlobalReference.Default.ProyectoMPLSConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ProyectoMPLSConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ProyectoMPLSConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ProyectoMPLSConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProyectosTableAdapter" GeneratorDataComponentClassName="ProyectosTableAdapter" Name="Proyectos" UserDataComponentName="ProyectosTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spT_SeleccionarListaProyectos" DbObjectType="StoredProcedure" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="SeleccionarListaProyectos" GetMethodModifier="Public" GetMethodName="SeleccionarListaProyectos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="SeleccionarListaProyectos" UserSourceName="SeleccionarListaProyectos">
+              <DbSource ConnectionRef="ProyectoMPLSConnectionString1 (Web.config)" DbObjectName="ProyectoMPLS.dbo.spT_SeleccionarListaProyectos" DbObjectType="StoredProcedure" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="SeleccionarListaProyectos" GetMethodModifier="Public" GetMethodName="SeleccionarListaProyectos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="SeleccionarListaProyectos" UserSourceName="SeleccionarListaProyectos">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.spT_SeleccionarListaProyectos</CommandText>
@@ -30,7 +31,7 @@
               <Mapping SourceColumn="dtFechaUltEdicion" DataSetColumn="dtFechaUltEdicion" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spT_CrearProyectoImportado" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="CrearProyectoImportado" Modifier="Public" Name="CrearProyectoImportado" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="CrearProyectoImportado">
+              <DbSource ConnectionRef="ProyectoMPLSConnectionString1 (Web.config)" DbObjectName="ProyectoMPLS.dbo.spT_CrearProyectoImportado" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="CrearProyectoImportado" Modifier="Public" Name="CrearProyectoImportado" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="CrearProyectoImportado">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.spT_CrearProyectoImportado</CommandText>
@@ -46,7 +47,7 @@
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spT_CrearProyectoLocal" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="CrearProyectoLocal" Modifier="Public" Name="CrearProyectoLocal" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="CrearProyectoLocal">
+              <DbSource ConnectionRef="ProyectoMPLSConnectionString1 (Web.config)" DbObjectName="ProyectoMPLS.dbo.spT_CrearProyectoLocal" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="CrearProyectoLocal" Modifier="Public" Name="CrearProyectoLocal" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="CrearProyectoLocal">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.spT_CrearProyectoLocal</CommandText>
@@ -62,7 +63,7 @@
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="RoutersTableAdapter" GeneratorDataComponentClassName="RoutersTableAdapter" Name="Routers" UserDataComponentName="RoutersTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spT_SelectRoutersProyecto" DbObjectType="StoredProcedure" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="SelectRoutersProyecto" GetMethodModifier="Public" GetMethodName="SelectRoutersProyecto" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="SelectRoutersProyecto" UserSourceName="SelectRoutersProyecto">
+              <DbSource ConnectionRef="ProyectoMPLSConnectionString1 (Web.config)" DbObjectName="ProyectoMPLS.dbo.spT_SelectRoutersProyecto" DbObjectType="StoredProcedure" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="SelectRoutersProyecto" GetMethodModifier="Public" GetMethodName="SelectRoutersProyecto" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="SelectRoutersProyecto" UserSourceName="SelectRoutersProyecto">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.spT_SelectRoutersProyecto</CommandText>
@@ -81,7 +82,7 @@
               <Mapping SourceColumn="cRouterID" DataSetColumn="cRouterID" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spT_InsertarActualizarRouter" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="InsertarActualizarRouter" Modifier="Public" Name="InsertarActualizarRouter" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="InsertarActualizarRouter">
+              <DbSource ConnectionRef="ProyectoMPLSConnectionString1 (Web.config)" DbObjectName="ProyectoMPLS.dbo.spT_InsertarActualizarRouter" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="InsertarActualizarRouter" Modifier="Public" Name="InsertarActualizarRouter" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="InsertarActualizarRouter">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.spT_InsertarActualizarRouter</CommandText>
@@ -99,7 +100,7 @@
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="EnlacesTableAdapter" GeneratorDataComponentClassName="EnlacesTableAdapter" Name="Enlaces" UserDataComponentName="EnlacesTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spT_SelectEnlacesProyecto" DbObjectType="StoredProcedure" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="SelectEnlacesProyecto" GetMethodModifier="Public" GetMethodName="SelectEnlacesProyecto" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="SelectEnlacesProyecto" UserSourceName="SelectEnlacesProyecto">
+              <DbSource ConnectionRef="ProyectoMPLSConnectionString1 (Web.config)" DbObjectName="ProyectoMPLS.dbo.spT_SelectEnlacesProyecto" DbObjectType="StoredProcedure" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="SelectEnlacesProyecto" GetMethodModifier="Public" GetMethodName="SelectEnlacesProyecto" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="SelectEnlacesProyecto" UserSourceName="SelectEnlacesProyecto">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.spT_SelectEnlacesProyecto</CommandText>
@@ -122,7 +123,7 @@
               <Mapping SourceColumn="cAfinidad" DataSetColumn="cAfinidad" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spT_InsertarActualizarEnlace" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="InsertarActualizarEnlace" Modifier="Public" Name="InsertarActualizarEnlace" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="InsertarActualizarEnlace">
+              <DbSource ConnectionRef="ProyectoMPLSConnectionString1 (Web.config)" DbObjectName="ProyectoMPLS.dbo.spT_InsertarActualizarEnlace" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="InsertarActualizarEnlace" Modifier="Public" Name="InsertarActualizarEnlace" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="InsertarActualizarEnlace">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.spT_InsertarActualizarEnlace</CommandText>
