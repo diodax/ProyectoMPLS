@@ -1,97 +1,104 @@
 ﻿@model IEnumerable<ProyectoMPLS.Models.Comunicacion.Tabla>
 
 @{
-    ViewBag.Title = "ImportFile";
+    ViewBag.Title = "Importar Archivo";
 }
 
-<h2>ImportFile</h2>
+<h2>Importar Archivo</h2>
 
 @using (Html.BeginForm("ImportFile", "Comunicacion", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
 {
 
-<div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 175px; height: 125px;">
+    <div class="fileinput fileinput-new" data-provides="fileinput">
+        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 175px; height: 125px;">
+        </div>
+        <div>
+            <span class="btn btn-default btn-file">
+                <span class="fileinput-new">Seleccionar</span><span class="fileinput-exists">Cambiar</span><input type="file" name="archivoCSV" id="archivoCSV">
+            </span>
+            <a id="btnEliminarFoto" href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">
+                Eliminar
+            </a>
+        </div>
     </div>
-    <div>
-        <span class="btn btn-default btn-file">
-            <span class="fileinput-new">Seleccionar</span><span class="fileinput-exists">Cambiar</span><input type="file" name="archivoCSV" id="archivoCSV">
-        </span>
-        <a id="btnEliminarFoto" href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">
-            Eliminar
-        </a>
-    </div>
-</div>
 
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Submit" class="btn btn-default" />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Subir" class="btn btn-default" />
+        </div>
     </div>
-</div>
 
 }
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Listado de Facturas Generadas</div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Hostname)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OSPFRouterID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OSPFNeighborRouterID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OSPFNeighborIP)
+                            </th>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Hostname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OSPFRouterID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OSPFNeighborRouterID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OSPFNeighborIP)
-            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-        </tr>
-    </thead>
-    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Hostname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OSPFRouterID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OSPFNeighborRouterID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OSPFNeighborIP)
+                                </td>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hostname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OSPFRouterID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OSPFNeighborRouterID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OSPFNeighborIP)
-                </td>
-        
-            </tr>
-        }
-    </tbody>
+                            </tr>
+                        }
+                    </tbody>
 
-</table>
-
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @section scripts
     {
-        @*<script type='text/javascript' src='@Url.Content("~//Scripts/bootstrapfoto.js")'></script>*@
-        <script type='text/javascript' src="~/Scripts/bootstrapfoto.js"></script>
-        <link href="~/Content/styles.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.css" />
-        <script type="text/javascript" src="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.js"></script>  
-    
-        <script>
+    @*<script type='text/javascript' src='@Url.Content("~//Scripts/bootstrapfoto.js")'></script>*@
+    <script type='text/javascript' src="~/Scripts/bootstrapfoto.js"></script>
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/r/bs/dt-1.10.9/datatables.min.js"></script>
 
-    $(document).ready(function () {
-        $('.table').DataTable({
-            "searching": false,
-            "lengthChange": false,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.9/i18n/Spanish.json"
-            }
+    <script>
 
+        $(document).ready(function () {
+            $('.table').DataTable({
+                "searching": false,
+                "lengthChange": false,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.9/i18n/Spanish.json"
+                }
+
+            });
         });
-    });
-</script>  
-    }
+    </script>
+}
 
