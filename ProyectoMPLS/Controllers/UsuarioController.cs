@@ -70,7 +70,7 @@ namespace ProyectoMPLS.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(newUser.cUserName, false);
                         Session["Usuario"] = newUser.cUserName;
-                        
+
 
                         if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                         {
@@ -81,7 +81,7 @@ namespace ProyectoMPLS.Controllers
                             //return RedirectToAction("Welcome", "Home");
                             return RedirectToAction("Index", "Topologia");
                         }
-
+                        //return RedirectToAction("Index", "Topologia");
 
                     }
                     else
