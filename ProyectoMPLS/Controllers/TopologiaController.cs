@@ -42,6 +42,13 @@ namespace ProyectoMPLS.Controllers
             return PartialView();
         }
 
+        //TODO: Esto
+        public ActionResult _GetListaEnlaces (string idRouter, double nBandwidth)
+        {
+            return Json(1);
+        }
+
+
         #endregion
 
         #region CrearProyecto
