@@ -29,8 +29,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("MPLS Simulator", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-         
+                @*@Html.ActionLink("MPLS Simulator", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                @if (Session["Usuario"] == null)
+                {
+                    @Html.ActionLink("MPLS Simulator", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+                }
+                else
+                {
+                    @Html.ActionLink("MPLS Simulator", "Index", "Topologia", new {area = ""}, new {@class = "navbar-brand"})
+                }
+
             </div>
             <!-- /.navbar-header -->
             <div class="navbar-collapse collapse">
