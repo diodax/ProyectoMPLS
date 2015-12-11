@@ -273,6 +273,7 @@
     <Content Include="Content\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
     <Content Include="Web.config" />
+    <Content Include="Views\Topologia\_CrearProyectoVacio.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

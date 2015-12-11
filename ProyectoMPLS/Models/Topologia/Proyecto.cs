@@ -1,6 +1,7 @@
 ﻿using ProyectoMPLS.Models.Comunicacion;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,10 +9,15 @@ namespace ProyectoMPLS.Models.Topologia
 {
     public class Proyecto
     {
+        [Display(Name = "Código")]
         public int idProyecto { get; set; }
+        [Display(Name = "Nombre de Usuario")]
         public string cUserName { get; set; }
+        [Display(Name = "Nombre de Archivo")]
         public string cTitulo { get; set; }
+        [Display(Name = "Fecha de Creación")]
         public DateTime dtFechaCreacion { get; set; }
+        [Display(Name = "Última Modificación")]
         public DateTime dtFechaUltEdicion { get; set; }
 
         public List<Router> listadoRouters { get; set; }

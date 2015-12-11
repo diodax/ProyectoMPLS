@@ -54,26 +54,27 @@ namespace ProyectoMPLS.Controllers
         #region CrearProyecto
 
         // GET: Topologia/CrearProyectoVacio
-        public ActionResult CrearProyectoVacio()
+        public ActionResult _CrearProyectoVacio()
         {
             string cUsuarioActual = Session["Usuario"].ToString();
             ProyectoVacioViewModel newModel = new ProyectoVacioViewModel();
             newModel.cUserName = cUsuarioActual;
-            return View(newModel);
+            return PartialView(newModel);
         }
 
         // POST: Topologia/CrearProyectoVacio
         [HttpPost]
-        public ActionResult CrearProyectoVacio(ProyectoVacioViewModel newModel)
+        public ActionResult _CrearProyectoVacio(ProyectoVacioViewModel newModel)
         {
             if (ModelState.IsValid)
             {
                 newModel.InsertProyecto();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return Json(new { success = true });
             }
             else
             {
-                return View(newModel);
+                return PartialView(newModel);
             }
         }
 
@@ -82,7 +83,7 @@ namespace ProyectoMPLS.Controllers
             string cUsuarioActual = Session["Usuario"].ToString();
             ProyectoArchivoViewModel newModel = new ProyectoArchivoViewModel();
             newModel.cUserName = cUsuarioActual;
-            return View(newModel);
+            return PartialView(newModel);
         }
 
         [HttpPost]
@@ -91,11 +92,12 @@ namespace ProyectoMPLS.Controllers
             if (ModelState.IsValid)
             {
                 int idProyecto = newModel.InsertProyecto();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return Json(new { success = true });
             }
             else
             {
-                return View(newModel);
+                return PartialView(newModel);
             }
         }
 
@@ -114,7 +116,7 @@ namespace ProyectoMPLS.Controllers
             newModel.cCommunityString = "public";
             newModel.cFileName = "test_v1";
 
-            return View(newModel);
+            return PartialView(newModel);
         }
 
         // POST: Topologia/CrearProyectoRP
@@ -198,7 +200,7 @@ namespace ProyectoMPLS.Controllers
             }
             else
             {
-                return View(newModel);
+                return PartialView(newModel);
             }
         }
 
