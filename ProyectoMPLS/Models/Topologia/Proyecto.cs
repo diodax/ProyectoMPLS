@@ -229,5 +229,12 @@ namespace ProyectoMPLS.Models.Topologia
 
             return listaEnlaces;
         }
+
+        public static void EliminarProyecto(int idProyecto)
+        {
+            Data.dsUsuariosTableAdapters.Operaciones Adapter = new Data.dsUsuariosTableAdapters.Operaciones();
+            Adapter.BorrarProyecto(idProyecto);
+        }
+
     }
 }

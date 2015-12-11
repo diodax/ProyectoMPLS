@@ -240,6 +240,7 @@ namespace ProyectoMPLS.Controllers
             try
             {
                 // TODO: Add delete logic here
+                Proyecto.EliminarProyecto(idProyecto);
 
                 return RedirectToAction("Index");
             }
