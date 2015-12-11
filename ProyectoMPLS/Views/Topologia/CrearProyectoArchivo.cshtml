@@ -61,6 +61,7 @@
     <div class="modal-footer">
         <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
         <a class="btn btn-primary" id="submitProyecto">Crear</a>
+        <img src="@Url.Content("~/Content/Images/ajax-loader.gif")" class="loading-gif" />
     </div>
 }
 
@@ -69,6 +70,7 @@
 <script>
     //alert("its early");
     $(document).ready(function () {
+        $(".loading-gif").hide();
         //alert("its getting ready");
         $("#submitProyecto").click(function () {
             //alert("its going in");
@@ -80,6 +82,33 @@
                 contentType: false,
                 processData: false,
                 data: formData,
+
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    //Upload progress
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            //var percentComplete = evt.loaded / evt.total;
+                            ////Do something with upload progress
+                            //console.log(percentComplete);
+                            $(".loading-gif").show();
+                        } else {
+                            $(".loading-gif").show();
+                        }
+                    }, false);
+                    //Download progress
+                    xhr.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            //Do something with download progress
+                            $(".loading-gif").show();
+                        } else {
+                            $(".loading-gif").show();
+                        }
+                    }, false);
+                    return xhr;
+                },
+
                 success: function (result) {
                     if (result.success) {
                         $('#myModal').modal('hide');
