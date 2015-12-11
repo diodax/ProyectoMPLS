@@ -1,80 +1,118 @@
 ﻿@model ProyectoMPLS.Models.Comunicacion.ProyectoRaspberryViewModel
 
-@{
-    ViewBag.Title = "Crear Proyecto";
-}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Nuevo Proyecto (Raspberry Pi)</h4>
+</div>
 
-<h2>Crear Proyecto (Raspberry Pi)</h2>
-
-
-@using (Html.BeginForm(new { @class = "form-horizontal", role = "form" })) 
+@using (Html.BeginForm("CrearProyectoRP", "Topologia", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "DataForm" }))
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @*<h4>ProyectoRaspberryViewModel</h4>*@
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+
         <div class="form-group">
-            @Html.LabelFor(model => model.cUserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cUserName, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly"} })
-                @Html.ValidationMessageFor(model => model.cUserName, "", new { @class = "text-danger" })
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cUserName, htmlAttributes: new {@class = "control-label col-md-2"})
+            </label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.cUserName, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
+                @Html.ValidationMessageFor(model => model.cUserName, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.cFileName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cFileName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cFileName, "", new { @class = "text-danger" })
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cFileName, htmlAttributes: new {@class = "control-label col-md-2"})
+            </label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.cFileName, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.cFileName, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.cRaspberryIP, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cRaspberryIP, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cRaspberryIP, "", new { @class = "text-danger" })
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cRaspberryIP, htmlAttributes: new {@class = "control-label col-md-2"})
+            </label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.cRaspberryIP, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.cRaspberryIP, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.nPuerto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nPuerto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nPuerto, "", new { @class = "text-danger" })
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.nPuerto, htmlAttributes: new {@class = "control-label col-md-2"})
+            </label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.nPuerto, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.nPuerto, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.cRouterIP, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cRouterIP, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cRouterIP, "", new { @class = "text-danger" })
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cRouterIP, htmlAttributes: new {@class = "control-label col-md-2"})
+            </label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.cRouterIP, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.cRouterIP, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.cCommunityString, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cCommunityString, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cCommunityString, "", new { @class = "text-danger" })
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cCommunityString, htmlAttributes: new {@class = "control-label col-md-2"})
+            </label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.cCommunityString, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.cCommunityString, "", new {@class = "text-danger"})
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Crear" class="btn btn-default" />
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-9">
+                <input type="submit" value="Crear" class="btn btn-default"/>
+                <button type="submit" class="btn btn-default">Crear</button>
             </div>
-        </div>
+        </div>*@
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <a class="btn btn-primary" id="submitProyecto">Crear</a>
     </div>
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Volver", "Index")
-</div>
+</div>*@
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script>
+    //alert("its early");
+    $(document).ready(function () {
+        //alert("its getting ready");
+        $("#submitProyecto").click(function () {
+            //alert("its going in");
+            var form = $("#DataForm")[0];
+            var formData = new FormData(form);
+            $.ajax({
+                url: '@Url.Action("CrearProyectoRP", new { controller = "Topologia" })',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    if (result.success) {
+                        $('#myModal').modal('hide');
+                        window.location.reload(true);   //refresh page
+                    } else {
+                        $('#myModalContent').html(result);
+                    }
+                },
+                error: function (error) { $("#error").html(error); }
+            });
+        });
+    });
+</script>
