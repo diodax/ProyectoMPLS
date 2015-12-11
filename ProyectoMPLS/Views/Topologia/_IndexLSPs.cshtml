@@ -7,9 +7,9 @@
 
 <div class="modal-body">
 
-    <p>
+    @*<p>
         @Html.ActionLink("Crear Nuevo", "_CrearLSP", "Topologia", null, new { data_modal = "", id = "btnCreate", @class = "btn btn-success" })
-    </p>
+    </p>*@
     <table class="table">
         <thead>
             <tr>
@@ -71,8 +71,8 @@
             </td>*@
                     <td>
                         @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" })
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })
+                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })*@
+                        @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })
                     </td>
                 </tr>
             </tbody>
