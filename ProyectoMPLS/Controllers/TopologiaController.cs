@@ -114,7 +114,10 @@ namespace ProyectoMPLS.Controllers
                 Proyecto newProyecto = new Proyecto(idProyecto);
                 newProyecto.GenerarTopologia(tablaDatos);
 
-                return Json(new { success = true });
+                string url = Url.Action("Editar", "Topologia", new { idProyecto = idProyecto });
+                return Json(new { success = true, url = url });
+
+                //return Json(new { success = true });
             }
             else
             {
