@@ -106,7 +106,9 @@
                 success: function (result) {
                     if (result.success) {
                         $('#myModal').modal('hide');
-                        window.location.reload(true);   //refresh page
+                        window.location.replace(result.url);
+                        //window.location.reload(true);   //refresh page
+                        @*window.location.href = '@Url.Action("CrearEmpleado", "Empleados")';*@
                     } else {
                         $('#myModalContent').html(result);
                     }

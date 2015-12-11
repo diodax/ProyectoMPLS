@@ -97,13 +97,13 @@ namespace ProyectoMPLS.Controllers
 
                 //Primera linea
                 var line = csvreader.ReadLine();
-                var values = line.Split(',');
+                var values = line.Split(';');
 
                 while (!csvreader.EndOfStream)
                 {
                     Tabla row = new Tabla();
                     line = csvreader.ReadLine();
-                    values = line.Split(',');
+                    values = line.Split(';');
 
                     row.Hostname = values[0];
                     row.OSPFRouterID = values[1];
@@ -217,7 +217,10 @@ namespace ProyectoMPLS.Controllers
                     newModelP.GenerarTopologia(tablaDatos);
                 }
                 //return RedirectToAction("Index");
-                return RedirectToAction("Editar", new { idProyecto = idProyecto });
+                //return RedirectToAction("Editar", new { idProyecto = idProyecto });
+
+                string url = Url.Action("Editar", "Topologia", new { idProyecto = idProyecto });
+                return Json(new { success = true, url = url });
             }
             else
             {

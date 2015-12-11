@@ -11,7 +11,8 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        
+        @Html.HiddenFor(model => model.cUserName)
+
         <div class="form-group">
             <label for="focusedinput" class="col-sm-3 control-label">
                 @Html.LabelFor(model => model.cFileName)
