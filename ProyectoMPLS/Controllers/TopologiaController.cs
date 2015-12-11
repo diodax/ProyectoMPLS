@@ -93,7 +93,7 @@ namespace ProyectoMPLS.Controllers
             {
                 int idProyecto = newModel.InsertProyecto();
                 List<Tabla> tablaDatos = new List<Tabla>();
-                StreamReader csvreader = new StreamReader(file.InputStream);    // Use the InputStream to get the actual stream sent.
+                StreamReader csvreader = new StreamReader(topologiaCVS.InputStream);    // Use the InputStream to get the actual stream sent.
 
                 //Primera linea
                 var line = csvreader.ReadLine();
