@@ -87,7 +87,7 @@ namespace ProyectoMPLS.Controllers
         }
 
         [HttpPost]
-        public ActionResult CrearProyectoArchivo(ProyectoArchivoViewModel newModel, HttpPostedFileBase file)
+        public ActionResult CrearProyectoArchivo(ProyectoArchivoViewModel newModel, HttpPostedFileBase topologiaCVS)
         {
             if (ModelState.IsValid)
             {
