@@ -154,11 +154,27 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.dtFechaUltEdicion)
                                 </td>
-                                <td>
+                                @*<td>
                                     @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" }) 
-                                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })*@ 
+                                    
                                     @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })
+                                </td>*@
+
+                                <td>
+                                    @using (Html.BeginForm("Eliminar", "Topologia", FormMethod.Post))
+                                    {
+                                        <div class="btn-group" role="group">
+                                            @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" }) 
+                                            @Html.Hidden("idProyecto", item.idProyecto)
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        </div>
+                                    }
+
+
                                 </td>
+
+
+
                             </tr>
                         }
                     </tbody>
@@ -173,3 +189,23 @@
                 
         </div>
 </div>
+
+@section scripts
+{   
+<script>
+
+    $(document).ready(function () {
+
+        $('form').submit(function (e) {
+            var currentForm = this;
+            e.preventDefault();
+            bootbox.confirm('¿Está seguro de que desea eliminar este proyecto?', function (result) {
+                if (result) {
+                    currentForm.submit();
+                }
+            });
+        });
+    });
+
+</script>
+}

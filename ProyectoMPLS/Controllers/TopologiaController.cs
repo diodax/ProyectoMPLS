@@ -228,14 +228,14 @@ namespace ProyectoMPLS.Controllers
         }
 
         // GET: Topologia/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: Topologia/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Eliminar(int idProyecto)
         {
             try
             {
@@ -245,7 +245,7 @@ namespace ProyectoMPLS.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
