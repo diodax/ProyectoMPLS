@@ -66,34 +66,34 @@
 
            
 
-            <script>
-                //alert("its early");
-                $(document).ready(function () {
-                    //alert("its getting ready");
-                    $("#submitProyecto").click(function () {
-                        //alert("its going in");
-                        var form = $("#DataForm")[0];
-                        var formData = new FormData(form);
-                        $.ajax({
-                            url: '@Url.Action("CrearProyectoArchivo", new { controller = "Topologia" })',
-                            type: 'POST',
-                            contentType: false,
-                            processData: false,
-                            data: formData,
-                            success: function (result) {
-                                if (result.success) {
-                                    $('#myModal').modal('hide');
-                                    window.location.replace(result.url);
-                                    //window.location.reload(true);   //refresh page
-                                } else {
-                                    $('#myModalContent').html(result);
-                                }
-                            },
-                            error: function (error) { $("#error").html(error); }
-                        });
-                    });
-                });
+<script>
+    //alert("its early");
+    $(document).ready(function () {
+        //alert("its getting ready");
+        $("#submitProyecto").click(function () {
+            //alert("its going in");
+            var form = $("#DataForm")[0];
+            var formData = new FormData(form);
+            $.ajax({
+                url: '@Url.Action("CrearProyectoArchivo", new { controller = "Topologia" })',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    if (result.success) {
+                        $('#myModal').modal('hide');
+                        window.location.replace(result.url);
+                        //window.location.reload(true);   //refresh page
+                    } else {
+                        $('#myModalContent').html(result);
+                    }
+                },
+                error: function (error) { $("#error").html(error); }
+            });
+        });
+    });
 
 
-            </script>
+</script>
       
