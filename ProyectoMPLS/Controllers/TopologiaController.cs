@@ -92,7 +92,28 @@ namespace ProyectoMPLS.Controllers
             if (ModelState.IsValid)
             {
                 int idProyecto = newModel.InsertProyecto();
-                //return RedirectToAction("Index");
+                List<Tabla> tablaDatos = new List<Tabla>();
+                StreamReader csvreader = new StreamReader(file.InputStream);    // Use the InputStream to get the actual stream sent.
+
+                //Primera linea
+                var line = csvreader.ReadLine();
+                var values = line.Split(',');
+
+                while (!csvreader.EndOfStream)
+                {
+                    Tabla row = new Tabla();
+                    line = csvreader.ReadLine();
+                    values = line.Split(',');
+
+                    row.Hostname = values[0];
+                    row.OSPFRouterID = values[1];
+                    row.OSPFNeighborRouterID = values[2];
+                    row.OSPFNeighborIP = values[3];
+                    tablaDatos.Add(row);
+                }
+                Proyecto newProyecto = new Proyecto(idProyecto);
+                newProyecto.GenerarTopologia(tablaDatos);
+
                 return Json(new { success = true });
             }
             else
