@@ -159,11 +159,11 @@
                                 </td>
                                 <td>
                                     @*@Html.DisplayFor(modelItem => item.dtFechaCreacion)*@
-                                    @((item.dtFechaCreacion != default(DateTime)) ? @item.dtFechaCreacion.ToString("mm/dd/yyyy") : string.Empty)
+                                    @((item.dtFechaCreacion != default(DateTime)) ? @item.dtFechaCreacion.ToString("MM/dd/yyyy") : string.Empty)
                                 </td>
                                 <td>
                                     @*@Html.DisplayFor(modelItem => item.dtFechaUltEdicion)*@
-                                    @((item.dtFechaUltEdicion != default(DateTime)) ? @item.dtFechaUltEdicion.ToString("mm/dd/yyyy") : string.Empty)
+                                    @((item.dtFechaUltEdicion != default(DateTime)) ? @item.dtFechaUltEdicion.ToString("MM/dd/yyyy") : string.Empty)
                                 </td>
                                 @*<td>
                                     @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" }) 

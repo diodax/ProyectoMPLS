@@ -224,6 +224,7 @@
     <Content Include="Content\timeline.css" />
     <Content Include="Scripts\modalform.js" />
     <Content Include="Scripts\plugins\bootbox\bootbox.js" />
+    <Content Include="Scripts\plugins\jquery.blockUI.js" />
     <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
