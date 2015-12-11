@@ -82,6 +82,9 @@
     <div class="modal-footer">
         <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
         <a class="btn btn-primary" id="submitProyecto">Crear</a>
+        @*<div class="loading-gif">*@
+            <img src="@Url.Content("~/Content/Images/ajax-loader.gif")" class="loading-gif" />
+        @*</div>*@
     </div>
 }
 
@@ -92,9 +95,11 @@
 <script>
     //alert("its early");
     $(document).ready(function () {
+        $(".loading-gif").hide();
         //alert("its getting ready");
         $("#submitProyecto").click(function () {
             //alert("its going in");
+            $(".loading-gif").show();
             var form = $("#DataForm")[0];
             var formData = new FormData(form);
             $.ajax({
@@ -103,16 +108,43 @@
                 contentType: false,
                 processData: false,
                 data: formData,
+                
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    //Upload progress
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            //var percentComplete = evt.loaded / evt.total;
+                            ////Do something with upload progress
+                            //console.log(percentComplete);
+                            $(".loading-gif").show();
+                        } else {
+                            $(".loading-gif").show();
+                        }
+                    }, false);
+                    //Download progress
+                    xhr.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            //Do something with download progress
+                            $(".loading-gif").show();
+                        } else {
+                            $(".loading-gif").show();
+                        }
+                    }, false);
+                    return xhr;
+                },
+                
                 success: function (result) {
                     if (result.success) {
                         $('#myModal').modal('hide');
                         window.location.replace(result.url);
                         //window.location.reload(true);   //refresh page
                         @*window.location.href = '@Url.Action("CrearEmpleado", "Empleados")';*@
-                    } else {
+                        } else {
                         $('#myModalContent').html(result);
                     }
-                },
+                },  
                 error: function (error) { $("#error").html(error); }
             });
         });
