@@ -1,0 +1,87 @@
+﻿@model ProyectoMPLS.Models.Comunicacion.ProyectoVacioViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Nuevo Proyecto Vacío</h4>
+</div>
+
+@using (Html.BeginForm("_CrearProyectoVacio", "Topologia", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "DataForm" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.cUserName)
+
+        @*<div class="form-group">
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cUserName)
+            </label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.cUserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cUserName, "", new { @class = "text-danger" }).ToHtmlString()))
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cFileName)
+            </label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.cFileName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cFileName, "", new { @class = "text-danger" }).ToHtmlString()))
+            </div>
+        </div>
+        
+        @*<div class="form-group">
+        @Html.LabelFor(model => model.cFileName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.cFileName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.cFileName, "", new { @class = "text-danger" })
+        </div>
+        </div>*@
+
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <a class="btn btn-primary" id="submitProyecto">Crear</a>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("#submitProyecto").click(function () {
+                var form = $("#DataForm")[0];
+                var formData = new FormData(form);
+                $.ajax({
+                    url: '@Url.Action("_CrearProyectoVacio", new { controller = "Topologia" })',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (result) {
+                        if (result.success) {
+                            $('#myModal').modal('hide');
+                            window.location.reload(true);   //refresh page
+                        } else {
+                            $('#myModalContent').html(result);
+                        }
+                    },
+                    error: function (error) { $("#error").html(error); }
+                });
+            });
+        });
+    </script>
+
+}
+
+
+
+
+
+        

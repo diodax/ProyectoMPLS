@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -12,11 +13,15 @@ namespace ProyectoMPLS.Models.Topologia
     {
         public int idProyecto { get; set; }
         public int idLSP { get; set; }
+        [Display(Name = "Nombre")]
         public string cNombre { get; set; }
+        [Display(Name = "Ancho de Banda")]
         public double nBandwidth { get; set; }
-        
+
         //Nuevos parametros
+        [Display(Name = "Nodo de Origen")]
         public int idRouterOrigen { get; set; }
+        [Display(Name = "Nodo Actual")]
         public int idRouterDestino { get; set; }
 
         public int nSetupPriority { get; set; }

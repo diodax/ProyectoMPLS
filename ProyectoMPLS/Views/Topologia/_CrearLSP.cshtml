@@ -16,16 +16,24 @@
         @Html.HiddenFor(model => model.idProyecto)
         @Html.HiddenFor(model => model.idLSP)
             
-          
+    <div class="form-group">
+        <label for="focusedinput" class="col-sm-3 control-label">
+            @Html.LabelFor(model => model.cNombre)
+        </label>
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.cNombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cNombre, "", new { @class = "text-danger" }).ToHtmlString()))
+        </div>
+    </div>
 
            
-            <div class="row form-group">
+            @*<div class="row form-group">
                 @Html.LabelFor(model => model.cNombre, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.cNombre, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.cNombre, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>*@
 
             <div class="row form-group">
                 @Html.LabelFor(model => model.nBandwidth, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -54,7 +62,7 @@
            
 
            
-        
+    
     
 
 </div>
