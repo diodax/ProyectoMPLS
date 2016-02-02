@@ -20,6 +20,14 @@ namespace ProyectoMPLS.Models.Topologia
         public int cy { get; set; }
         public decimal rx { get; set; }
         public decimal ry { get; set; }
+
+        //Parámetros a usar por el Algoritmo de Dijkstra
+        public Router idRouterPrevio { get; set; }
+        public double nMinDistancia = Double.PositiveInfinity;
+        public int CompareTo(Router other)
+        {
+            return this.nMinDistancia.CompareTo(other.nMinDistancia);
+        }
     }
 
     /// <summary>

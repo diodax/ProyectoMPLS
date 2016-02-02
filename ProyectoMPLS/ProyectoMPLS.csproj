@@ -51,6 +51,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Priority Queue, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OptimizedPriorityQueue.2.0.0\lib\net45\Priority Queue.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Renci.SshNet, Version=2013.4.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2013.4.7\lib\net40\Renci.SshNet.dll</HintPath>
       <Private>True</Private>
@@ -199,6 +203,7 @@
     <Compile Include="Models\Comunicacion\Tabla.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModuleAuthorize.cs" />
+    <Compile Include="Models\Topologia\Dijkstra.cs" />
     <Compile Include="Models\Topologia\Enlace.cs" />
     <Compile Include="Models\Topologia\LSP.cs" />
     <Compile Include="Models\Topologia\Proyecto.cs" />
