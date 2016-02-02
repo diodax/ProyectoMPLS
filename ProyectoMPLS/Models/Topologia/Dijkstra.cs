@@ -6,15 +6,15 @@ using Priority_Queue;
 
 namespace ProyectoMPLS.Models.Topologia
 {
-    //Fuente: http://stackoverflow.com/questions/17480022/java-find-shortest-path-between-2-points-in-a-distance-weighted-map
-
     public class Dijkstra
     {
         /// <summary>
-        /// Generar el árbol SPF de la topología, tomando el parámetro como punto de origen
+        /// Generar el árbol SPF de la topología en un proyecto, tomando el parámetro como punto de origen
         /// </summary>
         /// <param name="idRouterOrigen"></param>
-        public static SimplePriorityQueue<Router> GenerarRutas(Router idRouterOrigen)
+        /// <param name="idProyecto"></param>
+        /// <returns></returns>
+        public static SimplePriorityQueue<Router> GenerarRutas(Router idRouterOrigen, int idProyecto)
         {
             idRouterOrigen.nMinDistancia = 0.0;
             SimplePriorityQueue<Router> routerQueue = new SimplePriorityQueue<Router>();
@@ -22,24 +22,21 @@ namespace ProyectoMPLS.Models.Topologia
 
             while (routerQueue.Count > 0)
             {
-                /*
-                Vertex u = vertexQueue.poll();
-
-                // Visit each edge exiting u
-                for (Edge e : u.adjacencies)
+                Router currentRouter = routerQueue.Dequeue();
+                //Visita cada enlace adyacente al router u
+                foreach (var enlace in currentRouter.listaEnlaces)
                 {
-                    Vertex v = e.target;
-                    double weight = e.weight;
-                    double distanceThroughU = u.minDistance + weight;
-                    if (distanceThroughU < v.minDistance) {
-                        vertexQueue.remove(v);
-
-                        v.minDistance = distanceThroughU ;
-                        v.previous = u;
-                        vertexQueue.add(v);
+                    LSR vecino = new LSR(enlace.idRouterB, idProyecto);
+                    double nPesoBandwidth = enlace.nBandwidth;
+                    double nDistanciaTotal = currentRouter.nMinDistancia + nPesoBandwidth;
+                    if (nDistanciaTotal < vecino.nMinDistancia)
+                    {
+                        routerQueue.Remove(vecino);
+                        vecino.nMinDistancia = nDistanciaTotal;
+                        vecino.idRouterPrevio = currentRouter;
+                        routerQueue.Enqueue(vecino, 1);
                     }
                 }
-                */
             }
             return routerQueue;
         }
@@ -53,12 +50,12 @@ namespace ProyectoMPLS.Models.Topologia
         {
             List<Router> path = new List<Router>();
 
-            /*
-            for (Vertex vertex = target; vertex != null; vertex = vertex.previous)
-            path.add(vertex);
-            Collections.reverse(path);
-            */
+            for (Router r = idRouterDestino; r != null; r = r.idRouterPrevio)
+            {
+                path.Add(r);   
+            }
 
+            path.Reverse();
             return path;
         }
     }

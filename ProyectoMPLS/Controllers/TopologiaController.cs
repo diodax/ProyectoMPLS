@@ -1,4 +1,5 @@
-﻿using ProyectoMPLS.Models.Comunicacion;
+﻿using Priority_Queue;
+using ProyectoMPLS.Models.Comunicacion;
 using ProyectoMPLS.Models.Topologia;
 using Renci.SshNet;
 using Renci.SshNet.Sftp;
@@ -21,6 +22,34 @@ namespace ProyectoMPLS.Controllers
             listaProyectos = Proyecto.GetListaProyectos(cUsuarioActual);
             return View(listaProyectos);
         }
+
+        //Métodos de prueba para el algoritmo de CSPF
+        #region CSPF
+
+        public ActionResult _CrearCSPF(int idProyecto)
+        {
+            CSPFViewModel newModel = new CSPFViewModel();
+            return PartialView(newModel);
+        }
+
+        [HttpPost]
+        public ActionResult _CrearCSPF(CSPFViewModel newModel)
+        {
+            Proyecto proyectoActual = new Proyecto(newModel.idProyecto);
+            LSR RouterOrigen = new LSR(newModel.nRouterOrigen, newModel.idProyecto);
+            
+            SimplePriorityQueue<Router> routerQueue = new SimplePriorityQueue<Router>();
+            routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto);
+
+            Router RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
+
+            List<Router> result = new List<Router>();
+            result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
+
+            return Json(1);
+        }
+
+        #endregion
 
         #region LSP
 

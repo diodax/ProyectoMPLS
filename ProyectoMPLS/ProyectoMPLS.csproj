@@ -203,6 +203,7 @@
     <Compile Include="Models\Comunicacion\Tabla.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModuleAuthorize.cs" />
+    <Compile Include="Models\Topologia\CSPFViewModel.cs" />
     <Compile Include="Models\Topologia\Dijkstra.cs" />
     <Compile Include="Models\Topologia\Enlace.cs" />
     <Compile Include="Models\Topologia\LSP.cs" />
@@ -282,6 +283,7 @@
     <Content Include="Views\ajax-loader.gif" />
     <Content Include="Web.config" />
     <Content Include="Views\Topologia\_CrearProyectoVacio.cshtml" />
+    <Content Include="Views\Topologia\_CrearCSPF.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

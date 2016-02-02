@@ -28,6 +28,13 @@ namespace ProyectoMPLS.Models.Topologia
         {
             return this.nMinDistancia.CompareTo(other.nMinDistancia);
         }
+
+        public Router() { }
+
+        public Router(int idRouter, int idProyecto)
+        {
+            //
+        }
     }
 
     /// <summary>
@@ -35,7 +42,12 @@ namespace ProyectoMPLS.Models.Topologia
     /// </summary>
     public class LSR : Router
     {
-        //
+        public LSR() { }
+
+        public LSR(int idRouter, int idProyecto)
+        {
+            //
+        }
     }
 
     /// <summary>
