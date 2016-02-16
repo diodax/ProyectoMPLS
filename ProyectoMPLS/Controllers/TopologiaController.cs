@@ -23,19 +23,18 @@ namespace ProyectoMPLS.Controllers
             return View(listaProyectos);
         }
 
-        //Métodos de prueba para el algoritmo de CSPF
         #region CSPF
 
         public ActionResult _CrearCSPF(int idProyecto)
         {
-            CSPFViewModel newModel = new CSPFViewModel();
+            CSPFViewModel newModel = new CSPFViewModel(idProyecto);
             return PartialView(newModel);
         }
 
         [HttpPost]
         public ActionResult _CrearCSPF(CSPFViewModel newModel)
         {
-            Proyecto proyectoActual = new Proyecto(newModel.idProyecto);
+            //Proyecto proyectoActual = new Proyecto(newModel.idProyecto);
             LSR RouterOrigen = new LSR(newModel.nRouterOrigen, newModel.idProyecto);
             
             SimplePriorityQueue<Router> routerQueue = new SimplePriorityQueue<Router>();
@@ -76,7 +75,6 @@ namespace ProyectoMPLS.Controllers
         {
             return Json(1);
         }
-
 
         #endregion
 
