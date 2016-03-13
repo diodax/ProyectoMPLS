@@ -98,5 +98,12 @@ namespace ProyectoMPLS.Controllers
 
             return View(newUser);
         }
+
+        // GET: /Account/Logout
+        public ActionResult Logout()//LoginViewModel usuario)
+        {
+            Session["Usuario"] = null;
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
