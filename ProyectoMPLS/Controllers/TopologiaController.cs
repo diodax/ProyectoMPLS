@@ -309,7 +309,9 @@ namespace ProyectoMPLS.Controllers
         public ActionResult GetJsonTopologia(int idProyecto)
         {
             Proyecto temp = new Proyecto(idProyecto);
-            return Json(new { routers = temp.listadoRouters, enlaces = temp.listadoEnlaces });
+            temp = null;
+            return Json(new { routers = temp }, JsonRequestBehavior.AllowGet);
+            //return Json(new { routers = temp.listadoRouters, enlaces = temp.listadoEnlaces }, JsonRequestBehavior.AllowGet);
         }
     }
 }
