@@ -152,10 +152,10 @@
                 var model = $$(go.GraphLinksModel);
 
                 alert("working");
-                console.log(result.routers);
-                console.log(result.enlaces);
+                //console.log(result.routers);
+                //console.log(result.enlaces);
 
-                /*
+                
                 var arrayRouters = [];
                 $.each(result.routers, function (i, item) {
                     arrayRouters.push({ "key": result.routers[i].idRouter, "name": result.routers[i].cHostname, "source": image2 });
@@ -176,10 +176,11 @@
                 //});
                 console.log(arrayRouters);
                 console.log(arrayLinks);
+                //
 
                 model.linkDataArray = arrayLinks;
                 myDiagram.model = model;
-                */
+               
                 //Fin AJAX --
             },
             error: function (jqXHR, textStatus, errorThrown) {

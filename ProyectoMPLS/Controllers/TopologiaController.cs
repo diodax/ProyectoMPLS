@@ -35,14 +35,14 @@ namespace ProyectoMPLS.Controllers
         public ActionResult _CrearCSPF(CSPFViewModel newModel)
         {
             //Proyecto proyectoActual = new Proyecto(newModel.idProyecto);
-            LSR RouterOrigen = new LSR(newModel.nRouterOrigen, newModel.idProyecto);
+            NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
             
-            SimplePriorityQueue<Router> routerQueue = new SimplePriorityQueue<Router>();
+            SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
             routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto);
 
-            Router RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
+            NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
 
-            List<Router> result = new List<Router>();
+            List<NodoDijkstra> result = new List<NodoDijkstra>();
             result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
 
             return Json(1);
@@ -310,8 +310,8 @@ namespace ProyectoMPLS.Controllers
         {
             Proyecto temp = new Proyecto(idProyecto);
             temp = null;
-            return Json(new { routers = temp }, JsonRequestBehavior.AllowGet);
-            //return Json(new { routers = temp.listadoRouters, enlaces = temp.listadoEnlaces }, JsonRequestBehavior.AllowGet);
+            //return Json(new { routers = temp }, JsonRequestBehavior.AllowGet);
+            return Json(new { routers = temp.listadoRouters, enlaces = temp.listadoEnlaces }, JsonRequestBehavior.AllowGet);
         }
     }
 }
