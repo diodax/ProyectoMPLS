@@ -73,5 +73,11 @@ namespace ProyectoMPLS.Models.Accounts
             this.cUserName = cUserName;
             this.cEmail = Adapter.SelectEmail(cUserName).ToString();
         }
+
+        public void ActualizarUsuario()
+        {
+            Data.dsUsuariosTableAdapters.Operaciones Adapter = new Data.dsUsuariosTableAdapters.Operaciones();
+            Adapter.ActualizarUsuario(this.cUserName, this.cPassword != null ? Crypto.HashPassword(this.cPassword) : null, this.cEmail);
+        }
     }
 }

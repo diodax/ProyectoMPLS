@@ -110,57 +110,38 @@ namespace ProyectoMPLS.Controllers
         // GET: /Account/Settings
         public ActionResult Settings(string cUsername)
         {
-            string cUsuarioActual = Session["Usuario"].ToString();
-            SettingsViewModel changedUser = new SettingsViewModel(cUsuarioActual);
-            return View(changedUser);
+            try {
+                string cUsuarioActual = Session["Usuario"].ToString();
+                SettingsViewModel changedUser = new SettingsViewModel(cUsuarioActual);
+                return View(changedUser);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // POST /Account/Settings
         [HttpPost]
         public ActionResult Settings(SettingsViewModel changedUser)
         {
-            try
-            {
+            /*try
+            {*/
                 if (ModelState.IsValid)
                 {
-                    Usuario newModel = new Usuario();
-                    string newPassword;
-                    string newEmail;
+                    changedUser.ActualizarUsuario();
+                    return RedirectToAction("Index", "Topologia");
 
-                    if (changedUser.cEmail == newModel.cEmail)
-                    {
-                        newEmail = null;
-                        //return RedirectToAction("Topologia", "Index");
-                    }
-                    else
-                    {
-                        newPassword = changedUser.cEmail;
-                    }
-
-                    if (Crypto.VerifyHashedPassword(newModel.cPassword, changedUser.cPassword))
-                    {
-                        newPassword = null;
-                    }
-                    else
-                    {
-                        newPassword = changedUser.cPassword;
-                    }
-
-
-                    
-                    return View(changedUser);
-                    /*else
-                    {
-                        return View(changedUser);
-                    }*/
                 }
-            }
+                else
+                {
+                    return View(changedUser);
+                }
+            /*}
             catch
             {
                 return View(changedUser);
-            }
-
-            return View(changedUser);
+            }*/
         }
     }
 }

@@ -156,7 +156,8 @@
                     <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
                 <li>
-                    <i class="fa fa-gear fa-fw"></i> @Html.ActionLink("Settings", "Settings", "Usuario", routeValues: null, htmlAttributes: new { id = "settingsLink" })
+                    @* @Html.ActionLink("Settings", "Settings", "Usuario", routeValues: null, htmlAttributes: new { id = "settingsLink" })*@
+                    <a href="@Url.Action("Settings", "Usuario")"><i class="fa fa-gear fa-fw"></i>Settings</a>
                 </li>
                 <li class="divider"></li>
                 <li>
