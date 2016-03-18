@@ -284,6 +284,7 @@
     <Content Include="Views\Topologia\_CrearProyectoVacio.cshtml" />
     <Content Include="Views\Topologia\_CrearCSPF.cshtml" />
     <None Include="Properties\PublishProfiles\AWS.pubxml" />
+    <Content Include="Views\Usuario\Settings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

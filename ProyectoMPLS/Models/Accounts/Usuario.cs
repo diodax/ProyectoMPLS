@@ -54,5 +54,11 @@ namespace ProyectoMPLS.Models.Accounts
             //return (bool)op.EsClaveValida(cUserName, cPasswordHash);
         }
 
+        public static void ActualizarUsuario(string cUsername, string cNewPassword, string cNewEmail)
+        {
+            Data.dsUsuariosTableAdapters.Operaciones op = new Data.dsUsuariosTableAdapters.Operaciones();
+            string hashedPassword = Crypto.HashPassword(cNewPassword);
+            op.ActualizarUsuario(cUsername, hashedPassword, cNewEmail);
+        }
     }
 }

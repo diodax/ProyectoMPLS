@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Helpers;
 
 namespace ProyectoMPLS.Controllers
 {
@@ -104,6 +105,62 @@ namespace ProyectoMPLS.Controllers
         {
             Session["Usuario"] = null;
             return RedirectToAction("Index", "Home");
+        }
+
+        // GET: /Account/Settings
+        public ActionResult Settings(string cUsername)
+        {
+            string cUsuarioActual = Session["Usuario"].ToString();
+            SettingsViewModel changedUser = new SettingsViewModel(cUsuarioActual);
+            return View(changedUser);
+        }
+
+        // POST /Account/Settings
+        [HttpPost]
+        public ActionResult Settings(SettingsViewModel changedUser)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Usuario newModel = new Usuario();
+                    string newPassword;
+                    string newEmail;
+
+                    if (changedUser.cEmail == newModel.cEmail)
+                    {
+                        newEmail = null;
+                        //return RedirectToAction("Topologia", "Index");
+                    }
+                    else
+                    {
+                        newPassword = changedUser.cEmail;
+                    }
+
+                    if (Crypto.VerifyHashedPassword(newModel.cPassword, changedUser.cPassword))
+                    {
+                        newPassword = null;
+                    }
+                    else
+                    {
+                        newPassword = changedUser.cPassword;
+                    }
+
+
+                    
+                    return View(changedUser);
+                    /*else
+                    {
+                        return View(changedUser);
+                    }*/
+                }
+            }
+            catch
+            {
+                return View(changedUser);
+            }
+
+            return View(changedUser);
         }
     }
 }
