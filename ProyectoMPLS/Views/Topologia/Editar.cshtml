@@ -142,8 +142,8 @@
 
         $.ajax({
             url: '@Url.Action("GetJsonTopologia", new { controller = "Topologia" })',
-            type: 'POST',
-            //contentType: "application/json",
+            //type: 'POST',
+            contentType: "application/json",
             //datatype: "json",
             data: { idProyecto: $("#tbxIdProyecto").val() },
             success: function (result) {
@@ -151,6 +151,11 @@
                 var image2 = '@Url.Content("~/Content/Images/")' + 'router.png';
                 var model = $$(go.GraphLinksModel);
 
+                alert("working");
+                //console.log(result.routers);
+                //console.log(result.enlaces);
+
+                
                 var arrayRouters = [];
                 $.each(result.routers, function (i, item) {
                     arrayRouters.push({ "key": result.routers[i].idRouter, "name": result.routers[i].cHostname, "source": image2 });
@@ -171,12 +176,18 @@
                 //});
                 console.log(arrayRouters);
                 console.log(arrayLinks);
+                //
 
                 model.linkDataArray = arrayLinks;
                 myDiagram.model = model;
+               
                 //Fin AJAX --
             },
-            error: function (error) { $("#error").html(error); }
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+                console.log(errorThrown);
+                $("#error").html(jqXHR.responseText);
+            }
         });
 
         var myPalette = $$(go.Palette, "myPaletteDiv");

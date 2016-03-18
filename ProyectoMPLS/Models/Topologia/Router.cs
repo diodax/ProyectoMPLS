@@ -21,13 +21,7 @@ namespace ProyectoMPLS.Models.Topologia
         public decimal rx { get; set; }
         public decimal ry { get; set; }
 
-        //Parámetros a usar por el Algoritmo de Dijkstra
-        public Router idRouterPrevio { get; set; }
-        public double nMinDistancia = Double.PositiveInfinity;
-        public int CompareTo(Router other)
-        {
-            return this.nMinDistancia.CompareTo(other.nMinDistancia);
-        }
+        
 
         public Router() { }
 
@@ -35,6 +29,23 @@ namespace ProyectoMPLS.Models.Topologia
         {
             //
         }
+    }
+
+    /// <summary>
+    /// Representa un Router genérico utilizado como nodo por el Algoritmo de Dijkstra
+    /// </summary>
+    public class NodoDijkstra : Router
+    {
+        public NodoDijkstra idRouterPrevio { get; set; }
+        public double nMinDistancia = Double.PositiveInfinity;
+        public int CompareTo(NodoDijkstra other)
+        {
+            return this.nMinDistancia.CompareTo(other.nMinDistancia);
+        }
+
+        public NodoDijkstra() { }
+
+        public NodoDijkstra(int idRouter, int idProyecto) { }
     }
 
     /// <summary>
