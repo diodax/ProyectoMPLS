@@ -229,6 +229,7 @@
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\timeline.css" />
+    <Content Include="Scripts\CustomScripts\topologia.js" />
     <Content Include="Scripts\modalform.js" />
     <Content Include="Scripts\plugins\bootbox\bootbox.js" />
     <Content Include="Scripts\plugins\jquery.blockUI.js" />
