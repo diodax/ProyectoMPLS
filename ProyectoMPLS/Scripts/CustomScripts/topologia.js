@@ -32,6 +32,11 @@ $(document).ready(function () {
             new go.Binding("text", "name"))
         );
         
+    // define a Link template that routes orthogonally, with no arrowhead
+    myDiagram.linkTemplate =
+      $$(go.Link,
+        { routing: go.Link.Normal, corner: 5 },
+        $$(go.Shape, { strokeWidth: 3, stroke: "#555" })); // the link shape
 
     var image = '/Content/Images/' + 'router.png';
 
@@ -109,5 +114,35 @@ $(document).ready(function () {
         //{ source: image, color: "deepskyblue" }
     ];
 
+    $('#file').click(function () {
+        //myDiagram.commandHandler.
+    })
 
+    $('#save').click(function () {
+        //myDiagram.commandHandler.
+    })
+
+    $('#cut').click(function () {
+        myDiagram.commandHandler.cutSelection();
+    })
+
+    $('#copy').click(function () {
+        myDiagram.commandHandler.copySelection();
+    })
+
+    $('#paste').click(function () {
+        myDiagram.commandHandler.pasteFromClipboard();
+    })    
+
+    $('#undo').click(function () {
+        myDiagram.commandHandler.undo();
+    })
+    
+    $('#redo').click(function () {
+        myDiagram.commandHandler.redo();
+    })
+
+    $('#delete').click(function () {
+        myDiagram.commandHandler.deleteSelection();
+    })
 });
