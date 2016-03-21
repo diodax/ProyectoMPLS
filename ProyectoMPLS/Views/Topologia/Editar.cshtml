@@ -18,46 +18,47 @@
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        @*<!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>*@
-            
+            @*<!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>*@
+
             <!--Actual Link to LSP list-->
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" href='@Url.Action("_IndexLSPs", "Topologia", new { idProyecto = Model.idProyecto })'>Lista de LSPs</a></li> 
+                <li><a data-modal="" href='@Url.Action("_IndexLSPs", "Topologia", new { idProyecto = Model.idProyecto })'>Lista de LSPs</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
@@ -82,141 +83,49 @@
                     </ul>
                 </li>
             </ul>*@
-</div><!-- /.navbar-collapse -->
+        </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
-
-<span id="paletteSpan" style="display: inline-block; vertical-align: top">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div id="myPaletteDiv" style="width: 120px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
-        </div>
-        </nav>
-</span>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a id="file"><i class="fa fa-2x fa-file col-xs-1"></i></a></li>
+            <li><a id="save"><i class="fa fa-2x fa-save"></i></a></li>
+            <li><a id="cut"><i class="fa fa-2x fa-cut col-xs-1"></i></a></li>
+            <li><a id="copy"><i class="fa fa-2x fa-copy col-xs-1"></i></a></li>
+            <li><a id="paste"><i class="fa fa-2x fa-paste col-xs-1"></i></a></li>
+            <li><a id="undo"><i class="fa fa-2x fa-arrow-circle-left col-xs-1"></i></a></li>
+            <li><a id="redo"><i class="fa fa-2x fa-arrow-circle-right col-xs-1"></i></a></li>
+            <li><a id="delete"><i class="fa fa-2x fa-trash-o col-xs-1"></i></a></li>
+        </ul>
+    </div>
+</nav>
 
 <span id="diagramSpan" style="display: inline-block; vertical-align: top">
-    
+
     <div id="myDiagramDiv" style="width: 900px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
 </span>
+<div panel panel-primary">
+    <div class="panel-heading">Componentes</div>
+    <div class="panel-body">
+        <span id="paletteSpan" style="display: inline-block; vertical-align: top">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div id="myPaletteDiv" style="width: 120px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
+                </div>
+            </nav>
+        </span>
+    </div>
+</div>
+
 
 @section scripts
-{   
+{
     @Scripts.Render("~/bundles/modalform")
-    
-    <script type="text/javascript">
-    $(document).ready(function () {
-        var $$ = go.GraphObject.make;
-        //var myDiagram = $(go.Diagram, "myDiagramDiv");
 
-        var myDiagram = $$(go.Diagram, "myDiagramDiv", {
-            initialContentAlignment: go.Spot.Center,        // center Diagram contents
-            "undoManager.isEnabled": true,                   // enable Ctrl-Z to undo and Ctrl-Y to redo
-            //layout: $(go.TreeLayout,                        // specify a Diagram.layout that arranges trees
-            //    { angle: 90, layerSpacing: 35 })
-        });
+    @Scripts.Render("~/Scripts/CustomScripts/topologia.js")
 
-        myDiagram.allowDrop = true;  // permit accepting drag-and-drops
-
-        // define a simple Node template
-        myDiagram.nodeTemplate =
-          $$(go.Node, "Auto",
-            // the entire node will have a light-blue background
-            //{ background: "#44CCFF" },
-            $$(go.Picture,
-              // Pictures should normally have an explicit width and height.
-              // This picture has a red background, only visible when there is no source set
-              // or when the image is partially transparent.
-              { margin: 10, width: 80, height: 80 },
-              // Picture.source is data bound to the "source" attribute of the model data
-              new go.Binding("source")),
-            $$(go.TextBlock,
-              "Router1",  // the initial value for TextBlock.text
-              // some room around the text, a larger font, and a white stroke:
-              { margin: 12, stroke: "black", font: "bold 16px sans-serif", editable: true },
-              // TextBlock.text is data bound to the "name" attribute of the model data
-              new go.Binding("text", "name"))
-          );
-
-        var image = '@Url.Content("~/Content/Images/")' + 'router.png';
-
-        $.ajax({
-            url: '@Url.Action("GetJsonTopologia", new { controller = "Topologia" })',
-            //type: 'POST',
-            contentType: "application/json",
-            //datatype: "json",
-            data: { idProyecto: $("#tbxIdProyecto").val() },
-            success: function (result) {
-                //Inicio AJAX --
-                var image2 = '@Url.Content("~/Content/Images/")' + 'router.png';
-                var model = $$(go.GraphLinksModel);
-
-                //alert("working");
-                //console.log(result.routers);
-                //console.log(result.enlaces);
-
-                
-                var arrayRouters = [];
-                $.each(result.routers, function (i, item) {
-                    arrayRouters.push({ "key": result.routers[i].idRouter, "name": result.routers[i].cHostname, "source": image2 });
-                });
-
-                //$(result.routers).each(function () {
-                //    arrayRouters.push({ "key": $(this).idRouter, "name": $(this).cHostname, source: image2 });
-                //});
-                model.nodeDataArray = arrayRouters;
-
-                var arrayLinks = [];
-                $.each(result.enlaces, function (i, item) {
-                    arrayLinks.push({ "from": result.enlaces[i].idRouterA, "to": result.enlaces[i].idRouterB });
-                });
-
-                //$(result.enlaces).each(function () {
-                //    arrayLinks.push({ "from": $(this).idRouterA, "to": $(this).idRouterB });
-                //});
-                console.log(arrayRouters);
-                console.log(arrayLinks);
-                //
-
-                model.linkDataArray = arrayLinks;
-                myDiagram.model = model;
-               
-                //Fin AJAX --
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-                console.log(errorThrown);
-                $("#error").html(jqXHR.responseText);
-            }
-        });
-
-        var myPalette = $$(go.Palette, "myPaletteDiv");
-
-        // the Palette's node template is different from the main Diagram's
-        myPalette.nodeTemplate =
-          $$(go.Node, "Horizontal",
-            $$(go.Picture,
-              { width: 40, height: 40 },
-              new go.Binding("source")),
-            $$(go.TextBlock,
-              new go.Binding("text", "color"))
-          );
-
-        // the list of data to show in the Palette
-        myPalette.model.nodeDataArray = [
-          { source: image, color: "LER" },
-          { source: image, color: "LSR" },
-          //{ source: image, color: "aquamarine" },
-          //{ source: image, color: "turquoise" },
-          //{ source: image, color: "powderblue" },
-          //{ source: image, color: "lightblue" },
-          //{ source: image, color: "lightskyblue" },
-          //{ source: image, color: "deepskyblue" }
-        ];
-
-
-    });
-</script>
 }
 
 
