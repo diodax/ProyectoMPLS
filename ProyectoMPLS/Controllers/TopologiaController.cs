@@ -324,9 +324,9 @@ namespace ProyectoMPLS.Controllers
 
         #region Enlace
         
-        public ActionResult _ConfigEnlace(int idEnlace)
+        public ActionResult _ConfigEnlace(int idEnlace, int idProyecto)
         {
-            EnlaceViewModel newModel = new EnlaceViewModel(idEnlace);
+            EnlaceViewModel newModel = new EnlaceViewModel(idEnlace, idProyecto);
             return PartialView(newModel);
         }
         /*
