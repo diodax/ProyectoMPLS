@@ -1,0 +1,83 @@
+﻿@model ProyectoMPLS.Models.Topologia.Enlace
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Configuración de Enlace</h4>
+</div>
+
+@using (Html.BeginForm("_ConfigEnlace", "Topologia", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "DataFormEnlace" }))
+{
+    <div class="modal-body">
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        @Html.HiddenFor(model => model.idEnlace)
+
+
+
+
+        <div class="form-group">
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cNombre)
+            </label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.cNombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cNombre, "", new { @class = "text-danger" }).ToHtmlString()))
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.nBandwidth)
+            </label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.nBandwidth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nBandwidth, "", new { @class = "text-danger" }).ToHtmlString()))
+            </div>
+        </div>
+
+
+        @*<div class="form-group">
+                <label for="focusedinput" class="col-sm-3 control-label">
+                    @Html.LabelFor(model => model.nTipoMetrica)
+                </label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.nTipoMetrica, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nTipoMetrica, "", new { @class = "text-danger" }).ToHtmlString()))
+                </div>
+            </div>*@
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">Cerrar</button>
+        <a class="btn btn-primary" id="submitConfigEnlace">Ejecutar</a>
+    </div>
+}
+
+<script>
+        $(document).ready(function () {
+            $("#submitConfigEnlace").click(function () {
+                var form = $("#DataFormEnlace")[0];
+                var formData = new FormData(form);
+                $.ajax({
+                    url: '@Url.Action("_ConfigEnlace", new { controller = "Topologia" })',
+                    type: 'POST',
+                    //contentType: false,
+                    //processData: false,
+                    data: formData,
+                    success: function (result) {
+                        if (result.success) {
+                            $('#myModal').modal('hide');
+                            window.location.reload(true);   //refresh page
+                        } else {
+                            $('#myModalContent').html(result);
+                        }
+                    },
+                    error: function (error) { $("#error").html(error); }
+                });
+            });
+        });
+</script>
+

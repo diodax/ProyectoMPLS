@@ -4,7 +4,9 @@
     ViewBag.Title = "Editar";
 }
 
-<h2>Editar Topología</h2>
+@*<h2>Editar Topología</h2>*@
+<h2>@Html.DisplayTextFor(model => model.cTitulo)</h2>
+
 @Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
 
 <!-- modal placeholder-->
@@ -69,6 +71,10 @@
                 <li><a data-modal="" href='@Url.Action("_CrearCSPF", "Topologia", new { idProyecto = Model.idProyecto })'>Aplicar CSPF</a></li>
             </ul>
 
+            <ul class="nav navbar-nav navbar-left">
+                <li><a data-modal="" href='@Url.Action("_ConfigEnlace", "Topologia", new { idProyecto = Model.idProyecto })'>Configurar Enlace</a></li>
+            </ul>
+
 
             @*<ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Link</a></li>
@@ -102,23 +108,24 @@
     </div>
 </nav>
 
-<span id="diagramSpan" style="display: inline-block; vertical-align: top">
+<section>
+    <span id="diagramSpan" style="display: inline-block; vertical-align: top">
 
-    <div id="myDiagramDiv" style="width: 900px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
-</span>
-<div panel panel-primary">
-    <div class="panel-heading">Componentes</div>
-    <div class="panel-body">
-        <span id="paletteSpan" style="display: inline-block; vertical-align: top">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div id="myPaletteDiv" style="width: 120px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
-                </div>
-            </nav>
-        </span>
+        <div id="myDiagramDiv" style="width: 900px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
+    </span>
+    <div panel panel-primary">
+        <div class="panel-heading">Componentes</div>
+        <div class="panel-body">
+            <span id="paletteSpan" style="display: inline-block; vertical-align: top">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div id="myPaletteDiv" style="width: 120px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
+                    </div>
+                </nav>
+            </span>
+        </div>
     </div>
-</div>
-
+</section>
 
 @section scripts
 {

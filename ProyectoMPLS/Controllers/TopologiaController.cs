@@ -313,5 +313,29 @@ namespace ProyectoMPLS.Controllers
             //return Json(new { routers = temp }, JsonRequestBehavior.AllowGet);
             return Json(new { routers = temp.listadoRouters, enlaces = temp.listadoEnlaces }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult SetJsonTopologia(JsonResult result)
+        {
+            var arrayRouters = result.Data;
+            Console.Write(result);
+            return Json(arrayRouters);
+        }
+
+        #region Enlace
+        
+        public ActionResult _ConfigEnlace(int idEnlace)
+        {
+            EnlaceViewModel newModel = new EnlaceViewModel(idEnlace);
+            return PartialView(newModel);
+        }
+        /*
+        [HttpPost]
+        public ActionResult _ConfigEnlace(JsonResult result)
+        {
+           
+        }
+        */
+        #endregion
     }
 }
