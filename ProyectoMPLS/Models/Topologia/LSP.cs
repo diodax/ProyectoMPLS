@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ProyectoMPLS.Models.Topologia
 {
@@ -29,6 +30,7 @@ namespace ProyectoMPLS.Models.Topologia
 
         public List<Enlace> listaEnlaces { get; set; }
         public List<Router> listaNodos { get; set; }
+        public List<SelectListItem> listaNodosDisponibles { get; set; }
 
         public LSP() { }
 
@@ -70,10 +72,36 @@ namespace ProyectoMPLS.Models.Topologia
             return listaLSP;
         }
 
-        public static List<Router> SelectListaNodos(int idProyecto)
+        /// <summary>
+        /// Devuelve la lista de nodos en un proyecto, o dado idRouter, la lista de nodos adyacentes
+        /// </summary>
+        /// <param name="idProyecto"></param>
+        /// <returns></returns>
+        public static List<Router> SelectListaNodosDisponibles(int idProyecto, int? idRouter)
         {
             List<Router> listaNodos = new List<Router>();
+            Data.dsTopologiaTableAdapters.NodosAdyacentesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.NodosAdyacentesTableAdapter();
+            Data.dsTopologia.NodosAdyacentesDataTable dt = Adapter.SeleccionarNodosAdyacentes(idProyecto, idRouter);
+
+            foreach (var dr in dt)
+            {
+                LSR temp = new LSR(dr.idProyecto, dr.idRouter != idRouter ? dr.idRouter : dr.idRouter2);
+                listaNodos.Add(temp);
+            }
             return listaNodos;
+        }
+
+        public static List<SelectListItem> ConvertDropdownNodosDisponibles(List<Router> listaNodos)
+        {
+            List<SelectListItem> dpNodos = new List<SelectListItem>();
+            foreach (var item in listaNodos)
+            {
+                SelectListItem temp = new SelectListItem();
+                temp.Value = item.idRouter.ToString();
+                temp.Text = item.cHostname.ToString() + "[" + item.cRouterID.Trim() + "]";
+                dpNodos.Add(temp);
+            }
+            return dpNodos;
         }
            
         public static List<Enlace> SelectListaEnlacesValidos(int idProyecto, int idRouter, double nBandwidth)
@@ -81,6 +109,8 @@ namespace ProyectoMPLS.Models.Topologia
             List<Enlace> listaEnlaces = new List<Enlace>();
             return listaEnlaces;
         }
+
+        
     }
 
     public class Nodo

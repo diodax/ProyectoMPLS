@@ -59,9 +59,10 @@ namespace ProyectoMPLS.Controllers
             return PartialView(listaLSPs);
         }
 
-        public ActionResult _CrearLSP()
+        public ActionResult _CrearLSP(int idProyecto)
         {
             LSP newModel = new LSP();
+            newModel.listaNodosDisponibles = LSP.ConvertDropdownNodosDisponibles(LSP.SelectListaNodosDisponibles(idProyecto, null));
             return PartialView();
         }
 
@@ -72,6 +73,11 @@ namespace ProyectoMPLS.Controllers
 
         //TODO: Esto
         public ActionResult _GetListaEnlaces (string idRouter, double nBandwidth)
+        {
+            return Json(1);
+        }
+
+        public ActionResult _GetListaNodos (string idProyecto, string idRouter)
         {
             return Json(1);
         }

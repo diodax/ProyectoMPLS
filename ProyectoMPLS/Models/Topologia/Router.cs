@@ -55,9 +55,19 @@ namespace ProyectoMPLS.Models.Topologia
     {
         public LSR() { }
 
-        public LSR(int idRouter, int idProyecto)
+        public LSR(int idProyecto, int idRouter)
         {
-            //
+            Data.dsTopologiaTableAdapters.RouterTableAdapter Adapter = new Data.dsTopologiaTableAdapters.RouterTableAdapter();
+            Data.dsTopologia.RouterDataTable dt = Adapter.SelectRouter(idProyecto, idRouter);
+
+            foreach (var dr in dt)
+            {
+                this.idRouter = dr.idRouter;
+                if (!dr.IscHostnameNull())
+                    this.cHostname = dr.cHostname.Trim();
+                if (!dr.IscRouterIDNull())
+                    this.cRouterID = dr.cRouterID.Trim();
+            }
         }
     }
 
