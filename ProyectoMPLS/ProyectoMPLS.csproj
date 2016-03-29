@@ -180,11 +180,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TopologiaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="Data\dsTopologia.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsTopologia.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="Data\dsTopologia.Designer.cs" />
     <Compile Include="Data\dsUsuarios.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
