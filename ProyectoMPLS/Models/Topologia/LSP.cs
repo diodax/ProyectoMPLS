@@ -22,7 +22,7 @@ namespace ProyectoMPLS.Models.Topologia
         //Nuevos parametros
         [Display(Name = "Nodo de Origen")]
         public int idRouterOrigen { get; set; }
-        [Display(Name = "Nodo Actual")]
+        [Display(Name = "Próximo Salto")]
         public int idRouterDestino { get; set; }
 
         public int nSetupPriority { get; set; }
@@ -30,6 +30,14 @@ namespace ProyectoMPLS.Models.Topologia
 
         public List<Enlace> listaEnlaces { get; set; }
         public List<Router> listaNodos { get; set; }
+
+        //SelectList con todos los nodos de la topologia. Estatico
+        public List<SelectListItem> listaNodosOrigen { get; set; }
+        //SelectList temporal con los nodos adyacentes al seleccionado
+        public List<SelectListItem> listaNextHop { get; set; }
+
+
+
         public List<SelectListItem> listaNodosDisponibles { get; set; }
 
         public LSP() { }

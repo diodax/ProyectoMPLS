@@ -42,7 +42,7 @@
             @Html.LabelFor(model => model.idRouterOrigen)
         </label>
         <div class="col-md-6">
-            @Html.DropDownListFor(model => model.idRouterOrigen, Model.listaNodosDisponibles, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.idRouterOrigen, Model.listaNodosDisponibles, new { @class = "form-control", @id = "dpxNextHop" })
             @Html.ValidationMessageFor(model => model.idRouterOrigen, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -51,16 +51,36 @@
         <label for="focusedinput" class="col-sm-3 control-label">
             @Html.LabelFor(model => model.idRouterDestino)
         </label>
-        <div class="col-md-6">
+        <div class="col-md-5">
             @Html.EditorFor(model => model.idRouterDestino, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.idRouterDestino, "", new { @class = "text-danger" })
+            
         </div>
-    </div>       
+        <div class="col-md-1">
+            <button type="button" class="btn btn-info" id="btnAddSalto">
+                <p class="fa fa-plus"></p>
+            </button>
+        </div>
+    </div> 
+          
 
     <div>
-        <ul class="list-group">
-            <li class="list-group-item">Enlace #1</li>
-            <li class="list-group-item">Enlace #1</li>
+        <ul class="timeline">
+            <li>
+                <div class="timeline-badge"><i class="fa fa-check"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                        @*<p>
+                            <small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
+                        </p>*@
+                    </div>
+                    @*<div class="timeline-body">
+                        <p>Lorem ipsum dolor sit luptas suscipit facere rem dicta, debitis.</p>
+                    </div>*@
+                </div>
+            </li>
+        
         </ul>
 
     </div>
@@ -80,6 +100,23 @@
         //Obtener la lista de todos los nodos de la topologia
         //SP que mande la lista de todos los nodos por default, y que mande los enlaces/nodos adyacentes si le
         //  especifico un nodo
+
+        $(document).ready(function () {
+            $("#btnAddSalto").click(function () {
+                var cDescripcionNodo = $("#dpxNextHop option:selected").text();
+                $("ul").append('<li class="list-group-item">' + cDescripcionNodo + '</li>');
+            });
+
+            //Listado de Eventos 
+            //-Cuando se modifica el dropdown de Nodo de Origen, debe cambiar la lista de Enlaces/Nodos adyacentes
+            //-Cuando se modifica el dropdown de Nodo de Origen, debe cambiar el primer elemento de la lista LSP
+            //-Cuando se modifica el Ancho de Banda, se debe cambiar la lista de Enlaces/Nodos adyacentes para que cumplan con el requisito
+            //-Crear un blockquote de informacion del enlace, que se actualiza cada vez que se selecciona un Enlace/Nodo como Next Hop
+            //-Cuando se presiona el boton de Agregar Camino, debe aparecer en la lista LSP el ultimo nodo agregado.
+            //-Ademas, debe de refrescarse el nodo actual para el dropdown de Next Hop
+            //-El ultimo elemento de la lista LSP debe de tener un boton de Eliminar, los demas tambien, pero disabled
+
+        });
 
     </script>    
 }
