@@ -14,6 +14,7 @@ namespace ProyectoMPLS.Models.Topologia
     public class EnlaceViewModel
     {
         public int idEnlace { get; set; }
+        public int idProyecto { get; set; }
 
         [Display(Name = "Nombre")]
         public string cNombre { get; set; }
@@ -21,10 +22,16 @@ namespace ProyectoMPLS.Models.Topologia
         [Display(Name = "Restricción de BW")]
         public double nBandwidth { get; set; }
 
+        [Display(Name = "Peso Administrativo")]
+        public double nPesoAdministrativo { get; set; }
+
         [Display(Name = "Nodo de Origen")]
         public int nRouterOrigen { get; set; }
         [Display(Name = "Nodo Actual")]
         public int nRouterDestino { get; set; }
+
+        [Display(Name = "Afinidad")]
+        public int idAfinidad { get; set; }
 
         [Display(Name = "Criterio de la Métrica")]
         public int nTipoMetrica { get; set; }
@@ -40,6 +47,7 @@ namespace ProyectoMPLS.Models.Topologia
         public EnlaceViewModel(int idEnlace, int idProyecto)
         {
             this.idEnlace = idEnlace;
+            this.idProyecto = idProyecto;
             //this.proyectoActual = new Proyecto(idProyecto);
             this.enlaceActual = new Enlace(idEnlace, idProyecto);
             this.listaNodos = new List<SelectListItem>();
@@ -51,6 +59,12 @@ namespace ProyectoMPLS.Models.Topologia
                 temp.Text = nodo.cHostname.ToString().Trim();
                 listaNodos.Add(temp);
             }*/
+        }
+
+        public void insertUpdateEnlace()
+        {
+            Data.dsTopologiaTableAdapters.EnlacesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.EnlacesTableAdapter();
+            Adapter.InsertarActualizarEnlace(this.idProyecto, this.idEnlace, this.cNombre, this.nRouterOrigen, this.nRouterDestino, (int)this.nBandwidth, (int)this.nPesoAdministrativo, this.idAfinidad);
         }
     }
 }

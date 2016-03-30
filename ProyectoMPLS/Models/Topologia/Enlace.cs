@@ -10,6 +10,8 @@ namespace ProyectoMPLS.Models.Topologia
     /// </summary>
     public class Enlace
     {
+        public int idProyecto { get; set; }
+
         public int idEnlace { get; set; }
         public string cNombre { get; set; }
         public int idRouterA { get; set; }
@@ -17,7 +19,7 @@ namespace ProyectoMPLS.Models.Topologia
 
         public double nBandwidth { get; set; }
         public double nPesoAdministrativo { get; set; }
-        public string cAfinidad { get; set; }
+        public int idAfinidad { get; set; }
 
         //Nuevos parametros
         public double nBandwidthReservado { get; set; }
@@ -41,12 +43,18 @@ namespace ProyectoMPLS.Models.Topologia
             if (dt.Rows.Count > 0)
             {
                 Data.dsTopologia.EnlacesRow dr = dt[0];
-                this.idEnlace = dr.idEnlace;
-                this.cNombre = dr.cNombre;
-                this.idRouterA = dr.idRouterA;
-                this.idRouterB = dr.idRouterB;
-                this.nBandwidth = dr.nBandwidth;
-                this.nPesoAdministrativo = dr.nPesoAdministrativo;
+                this.idEnlace = idEnlace;
+                this.idProyecto = idProyecto;
+                if(!dr.IscNombreNull())
+                    this.cNombre = dr.cNombre;
+                if (!dr.IsidRouterANull())
+                    this.idRouterA = dr.idRouterA;
+                if (!dr.IsidRouterBNull())
+                    this.idRouterB = dr.idRouterB;
+                if (!dr.IsnBandwidthNull())
+                    this.nBandwidth = dr.nBandwidth;
+                if (!dr.IsnPesoAdministrativoNull())
+                    this.nPesoAdministrativo = dr.nPesoAdministrativo;
             }
         }
     }

@@ -172,7 +172,7 @@ namespace ProyectoMPLS.Models.Topologia
 
             foreach(var item in this.listadoEnlaces)
             {
-                Adapter.InsertarActualizarEnlace(this.idProyecto, item.idEnlace, item.cNombre, item.idRouterA, item.idRouterB, (int)item.nBandwidth, (int)item.nPesoAdministrativo, item.cAfinidad);
+                Adapter.InsertarActualizarEnlace(this.idProyecto, item.idEnlace, item.cNombre, item.idRouterA, item.idRouterB, (int)item.nBandwidth, (int)item.nPesoAdministrativo, item.idAfinidad);
             }
         }
 
@@ -229,7 +229,7 @@ namespace ProyectoMPLS.Models.Topologia
                 if (!dr.IsnPesoAdministrativoNull())
                     temp.nPesoAdministrativo = dr.nPesoAdministrativo;
                 if (!dr.IscAfinidadNull())
-                    temp.cAfinidad = dr.cAfinidad;
+                    temp.idAfinidad = dr.idAfinidad;
                 listaEnlaces.Add(temp);
             }
 
