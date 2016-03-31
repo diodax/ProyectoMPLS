@@ -71,9 +71,7 @@
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                        @*<p>
-                            <small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
-                        </p>*@
+                       
                     </div>
                     @*<div class="timeline-body">
                         <p>Lorem ipsum dolor sit luptas suscipit facere rem dicta, debitis.</p>
@@ -84,6 +82,166 @@
         </ul>
 
     </div>
+
+    <!--
+      This is a combination of two pens:
+
+      CSS3 Horizontal Timeline
+      By Peiwen Lu Follow
+      http://codepen.io/P233/details/LobqH
+
+      Form Progress
+      By Robin Brons Follow
+      http://codepen.io/bronsrobin/details/dKqcf
+
+
+      At the moment I don't need the functionality of showing content on click, but it can easily be re-added. The HTML didn't change much.
+
+      The big version adapts to 100% width. The small version is set to 200px, but also works using the full width.
+
+      I needed an easy adaptable 'summary'-like version as well.
+      This is using the same HTML and minimal CSS modifications.
+      Colors and other things can be configured by using the SCSS variables.
+
+      For a 'debugging'-view set $timeline-debug: true;
+
+      It's based on bootstrap v3 but only because of the text-alignment. You could do it without. I'm just lazy.
+    -->
+
+    <h1>Horizontal Timeline</h1>
+
+    <br>
+
+    <ol class="timeline">
+        <li class="timeline__step done">
+            <input class="timeline__step-radio" id="trigger1{{identifier}}" name="trigger{{identifier}}" type="radio">
+
+            <label class="timeline__step-label" for="trigger1{{identifier}}">
+                <span class="timeline__step-content">
+                    12 May 2013
+                </span>
+            </label>
+
+            <span class="timeline__step-title">
+                Step 1
+            </span>
+
+            <i class="timeline__step-marker">1</i>
+        </li>
+        <li class="timeline__step done">
+            <input class="timeline__step-radio" id="trigger2{{identifier}}" name="trigger{{identifier}}" type="radio">
+
+            <label class="timeline__step-label" for="trigger2{{identifier}}">
+                <span class="timeline__step-content">
+                    14 May 2013
+                </span>
+            </label>
+
+            <span class="timeline__step-title">
+                Step 2
+            </span>
+
+            <i class="timeline__step-marker">2</i>
+        </li>
+        <li class="timeline__step">
+            <input class="timeline__step-radio" id="trigger3{{identifier}}" name="trigger{{identifier}}" type="radio">
+
+            <label class="timeline__step-label" for="trigger3{{identifier}}">
+                <span class="timeline__step-content">
+                    15 May 2013
+                </span>
+            </label>
+
+            <span class="timeline__step-title">
+                Step 3
+            </span>
+
+            <i class="timeline__step-marker">3</i>
+        </li>
+        <li class="timeline__step">
+            <input class="timeline__step-radio" id="trigger4{{identifier}}" name="trigger{{identifier}}" type="radio">
+
+            <label class="timeline__step-label" for="trigger4{{identifier}}">
+                <span class="timeline__step-content">
+                    16 May 2013
+                </span>
+            </label>
+
+            <span class="timeline__step-title">
+                Step 4
+            </span>
+
+            <i class="timeline__step-marker">4</i>
+        </li>
+    </ol>
+
+    <br><br>
+
+    <h2>Summary Version</h2>
+    <br>
+
+    <ol class="timeline timeline--summary">
+        <li class="timeline__step done">
+            <input class="timeline__step-radio" id="trigger1{{identifier}}" name="trigger{{identifier}}" type="radio">
+
+            <label class="timeline__step-label" for="trigger1{{identifier}}">
+                <span class="timeline__step-content">
+                    12 May 2013
+                </span>
+            </label>
+
+            <span class="timeline__step-title">
+                Step 1
+            </span>
+
+            <i class="timeline__step-marker">1</i>
+        </li>
+        <li class="timeline__step done">
+            <input class="timeline__step-radio" id="trigger2{{identifier}}" name="trigger{{identifier}}" type="radio">
+
+            <label class="timeline__step-label" for="trigger2{{identifier}}">
+                <span class="timeline__step-content">
+                    14 May 2013
+                </span>
+            </label>
+
+            <span class="timeline__step-title">
+                Step 2
+            </span>
+
+            <i class="timeline__step-marker">2</i>
+        </li>
+        <li class="timeline__step">
+            <input class="timeline__step-radio" id="trigger3{{identifier}}" name="trigger{{identifier}}" type="radio">
+
+            <label class="timeline__step-label" for="trigger3{{identifier}}">
+                <span class="timeline__step-content">
+                    15 May 2013
+                </span>
+            </label>
+
+            <span class="timeline__step-title">
+                Step 3
+            </span>
+
+            <i class="timeline__step-marker">3</i>
+        </li>
+        <li class="timeline__step">
+            <input class="timeline__step-radio" id="trigger4{{identifier}}" name="trigger{{identifier}}" type="radio">
+
+            <label class="timeline__step-label" for="trigger4{{identifier}}">
+                <span class="timeline__step-content">
+                    16 May 2013
+                </span>
+            </label>
+
+            <span class="timeline__step-title">
+                Step 4
+            </span>
+
+            <i class="timeline__step-marker">4</i>
+        </li>
+    </ol>
 
 </div>
 <div class="modal-footer">
