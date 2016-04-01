@@ -46,7 +46,22 @@ $(document).ready(function () {
     
     // funcion que abre modal de _ConfigEnlace
     function abrirConfigEnlace(e, obj) {
-        window.open('/Topologia/_ConfigEnlace?idEnlace=1&idProyecto=79', '_self', 'datamodal=""');
+        //window.open('/Topologia/_ConfigEnlace?idEnlace=1&idProyecto=79', '_self', 'datamodal=""');
+        var href = '/Topologia/_ConfigEnlace?idEnlace=1&idProyecto=79';
+
+        // hide dropdown if any
+        $(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
+
+        $('#myModalContent').load(href, function () {
+            $('#myModal').modal({
+                /*backdrop: 'static',*/
+                keyboard: true
+            }, 'show');
+
+            bindForm(this);
+        });
+
+        return false;
     }
 
     // define a Link template that routes orthogonally, with no arrowhead
