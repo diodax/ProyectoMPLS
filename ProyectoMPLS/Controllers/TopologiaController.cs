@@ -62,7 +62,7 @@ namespace ProyectoMPLS.Controllers
         public ActionResult _CrearLSP(int idProyecto)
         {
             LSP newModel = new LSP();
-            newModel.listaNodosDisponibles = LSP.ConvertDropdownNodosDisponibles(LSP.SelectListaNodosDisponibles(idProyecto, null));
+            newModel.listaNodosDisponibles = LSP.ConvertDropdownNodosDisponibles(LSP.SelectListaNodosDisponibles(idProyecto, null, 0));
             return PartialView(newModel);
         }
 
