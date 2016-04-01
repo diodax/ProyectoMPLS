@@ -85,11 +85,11 @@ namespace ProyectoMPLS.Models.Topologia
         /// </summary>
         /// <param name="idProyecto"></param>
         /// <returns></returns>
-        public static List<Router> SelectListaNodosDisponibles(int idProyecto, int? idRouter)
+        public static List<Router> SelectListaNodosDisponibles(int idProyecto, int? idRouter, int nBandwidthReservado)
         {
             List<Router> listaNodos = new List<Router>();
             Data.dsTopologiaTableAdapters.NodosAdyacentesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.NodosAdyacentesTableAdapter();
-            Data.dsTopologia.NodosAdyacentesDataTable dt = Adapter.SeleccionarNodosAdyacentes(idProyecto, idRouter);
+            Data.dsTopologia.NodosAdyacentesDataTable dt = Adapter.SeleccionarNodosAdyacentes(idProyecto, idRouter, nBandwidthReservado);
 
             foreach (var dr in dt)
             {

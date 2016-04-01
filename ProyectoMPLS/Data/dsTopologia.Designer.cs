@@ -5157,13 +5157,14 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idProyecto", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idRouter", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nBandwidthReservado", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual dsTopologia.NodosAdyacentesDataTable SeleccionarNodosAdyacentes(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idRouter) {
+        public virtual dsTopologia.NodosAdyacentesDataTable SeleccionarNodosAdyacentes(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idRouter, global::System.Nullable<int> nBandwidthReservado) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((idProyecto.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(idProyecto.Value));
@@ -5176,6 +5177,12 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             }
             else {
                 this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((nBandwidthReservado.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((int)(nBandwidthReservado.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             dsTopologia.NodosAdyacentesDataTable dataTable = new dsTopologia.NodosAdyacentesDataTable();
             this.Adapter.Fill(dataTable);
