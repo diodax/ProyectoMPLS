@@ -27,7 +27,7 @@ namespace ProyectoMPLS.Models.Topologia
 
         [Display(Name = "Nodo de Origen")]
         public int nRouterOrigen { get; set; }
-        [Display(Name = "Nodo Actual")]
+        [Display(Name = "Nodo Destino")]
         public int nRouterDestino { get; set; }
 
         [Display(Name = "Afinidad")]
@@ -39,6 +39,8 @@ namespace ProyectoMPLS.Models.Topologia
         //public Proyecto proyectoActual { get; set; }
         public Enlace enlaceActual { get; set; }
         public List<SelectListItem> listaNodos { get; set; }
+
+        public EnlaceViewModel() { }
 
         /// <summary>
         /// Constructor para inicializar la plantilla con el ID de un proyecto específico
