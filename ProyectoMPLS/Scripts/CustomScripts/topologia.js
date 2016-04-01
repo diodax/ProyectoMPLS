@@ -12,6 +12,18 @@ $(document).ready(function () {
 
     myDiagram.allowDrop = true;  // permit accepting drag-and-drops
 
+    // when the document is modified, add a "*" to the title and enable the "Save" button
+    myDiagram.addDiagramListener("Modified", function (e) {
+        var button = document.getElementById("save");
+        if (button) button.disabled = !myDiagram.isModified;
+        var idx = document.title.indexOf("*");
+        if (myDiagram.isModified) {
+            if (idx < 0) document.title += "*";
+        } else {
+            if (idx >= 0) document.title = document.title.substr(0, idx);
+        }
+    });
+
     // define a simple Node template
     myDiagram.nodeTemplate =
         $$(go.Node, "Auto",
@@ -39,6 +51,7 @@ $(document).ready(function () {
         $$(go.Shape, { strokeWidth: 3, stroke: "#555" })); // the link shape
 
     var image = '/Content/Images/' + 'router.png';
+    var model = $$(go.GraphLinksModel);
 
     $.ajax({
         url: '/Topologia/GetJsonTopologia',
@@ -49,7 +62,7 @@ $(document).ready(function () {
         success: function (result) {
             //Inicio AJAX --
             var image2 = '/Content/Images/' + 'router.png';
-            var model = $$(go.GraphLinksModel);
+            //var model = $$(go.GraphLinksModel);
 
             //alert("working");
             //console.log(result.routers);
@@ -119,7 +132,50 @@ $(document).ready(function () {
     })
 
     $('#save').click(function () {
-        //myDiagram.commandHandler.
+        //document.getElementById("mySavedModel").value = myDiagram.model.toJson();
+        var result = [];
+
+        $.ajax({
+            url: '/Topologia/SetJsonTopologia',
+            type: 'POST',
+            contentType: "application/json",
+            //datatype: "json",
+            beforeSend: function () {
+                var arrayRouters = model.nodeDataArray;
+                //result = [];
+
+                $.each(arrayRouters, function (i, item) {
+                    result.push({ "idRouter": arrayRouters[i].key, "cHostname": arrayRouters[i].name });
+                });
+
+                console.log(result);
+                //return result;
+                //idProyecto: $("#tbxIdProyecto").val()
+            },
+            data: {
+                result
+            },
+            success: function () {
+                //Inicio AJAX --
+                /*var arrayRouters = model.nodeDataArray;
+                result = [];
+
+                $.each(arrayRouters, function (i, item) {
+                    result.push({ "idRouter": arrayRouters[i].key, "cHostname": arrayRouters[i].name });
+                });
+
+                console.log(result);*/
+                //Fin AJAX --
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+                console.log(errorThrown);
+                $("#error").html(jqXHR.responseText);
+            }
+        });
+
+        // TODO cambiar linea anterior por metodo que vayamos a usar para grabar
+        myDiagram.isModified = false;
     })
 
     $('#cut').click(function () {

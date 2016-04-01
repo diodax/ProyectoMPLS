@@ -4,7 +4,9 @@
     ViewBag.Title = "Editar";
 }
 
-<h2>Editar Topología</h2>
+@*<h2>Editar Topología</h2>*@
+<h2>@Html.DisplayTextFor(model => model.cTitulo)</h2>
+
 @Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
 
 <!-- modal placeholder-->
@@ -67,6 +69,10 @@
 
             <ul class="nav navbar-nav navbar-left">
                 <li><a data-modal="" href='@Url.Action("_CrearCSPF", "Topologia", new { idProyecto = Model.idProyecto })'>Aplicar CSPF</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a data-modal="" href='@Url.Action("_ConfigEnlace", "Topologia", new { idEnlace = ViewBag.idEnlace, idProyecto = Model.idProyecto})'>Configurar Enlace</a></li>
             </ul>
 
 
