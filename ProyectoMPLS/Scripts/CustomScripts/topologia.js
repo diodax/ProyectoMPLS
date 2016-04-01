@@ -43,12 +43,19 @@ $(document).ready(function () {
             // TextBlock.text is data bound to the "name" attribute of the model data
             new go.Binding("text", "name"))
         );
-        
+    
+    // funcion que abre modal de _ConfigEnlace
+    function abrirConfigEnlace(e, obj) {
+        window.open('/Topologia/_ConfigEnlace?idEnlace=1&idProyecto=79', '_self', 'datamodal=""');
+    }
+
     // define a Link template that routes orthogonally, with no arrowhead
     myDiagram.linkTemplate =
       $$(go.Link,
         { routing: go.Link.Normal, corner: 5 },
-        $$(go.Shape, { strokeWidth: 3, stroke: "#555" })); // the link shape
+        $$(go.Shape, { strokeWidth: 3, stroke: "#555" }),
+        { contextClick: abrirConfigEnlace }
+        ); // the link shape
 
     var image = '/Content/Images/' + 'router.png';
     var model = $$(go.GraphLinksModel);
