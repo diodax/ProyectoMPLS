@@ -1131,6 +1131,8 @@ namespace ProyectoMPLS.Data {
             
             private global::System.Data.DataColumn columncAfinidad;
             
+            private global::System.Data.DataColumn columnidAfinidad;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public EnlacesDataTable() {
@@ -1230,6 +1232,14 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn idAfinidadColumn {
+                get {
+                    return this.columnidAfinidad;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1265,7 +1275,7 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public EnlacesRow AddEnlacesRow(int idProyecto, int idEnlace, string cNombre, int idRouterA, int idRouterB, int nBandwidth, int nPesoAdministrativo, string cAfinidad) {
+            public EnlacesRow AddEnlacesRow(int idProyecto, int idEnlace, string cNombre, int idRouterA, int idRouterB, int nBandwidth, int nPesoAdministrativo, string cAfinidad, int idAfinidad) {
                 EnlacesRow rowEnlacesRow = ((EnlacesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         idProyecto,
@@ -1275,7 +1285,8 @@ namespace ProyectoMPLS.Data {
                         idRouterB,
                         nBandwidth,
                         nPesoAdministrativo,
-                        cAfinidad};
+                        cAfinidad,
+                        idAfinidad};
                 rowEnlacesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowEnlacesRow);
                 return rowEnlacesRow;
@@ -1314,6 +1325,7 @@ namespace ProyectoMPLS.Data {
                 this.columnnBandwidth = base.Columns["nBandwidth"];
                 this.columnnPesoAdministrativo = base.Columns["nPesoAdministrativo"];
                 this.columncAfinidad = base.Columns["cAfinidad"];
+                this.columnidAfinidad = base.Columns["idAfinidad"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1335,6 +1347,8 @@ namespace ProyectoMPLS.Data {
                 base.Columns.Add(this.columnnPesoAdministrativo);
                 this.columncAfinidad = new global::System.Data.DataColumn("cAfinidad", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncAfinidad);
+                this.columnidAfinidad = new global::System.Data.DataColumn("idAfinidad", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnidAfinidad);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnidProyecto,
                                 this.columnidEnlace}, true));
@@ -3077,6 +3091,22 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int idAfinidad {
+                get {
+                    try {
+                        return ((int)(this[this.tableEnlaces.idAfinidadColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'idAfinidad\' in table \'Enlaces\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEnlaces.idAfinidadColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IscNombreNull() {
                 return this.IsNull(this.tableEnlaces.cNombreColumn);
             }
@@ -3145,6 +3175,18 @@ namespace ProyectoMPLS.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetcAfinidadNull() {
                 this[this.tableEnlaces.cAfinidadColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsidAfinidadNull() {
+                return this.IsNull(this.tableEnlaces.idAfinidadColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetidAfinidadNull() {
+                this[this.tableEnlaces.idAfinidadColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4467,6 +4509,7 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             tableMapping.ColumnMappings.Add("nBandwidth", "nBandwidth");
             tableMapping.ColumnMappings.Add("nPesoAdministrativo", "nPesoAdministrativo");
             tableMapping.ColumnMappings.Add("cAfinidad", "cAfinidad");
+            tableMapping.ColumnMappings.Add("idAfinidad", "idAfinidad");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -4499,7 +4542,7 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idRouterB", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nBandwidth", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nPesoAdministrativo", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cAfinidad", global::System.Data.SqlDbType.VarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idAfinidad", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = "dbo.spT_SelectEnlace";
@@ -4552,7 +4595,7 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int InsertarActualizarEnlace(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idEnlace, string cNombre, global::System.Nullable<int> idRouterA, global::System.Nullable<int> idRouterB, global::System.Nullable<int> nBandwidth, global::System.Nullable<int> nPesoAdministrativo, string cAfinidad) {
+        public virtual int InsertarActualizarEnlace(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idEnlace, string cNombre, global::System.Nullable<int> idRouterA, global::System.Nullable<int> idRouterB, global::System.Nullable<int> nBandwidth, global::System.Nullable<int> nPesoAdministrativo, global::System.Nullable<int> idAfinidad) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((idProyecto.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(idProyecto.Value));
@@ -4596,11 +4639,11 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             else {
                 command.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((cAfinidad == null)) {
-                command.Parameters[8].Value = global::System.DBNull.Value;
+            if ((idAfinidad.HasValue == true)) {
+                command.Parameters[8].Value = ((int)(idAfinidad.Value));
             }
             else {
-                command.Parameters[8].Value = ((string)(cAfinidad));
+                command.Parameters[8].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 

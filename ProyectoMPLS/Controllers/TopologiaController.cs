@@ -270,6 +270,7 @@ namespace ProyectoMPLS.Controllers
         public ActionResult Editar(int idProyecto)
         {
             Proyecto newModel = new Proyecto(idProyecto);
+            ViewBag.idEnlace = "1";
             return View(newModel);
         }
 
@@ -319,5 +320,42 @@ namespace ProyectoMPLS.Controllers
             //return Json(new { routers = temp }, JsonRequestBehavior.AllowGet);
             return Json(new { routers = temp.listadoRouters, enlaces = temp.listadoEnlaces }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult SetJsonTopologia(JsonResult result)
+        {
+            var arrayRouters = result.Data;
+            Console.Write(result);
+            return Json(arrayRouters);
+        }
+
+        #region Enlace
+        
+        public ActionResult _ConfigEnlace(int idEnlace, int idProyecto)
+        {
+            //int idProyecto = 79;
+            EnlaceViewModel newModel = new EnlaceViewModel(idEnlace, idProyecto);
+
+
+
+            return PartialView(newModel);
+        }
+
+        [HttpPost]
+        public ActionResult _ConfigEnlace(EnlaceViewModel newModel)
+        {
+            if (ModelState.IsValid)
+            {
+                newModel.insertUpdateEnlace();
+                return Json(new { success = true });
+                //return RedirectToAction("Editar", new { idProyecto = newModel.idProyecto });
+            }
+            else
+            {
+                return PartialView(newModel);
+            }
+        }
+
+        #endregion
     }
 }
