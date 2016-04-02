@@ -24,11 +24,14 @@ namespace ProyectoMPLS.Models.Topologia
 
         [Display(Name = "Peso Administrativo")]
         public double nPesoAdministrativo { get; set; }
+        
+        public int idRouterA { get; set; }
+        public int idRouterB { get; set; }
 
         [Display(Name = "Nodo de Origen")]
-        public int nRouterOrigen { get; set; }
+        public string cNombreRouterA { get; set; }
         [Display(Name = "Nodo Destino")]
-        public int nRouterDestino { get; set; }
+        public string cNombreRouterB { get; set; }
 
         [Display(Name = "Afinidad")]
         public int idAfinidad { get; set; }
@@ -54,19 +57,43 @@ namespace ProyectoMPLS.Models.Topologia
             this.enlaceActual = new Enlace(idEnlace, idProyecto);
             this.listaNodos = new List<SelectListItem>();
 
-            /*foreach (var nodo in this.proyectoActual.listadoRouters)
+            Data.dsTopologiaTableAdapters.EnlacesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.EnlacesTableAdapter();
+            Data.dsTopologia.EnlacesDataTable dt = Adapter.SelectEnlace(idProyecto, idEnlace);
+
+            if (dt.Rows.Count > 0)
             {
-                SelectListItem temp = new SelectListItem();
-                temp.Value = nodo.idRouter.ToString();
-                temp.Text = nodo.cHostname.ToString().Trim();
-                listaNodos.Add(temp);
-            }*/
+                Data.dsTopologia.EnlacesRow dr = dt[0];
+                this.idEnlace = idEnlace;
+                this.idProyecto = idProyecto;
+                if (!dr.IscNombreNull())
+                    this.cNombre = dr.cNombre;
+                if (!dr.IsnBandwidthNull())
+                    this.nBandwidth = dr.nBandwidth;
+                if (!dr.IsnPesoAdministrativoNull())
+                    this.nPesoAdministrativo = dr.nPesoAdministrativo;
+                if (!dr.IsidRouterANull())
+                    this.idRouterA = dr.idRouterA;
+                if (!dr.IsidRouterBNull())
+                    this.idRouterB = dr.idRouterB;
+                if (!dr.IscAfinidadNull())
+                    this.idAfinidad = dr.idAfinidad;
+                
+                //var idRouterA = this.idRouterA;
+                //var idRouterB = this.idRouterB;
+
+                Router routerA = new LSR(idProyecto, this.idRouterA);
+                Router routerB = new LSR(idProyecto, this.idRouterB);
+
+                this.cNombreRouterA = routerA.cHostname;
+                this.cNombreRouterB = routerB.cHostname;
+            }
+
         }
 
         public void insertUpdateEnlace()
         {
             Data.dsTopologiaTableAdapters.EnlacesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.EnlacesTableAdapter();
-            Adapter.InsertarActualizarEnlace(this.idProyecto, this.idEnlace, this.cNombre, this.nRouterOrigen, this.nRouterDestino, (int)this.nBandwidth, (int)this.nPesoAdministrativo, this.idAfinidad);
+            Adapter.InsertarActualizarEnlace(this.idProyecto, this.idEnlace, this.cNombre, this.idRouterA, this.idRouterB, (int)this.nBandwidth, (int)this.nPesoAdministrativo, this.idAfinidad);
         }
     }
 }

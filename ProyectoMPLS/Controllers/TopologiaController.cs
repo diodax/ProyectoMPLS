@@ -356,6 +356,18 @@ namespace ProyectoMPLS.Controllers
             }
         }
 
+        public ActionResult selectNombresRouters(int idEnlace, int idProyecto)
+        {
+            Enlace e = new Enlace(idEnlace, idProyecto);
+            var idRouterA = e.idRouterA;
+            var idRouterB = e.idRouterB;
+
+            Router routerA = new LSR(idRouterA, idProyecto);
+            Router routerB = new LSR(idRouterB, idProyecto);
+
+            return Json(new { nombreRouterA = routerA.cHostname, nombreRouterB = routerB.cHostname}, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
     }
 }

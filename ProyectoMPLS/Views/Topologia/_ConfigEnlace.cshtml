@@ -14,18 +14,41 @@
 
         @Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
         @Html.HiddenFor(model => model.idEnlace, new { id = "tbxIdEnlace" })
-
+        
+        @Html.HiddenFor(model => model.idRouterA, new { id = "tbxIdRouterA" })
+        @Html.HiddenFor(model => model.idRouterB, new { id = "tbxIdRouterB" })
 
         <div class="form-group">
             <label for="focusedinput" class="col-sm-3 control-label">
                 @Html.LabelFor(model => model.cNombre)
             </label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.cNombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.cNombre, new { htmlAttributes = new { @class = "form-control" }
+})
                 @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cNombre, "", new { @class = "text-danger" }).ToHtmlString()))
             </div>
         </div>
-        
+
+        <div class="form-group">
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cNombreRouterA)
+            </label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.cNombreRouterA, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"} })
+                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cNombreRouterA, "", new { @class = "text-danger" }).ToHtmlString()))
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.cNombreRouterB)
+            </label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.cNombreRouterB, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cNombreRouterB, "", new { @class = "text-danger" }).ToHtmlString()))
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="focusedinput" class="col-sm-3 control-label">
                 @Html.LabelFor(model => model.nBandwidth)
@@ -46,26 +69,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="focusedinput" class="col-sm-3 control-label">
-                @Html.LabelFor(model => model.nRouterOrigen)
-            </label>
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.nRouterOrigen, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nRouterOrigen, "", new { @class = "text-danger" }).ToHtmlString()))
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label for="focusedinput" class="col-sm-3 control-label">
-                @Html.LabelFor(model => model.nRouterDestino)
-            </label>
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.nRouterDestino, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nRouterDestino, "", new { @class = "text-danger" }).ToHtmlString()))
-            </div>
-        </div>
-            
         @*<div class="form-group">
                 <label for="focusedinput" class="col-sm-3 control-label">
                     @Html.LabelFor(model => model.nTipoMetrica)
@@ -86,7 +90,9 @@
 }
 
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
+        console.log("IDRouterA " + $("#tbxIdRouterA").val());
+        console.log("IDRouterB " + $("#tbxIdRouterA").val());
             $("#submitConfigEnlace").click(function () {
                 var form = $("#DataFormEnlace")[0];
                 var formData = new FormData(form);
@@ -105,7 +111,7 @@
                         if (result.success) {
                             //whatever
                             $('#myModal').modal('hide');
-                            window.location.reload(true);   //refresh page
+                            // window.location.reload(true);   //refresh page
                         } else {
                             $('#myModalContent').html(result);
                         }

@@ -47,7 +47,19 @@ $(document).ready(function () {
     // funcion que abre modal de _ConfigEnlace
     function abrirConfigEnlace(e, obj) {
         //window.open('/Topologia/_ConfigEnlace?idEnlace=1&idProyecto=79', '_self', 'datamodal=""');
-        var href = '/Topologia/_ConfigEnlace?idEnlace=1&idProyecto=79';
+
+        //var idEnlace = $('#tbxIdEnlace').val();
+        //console.log(idEnlace);
+        var idProyecto = $('#tbxIdProyecto').val();
+        
+        console.log(obj);
+
+        // console.log(idProyecto);
+        //console.log(obj.data.from);
+        //console.log(obj.data.to);
+        idEnlace = obj.data.idEnlace;
+        //console.log(idEnlace);
+        var href = '/Topologia/_ConfigEnlace?idEnlace=' + idEnlace + '&idProyecto=' + idProyecto;
 
         // hide dropdown if any
         $(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
@@ -70,6 +82,7 @@ $(document).ready(function () {
         { routing: go.Link.Normal, corner: 5 },
         $$(go.Shape, { strokeWidth: 3, stroke: "#555" }),
         { contextClick: abrirConfigEnlace }
+        //{ idEnlace: 0 }
         ); // the link shape
 
     var image = '/Content/Images/' + 'router.png';
@@ -102,8 +115,13 @@ $(document).ready(function () {
             model.nodeDataArray = arrayRouters;
 
             var arrayLinks = [];
+            console.log(result.enlaces);
             $.each(result.enlaces, function (i, item) {
-                arrayLinks.push({ "from": result.enlaces[i].idRouterA, "to": result.enlaces[i].idRouterB, toArrow: ""});
+                // console.log(result.enlaces);
+                //console.log("from: " + result.enlaces[i].idRouterA);
+                //console.log("to: " + result.enlaces[i].idRouterB);
+                //console.log("idEnlace: " + result.enlaces[i].idEnlace);
+                arrayLinks.push({ "from": result.enlaces[i].idRouterA, "to": result.enlaces[i].idRouterB, toArrow: "", "idEnlace": result.enlaces[i].idEnlace});
             });
 
             //$(result.enlaces).each(function () {
