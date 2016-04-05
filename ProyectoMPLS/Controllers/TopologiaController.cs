@@ -71,6 +71,14 @@ namespace ProyectoMPLS.Controllers
             return PartialView();
         }
 
+        public ActionResult _ListaAfinidades(int idProyecto)
+        {
+            List<Afinidad> listaAfinidades = new List<Afinidad>();
+            listaAfinidades = Afinidad.SelectListaAfinidades(idProyecto);
+            return PartialView(listaAfinidades);
+
+        }
+
         //TODO: Esto
         public ActionResult _GetListaEnlaces (string idRouter, double nBandwidth)
         {

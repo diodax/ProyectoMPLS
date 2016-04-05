@@ -199,6 +199,7 @@
     <Compile Include="Models\Comunicacion\Tabla.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModuleAuthorize.cs" />
+    <Compile Include="Models\Topologia\Afinidad.cs" />
     <Compile Include="Models\Topologia\EnlaceViewModel.cs" />
     <Compile Include="Models\Topologia\CSPFViewModel.cs" />
     <Compile Include="Models\Topologia\Dijkstra.cs" />
@@ -285,6 +286,7 @@
     <None Include="Properties\PublishProfiles\AWS.pubxml" />
     <Content Include="Views\Usuario\Settings.cshtml" />
     <Content Include="Views\Topologia\_ConfigEnlace.cshtml" />
+    <Content Include="Views\Topologia\_ListaAfinidades.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

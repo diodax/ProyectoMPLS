@@ -72,8 +72,12 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" href='@Url.Action("_ConfigEnlace", "Topologia", new { idEnlace = ViewBag.idEnlace, idProyecto = Model.idProyecto})'>Configurar Enlace</a></li>
+                <li><a data-modal="" href='@Url.Action("_ListaAfinidades", "Topologia", new { idProyecto = Model.idProyecto})'>Lista de Afinidades</a></li>
             </ul>
+
+            @*<ul class="nav navbar-nav navbar-left">
+                <li><a data-modal="" href='@Url.Action("_ConfigEnlace", "Topologia", new { idEnlace = ViewBag.idEnlace, idProyecto = Model.idProyecto})'>Configurar Enlace</a></li>
+            </ul>*@
 
 
             @*<ul class="nav navbar-nav navbar-right">
