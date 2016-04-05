@@ -180,6 +180,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TopologiaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Data\dsEnrutamiento.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsEnrutamiento.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Data\dsTopologia.Designer.cs" />
     <Compile Include="Data\dsUsuarios.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -221,6 +226,7 @@
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\horizontal-timeline-dep.css" />
     <Content Include="Content\horizontal-timeline.css" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\router.png" />
@@ -282,6 +288,17 @@
     <Content Include="Web.config" />
     <Content Include="Views\Topologia\_CrearProyectoVacio.cshtml" />
     <Content Include="Views\Topologia\_CrearCSPF.cshtml" />
+    <Content Include="Data\dsEnrutamiento.xsc">
+      <DependentUpon>dsEnrutamiento.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsEnrutamiento.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsEnrutamiento.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Data\dsEnrutamiento.xss">
+      <DependentUpon>dsEnrutamiento.xsd</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\AWS.pubxml" />
     <Content Include="Views\Usuario\Settings.cshtml" />
     <Content Include="Views\Topologia\_ConfigEnlace.cshtml" />

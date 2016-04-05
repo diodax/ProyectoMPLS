@@ -1,147 +1,119 @@
 ﻿.timeline {
-  margin: 20px 0;
-  padding: 0;
-  border-top: 2px solid #428bca;
-  list-style: none;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.timeline__step {
-  float: left;
-  width: 25%;
-  padding-top: 30px;
+.li {
+  transition: all 200ms ease-in;
+}
+
+.timestamp {
+  margin-bottom: 20px;
+  padding: 0px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 100;
+}
+
+.status {
+  padding: 0px 40px;
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid #D6DCE0;
   position: relative;
+  transition: all 200ms ease-in;
 }
-.timeline__step:first-of-type:before, .timeline__step:last-of-type:before {
+.status h4 {
+  font-weight: 600;
+}
+.status:before {
   content: "";
-  width: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: -15px;
+  left: 42%;
+  transition: all 200ms ease-in;
+}
+
+.li.complete .status {
+  border-top: 2px solid #66DC71;
+}
+.li.complete .status:before {
+  background-color: #66DC71;
+  border: none;
+  transition: all 200ms ease-in;
+}
+.li.complete .status h4 {
+  color: #66DC71;
+}
+
+@media (min-device-width: 320px) and (max-device-width: 700px) {
+  .timeline {
+    list-style-type: none;
+    display: block;
+  }
+
+  .li {
+    transition: all 200ms ease-in;
+    display: flex;
+    width: inherit;
+  }
+
+  .timestamp {
+    width: 100px;
+  }
+
+  .status:before {
+    left: -8%;
+    top: 30%;
+    transition: all 200ms ease-in;
+  }
+}
+
+/*.label {
+    width: 100%;
   height: 100%;
-  background: #fff;
-  position: absolute;
-  top: -2px;
-  left: 0;
-}
-.timeline__step:last-of-type:before {
-  left: 50%;
-}
-.timeline__step:hover .timeline__step-label {
-  opacity: 1;
-  -webkit-transform: rotate(0deg);
-  height: auto;
-  padding: 5px 10px;
-  font-size: 12px;
-  border-width: 1px;
-  bottom: 100%;
-}
-.timeline__step:hover .timeline__step-label:before, .timeline__step:hover .timeline__step-label:after {
-  display: block;
-}
+  display: flex;
+  justify-content: center;
+  font-family: "Titillium Web", sans serif;
+  color: #758D96;
+}*/
 
-.timeline__step-label {
-  opacity: 0;
-  height: 0;
-  padding: 0;
-  font-size: 0;
-  border-width: 0;
-  -webkit-transform: rotate(30deg);
-  width: 110px;
-  margin: 0 0 45px -55px;
-  border-style: solid;
-  border-color: #428bca;
-  background: #fff;
-  font-weight: normal;
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transition: bottom 0.1s ease-in-out, opacity 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out;
-}
-.timeline__step-label:before, .timeline__step-label:after {
-  display: none;
-  content: "";
-  width: 0;
-  height: 0;
-  border: solid transparent;
-  pointer-events: none;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-}
-.timeline__step-label:before {
-  border-top-color: #428bca;
-  border-width: 8px;
-  margin-left: -8px;
-}
-.timeline__step-label:after {
-  border-top-color: #fff;
-  border-width: 6px;
-  margin-left: -6px;
-}
-
-.timeline__step-content {
-  display: block;
-  overflow: hidden;
-  text-align: center;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.timeline__step-title {
-  display: block;
+/*
+html, body {
   width: 100%;
-  padding: 30px 0 0;
-  font-size: 12px;
-  text-align: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  font-family: "Titillium Web", sans serif;
+  color: #758D96;
+}
+    /*
+
+button {
   position: absolute;
-  top: 0;
-}
-
-.timeline__step-marker {
-  width: 50px;
-  height: 50px;
-  margin-left: -25px;
-  background: #fff;
-  border: 4px solid #428bca;
-  border-radius: 50%;
-  box-shadow: 0 0 0 10px #fff;
+  width: 100px;
+  min-width: 100px;
+  padding: 20px;
+  margin: 20px;
+  font-family: "Titillium Web", sans serif;
+  border: none;
+  color: white;
+  font-size: 16px;
   text-align: center;
-  line-height: 50px -10;
-  color: #428bca;
-  font-size: 2em;
-  font-style: normal;
+}
+
+#toggleButton {
   position: absolute;
-  top: -26px;
-  left: 50%;
+  left: 50px;
+  top: 20px;
+  background-color: #75C7F6;
 }
-.done .timeline__step-marker {
-  background: #428bca;
-  color: #fff;
-}
-
-.timeline__step-radio {
-  display: none;
-  /**
-   * not needed for now,
-   * because markers won't be clicked in horz version
-   */
-}
-
-.timeline--summary {
-  width: 200px;
-  border-width: 2px;
-}
-.timeline--summary .timeline__step-label {
-  margin-bottom: 19px;
-}
-.timeline--summary .timeline__step-title {
-  padding: 10px 0 0;
-  font-size: 8px;
-  font-weight: bold;
-}
-.timeline--summary .timeline__step-marker {
-  width: 12px;
-  height: 12px;
-  margin-left: -6px;
-  border-width: 2px;
-  text-indent: -999em;
-  box-shadow: 0 0 0 3px #fff;
-  top: -7px;
-}
+    */
