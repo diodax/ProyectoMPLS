@@ -13,7 +13,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
      
-        @Html.HiddenFor(model => model.idProyecto)
+        @Html.HiddenFor(model => model.idProyecto, new { @id = "tbxProyecto" })
         @Html.HiddenFor(model => model.idLSP)
         
             
@@ -32,7 +32,7 @@
             @Html.LabelFor(model => model.nBandwidth)
         </label>
         <div class="col-md-6">
-            @Html.EditorFor(model => model.nBandwidth, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.nBandwidth, new { htmlAttributes = new { @class = "form-control", @id = "tbxBandwidth", @type = "number", min = "0" } })
             @Html.ValidationMessageFor(model => model.nBandwidth, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -42,7 +42,7 @@
             @Html.LabelFor(model => model.idRouterOrigen)
         </label>
         <div class="col-md-6">
-            @Html.DropDownListFor(model => model.idRouterOrigen, Model.listaNodosDisponibles, new { @class = "form-control", @id = "dpxNextHop" })
+            @Html.DropDownListFor(model => model.idRouterOrigen, Model.listaNodosOrigen, new { @class = "form-control", @id = "dpxRouterOrigen" })
             @Html.ValidationMessageFor(model => model.idRouterOrigen, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -52,7 +52,7 @@
             @Html.LabelFor(model => model.idRouterDestino)
         </label>
         <div class="col-md-5">
-            @Html.EditorFor(model => model.idRouterDestino, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.idRouterDestino, Model.listaNextHop, new { @class = "form-control", @id = "dpxNextHop" })
             @Html.ValidationMessageFor(model => model.idRouterDestino, "", new { @class = "text-danger" })
             
         </div>
@@ -64,72 +64,51 @@
     </div> 
           
 
-    
+    <br />
 
-    <ol class="timeline">
-        <li class="timeline__step done">
-            <input class="timeline__step-radio" id="trigger1{{identifier}}" name="trigger{{identifier}}" type="radio">
-
-            <label class="timeline__step-label" for="trigger1{{identifier}}">
-                <span class="timeline__step-content">
-                    12 May 2013
-                </span>
-            </label>
-
-            <span class="timeline__step-title">
-                Step 1
-            </span>
-
-            <i class="timeline__step-marker">1</i>
+    <ul class="timeline" id="timeline">
+        <li class="li">
+            <div class="timestamp">
+                <span>Dirección IP:</span>
+                <span class="ip-address">-</span>
+            </div>
+            <div class="status"><h4></h4></div>
+            <input type="hidden" class="next-link" />
+            <input type="hidden" class="node-id" />
         </li>
-        <li class="timeline__step done">
-            <input class="timeline__step-radio" id="trigger2{{identifier}}" name="trigger{{identifier}}" type="radio">
 
-            <label class="timeline__step-label" for="trigger2{{identifier}}">
-                <span class="timeline__step-content">
-                    14 May 2013
-                </span>
-            </label>
 
-            <span class="timeline__step-title">
-                Step 2
-            </span>
 
-            <i class="timeline__step-marker">2</i>
+        <li class="li complete">
+            <div class="timestamp">
+                <span class="author">IP Address:</span>
+                <span class="date">10.100.0.1</span>
+            </div>
+            <div class="status">
+                <h4> R1 </h4>
+            </div>
         </li>
-        <li class="timeline__step">
-            <input class="timeline__step-radio" id="trigger3{{identifier}}" name="trigger{{identifier}}" type="radio">
-
-            <label class="timeline__step-label" for="trigger3{{identifier}}">
-                <span class="timeline__step-content">
-                    15 May 2013
-                </span>
-            </label>
-
-            <span class="timeline__step-title">
-                Step 3
-            </span>
-
-            <i class="timeline__step-marker">3</i>
+        
+        <li class="li complete">
+            <div class="timestamp">
+                <span class="author">IP Address:</span>
+                <span class="date">10.100.0.4</span>
+            </div>
+            <div class="status">
+                <h4> R4 </h4>
+            </div>
         </li>
-        <li class="timeline__step">
-            <input class="timeline__step-radio" id="trigger4{{identifier}}" name="trigger{{identifier}}" type="radio">
 
-            <label class="timeline__step-label" for="trigger4{{identifier}}">
-                <span class="timeline__step-content">
-                    16 May 2013
-                </span>
-            </label>
-
-            <span class="timeline__step-title">
-                Step 4
-            </span>
-
-            <i class="timeline__step-marker">4</i>
+        <li class="li">
+            <div class="timestamp">
+                <span class="author">IP Address:</span>
+                <span class="date">-</span>
+            </div>
+            <div class="status">
+                <h4> 3 Links Available </h4>
+            </div>
         </li>
-    </ol>
-
-    
+    </ul>
 
 </div>
 <div class="modal-footer">
@@ -138,8 +117,7 @@
 </div>
 }
 
-@section scripts
-{
+
     <script>
         //Vista, agregar un dropdown que diga Next Hop (Proximo Salto)
 
@@ -149,24 +127,58 @@
 
         $(document).ready(function () {
             $("#btnAddSalto").click(function () {
-                var cDescripcionNodo = $("#dpxNextHop option:selected").text();
+                var cDescripcionNodo = $("#dpxRouterOrigen option:selected").text();
                 $("ul").append('<li class="list-group-item">' + cDescripcionNodo + '</li>');
             });
 
             //Listado de Eventos 
-            //-Cuando se modifica el dropdown de Nodo de Origen, debe cambiar la lista de Enlaces/Nodos adyacentes
+            
             //-Cuando se modifica el dropdown de Nodo de Origen, debe cambiar el primer elemento de la lista LSP
-            //-Cuando se modifica el Ancho de Banda, se debe cambiar la lista de Enlaces/Nodos adyacentes para que cumplan con el requisito
+            
             //-Crear un blockquote de informacion del enlace, que se actualiza cada vez que se selecciona un Enlace/Nodo como Next Hop
             //-Cuando se presiona el boton de Agregar Camino, debe aparecer en la lista LSP el ultimo nodo agregado.
             //-Ademas, debe de refrescarse el nodo actual para el dropdown de Next Hop
             //-El ultimo elemento de la lista LSP debe de tener un boton de Eliminar, los demas tambien, pero disabled
+            
+            $("#dpxRouterOrigen").change(function () {
+                var idProyecto = $("#tbxProyecto").val();
+                var idNodo = $("#dpxRouterOrigen option:selected").val();
+                var nBandwidth = $("#tbxBandwidth").val();
+                RefrescarListaNodos(idProyecto, idNodo, nBandwidth);
+            });
+
+            $("#tbxBandwidth").change(function () {
+                var idProyecto = $("#tbxProyecto").val();
+                var idNodo = $("#dpxRouterOrigen option:selected").val();
+                var nBandwidth = $("#tbxBandwidth").val();
+                RefrescarListaNodos(idProyecto, idNodo, nBandwidth);
+            });
 
         });
 
-        //function RefrescarListaNodos()
+        function RefrescarListaNodos(idProyecto, idNodo, nBandwidth) {
+            $.ajax({
+                url: '/Topologia/_GetListaEnlaces',
+                //type: 'POST',
+                contentType: "application/json",
+                //datatype: "json",
+                data: { idProyecto: idProyecto, idRouter: idNodo, nBandwidth: nBandwidth },
+                success: function (result) {
+                    var nodos = $("#dpxNextHop");
+                    nodos.empty();
+                    $(result).each(function (index) {
+                        nodos.append($("<option />").val(this.idRouter).text(this.cHostname + " [" + this.cRouterID + "]"));
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    $("#error").html(jqXHR.responseText);
+                }
+            });
+        }
 
     </script>    
-}
+
 
 

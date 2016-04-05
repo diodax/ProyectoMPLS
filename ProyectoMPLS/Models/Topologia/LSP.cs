@@ -19,15 +19,18 @@ namespace ProyectoMPLS.Models.Topologia
         [Display(Name = "Ancho de Banda")]
         public double nBandwidth { get; set; }
 
-        //Nuevos parametros
+        //Parametros de LSP_Header
         [Display(Name = "Nodo de Origen")]
         public int idRouterOrigen { get; set; }
         [Display(Name = "Próximo Salto")]
+        public int idRouterNextHop { get; set; }
+        [Display(Name = "Nodo de Destino")]
         public int idRouterDestino { get; set; }
 
         public int nSetupPriority { get; set; }
         public int nHoldPriority { get; set; }
 
+        //Lista de idEnlaces para LSP_Details
         public List<Enlace> listaEnlaces { get; set; }
         public List<Router> listaNodos { get; set; }
 
@@ -35,10 +38,7 @@ namespace ProyectoMPLS.Models.Topologia
         public List<SelectListItem> listaNodosOrigen { get; set; }
         //SelectList temporal con los nodos adyacentes al seleccionado
         public List<SelectListItem> listaNextHop { get; set; }
-
-
-
-        public List<SelectListItem> listaNodosDisponibles { get; set; }
+        
 
         public LSP() { }
 
@@ -81,7 +81,7 @@ namespace ProyectoMPLS.Models.Topologia
         }
 
         /// <summary>
-        /// Devuelve la lista de nodos en un proyecto, o dado idRouter, la lista de nodos adyacentes
+        /// Devuelve la lista de nodos en un proyecto, o dado idRouter, la lista de nodos/enlaces adyacentes
         /// </summary>
         /// <param name="idProyecto"></param>
         /// <returns></returns>
@@ -94,6 +94,8 @@ namespace ProyectoMPLS.Models.Topologia
             foreach (var dr in dt)
             {
                 LSR temp = new LSR(dr.idProyecto, dr.idRouter != idRouter ? dr.idRouter : dr.idRouter2);
+                temp.listaEnlaces = new List<Enlace>();
+                temp.listaEnlaces.Add(new Enlace(dr.idEnlace, dr.idProyecto));
                 listaNodos.Add(temp);
             }
             return listaNodos;
