@@ -8,19 +8,20 @@
     @Styles.Render("~/Content/css")
 
     <!-- MetisMenu CSS -->
-    <link href="~/Scripts/plugins/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+    <link href="~/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
     <link href="~/Content/sb-admin-2.css" rel="stylesheet" />
+    @*<link href="~/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css" rel="stylesheet" />*@
     <link href="~/Content/horizontal-timeline.css" rel="stylesheet" />
 
     <!-- Custom Fonts -->
-    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>
-    @*<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">*@
 
     <!-- Dtatables CSS-->
-    <link href="~/Scripts/plugins/datatables/media/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet" />
+    
 </head>
 <body>
     <div id="wrapper">
@@ -83,20 +84,22 @@
     @Scripts.Render("~/bundles/bootstrap")
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="~/Scripts/plugins/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="~/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="~/Scripts/sb-admin-2.js"></script>
+    <script src="~/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js"></script>
 
-    <!-- GoJS plugin -- TODO: Cambiar por go.js en la version final-->
-    <script src="~/Scripts/plugins/gojs/go-debug.js"></script> 
+    <!-- GoJS plugin -->
+    <script src="~/bower_components/gojs/release/go.js"></script>
 
-    <script src="~/Scripts/plugins/bootbox/bootbox.js"></script>
+    <!-- Bootbox Plugin -->
+    <script src="~/bower_components/bootbox.js/bootbox.js"></script>
+
 
     <script src="~/Scripts/plugins/jquery.blockUI.js"></script>
 
-    <!-- Dtatables Javascript-->
-    <script src="~/Scripts/plugins/datatables/media/js/jquery.dataTables.js"></script>
+    <!-- Datatables Javascript-->
+    <script src="~/bower_components/datatables/media/js/jquery.dataTables.js"></script>
 
 @RenderSection("scripts", required: false)
 </body>
