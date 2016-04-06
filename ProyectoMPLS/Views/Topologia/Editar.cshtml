@@ -18,6 +18,11 @@
     </div>*@
 </div>
 
+@*<div id="staticModal" data-width="760" class="modal fade">
+    <div id="myModalContent"></div>
+</div>*@
+
+
 @*<div id="ajax-modal" class="modal fade" tabindex="-1" style="display: none; margin-top: -144px;" aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -87,7 +92,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" href='@Url.Action("_CrearLSP", "Topologia", new { idProyecto = Model.idProyecto })'>Agregar LSP</a></li>
+                <li><a data-modal="" class="size-lg" href='@Url.Action("_CrearLSP", "Topologia", new { idProyecto = Model.idProyecto })'>Agregar LSP</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
