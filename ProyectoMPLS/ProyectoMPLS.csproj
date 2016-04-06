@@ -1803,6 +1803,7 @@
     <Content Include="Views\Usuario\Settings.cshtml" />
     <Content Include="Views\Topologia\_ConfigEnlace.cshtml" />
     <Content Include="Views\Topologia\_ListaAfinidades.cshtml" />
+    <Content Include="Views\Topologia\_EditarAfinidad.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

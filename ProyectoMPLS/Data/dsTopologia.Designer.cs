@@ -38,7 +38,9 @@ namespace ProyectoMPLS.Data {
         
         private RouterDataTable tableRouter;
         
-        private AfinidadesDataTable tableAfinidades;
+        private SelectAfinidadDataTable tableSelectAfinidad;
+        
+        private SelectListaAfinidadesDataTable tableSelectListaAfinidades;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -89,8 +91,11 @@ namespace ProyectoMPLS.Data {
                 if ((ds.Tables["Router"] != null)) {
                     base.Tables.Add(new RouterDataTable(ds.Tables["Router"]));
                 }
-                if ((ds.Tables["Afinidades"] != null)) {
-                    base.Tables.Add(new AfinidadesDataTable(ds.Tables["Afinidades"]));
+                if ((ds.Tables["SelectAfinidad"] != null)) {
+                    base.Tables.Add(new SelectAfinidadDataTable(ds.Tables["SelectAfinidad"]));
+                }
+                if ((ds.Tables["SelectListaAfinidades"] != null)) {
+                    base.Tables.Add(new SelectListaAfinidadesDataTable(ds.Tables["SelectListaAfinidades"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -184,9 +189,19 @@ namespace ProyectoMPLS.Data {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public AfinidadesDataTable Afinidades {
+        public SelectAfinidadDataTable SelectAfinidad {
             get {
-                return this.tableAfinidades;
+                return this.tableSelectAfinidad;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public SelectListaAfinidadesDataTable SelectListaAfinidades {
+            get {
+                return this.tableSelectListaAfinidades;
             }
         }
         
@@ -278,8 +293,11 @@ namespace ProyectoMPLS.Data {
                 if ((ds.Tables["Router"] != null)) {
                     base.Tables.Add(new RouterDataTable(ds.Tables["Router"]));
                 }
-                if ((ds.Tables["Afinidades"] != null)) {
-                    base.Tables.Add(new AfinidadesDataTable(ds.Tables["Afinidades"]));
+                if ((ds.Tables["SelectAfinidad"] != null)) {
+                    base.Tables.Add(new SelectAfinidadDataTable(ds.Tables["SelectAfinidad"]));
+                }
+                if ((ds.Tables["SelectListaAfinidades"] != null)) {
+                    base.Tables.Add(new SelectListaAfinidadesDataTable(ds.Tables["SelectListaAfinidades"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -356,10 +374,16 @@ namespace ProyectoMPLS.Data {
                     this.tableRouter.InitVars();
                 }
             }
-            this.tableAfinidades = ((AfinidadesDataTable)(base.Tables["Afinidades"]));
+            this.tableSelectAfinidad = ((SelectAfinidadDataTable)(base.Tables["SelectAfinidad"]));
             if ((initTable == true)) {
-                if ((this.tableAfinidades != null)) {
-                    this.tableAfinidades.InitVars();
+                if ((this.tableSelectAfinidad != null)) {
+                    this.tableSelectAfinidad.InitVars();
+                }
+            }
+            this.tableSelectListaAfinidades = ((SelectListaAfinidadesDataTable)(base.Tables["SelectListaAfinidades"]));
+            if ((initTable == true)) {
+                if ((this.tableSelectListaAfinidades != null)) {
+                    this.tableSelectListaAfinidades.InitVars();
                 }
             }
         }
@@ -386,8 +410,10 @@ namespace ProyectoMPLS.Data {
             base.Tables.Add(this.tableNodosAdyacentes);
             this.tableRouter = new RouterDataTable();
             base.Tables.Add(this.tableRouter);
-            this.tableAfinidades = new AfinidadesDataTable();
-            base.Tables.Add(this.tableAfinidades);
+            this.tableSelectAfinidad = new SelectAfinidadDataTable();
+            base.Tables.Add(this.tableSelectAfinidad);
+            this.tableSelectListaAfinidades = new SelectListaAfinidadesDataTable();
+            base.Tables.Add(this.tableSelectListaAfinidades);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -434,7 +460,13 @@ namespace ProyectoMPLS.Data {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeAfinidades() {
+        private bool ShouldSerializeSelectAfinidad() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeSelectListaAfinidades() {
             return false;
         }
         
@@ -515,7 +547,10 @@ namespace ProyectoMPLS.Data {
         public delegate void RouterRowChangeEventHandler(object sender, RouterRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void AfinidadesRowChangeEventHandler(object sender, AfinidadesRowChangeEvent e);
+        public delegate void SelectAfinidadRowChangeEventHandler(object sender, SelectAfinidadRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void SelectListaAfinidadesRowChangeEventHandler(object sender, SelectListaAfinidadesRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -2800,11 +2835,7 @@ namespace ProyectoMPLS.Data {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class AfinidadesDataTable : global::System.Data.TypedTableBase<AfinidadesRow> {
-            
-            private global::System.Data.DataColumn columnidProyecto;
-            
-            private global::System.Data.DataColumn columnidAfinidad;
+        public partial class SelectAfinidadDataTable : global::System.Data.TypedTableBase<SelectAfinidadRow> {
             
             private global::System.Data.DataColumn columncDescripcion;
             
@@ -2812,8 +2843,8 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AfinidadesDataTable() {
-                this.TableName = "Afinidades";
+            public SelectAfinidadDataTable() {
+                this.TableName = "SelectAfinidad";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -2821,7 +2852,7 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal AfinidadesDataTable(global::System.Data.DataTable table) {
+            internal SelectAfinidadDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -2838,7 +2869,275 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected AfinidadesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SelectAfinidadDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn cDescripcionColumn {
+                get {
+                    return this.columncDescripcion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn cColorColumn {
+                get {
+                    return this.columncColor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SelectAfinidadRow this[int index] {
+                get {
+                    return ((SelectAfinidadRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SelectAfinidadRowChangeEventHandler SelectAfinidadRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SelectAfinidadRowChangeEventHandler SelectAfinidadRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SelectAfinidadRowChangeEventHandler SelectAfinidadRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SelectAfinidadRowChangeEventHandler SelectAfinidadRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddSelectAfinidadRow(SelectAfinidadRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SelectAfinidadRow AddSelectAfinidadRow(string cDescripcion, string cColor) {
+                SelectAfinidadRow rowSelectAfinidadRow = ((SelectAfinidadRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        cDescripcion,
+                        cColor};
+                rowSelectAfinidadRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSelectAfinidadRow);
+                return rowSelectAfinidadRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                SelectAfinidadDataTable cln = ((SelectAfinidadDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new SelectAfinidadDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columncDescripcion = base.Columns["cDescripcion"];
+                this.columncColor = base.Columns["cColor"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columncDescripcion = new global::System.Data.DataColumn("cDescripcion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncDescripcion);
+                this.columncColor = new global::System.Data.DataColumn("cColor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncColor);
+                this.columncDescripcion.AllowDBNull = false;
+                this.columncDescripcion.MaxLength = 100;
+                this.columncColor.MaxLength = 10;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SelectAfinidadRow NewSelectAfinidadRow() {
+                return ((SelectAfinidadRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new SelectAfinidadRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(SelectAfinidadRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.SelectAfinidadRowChanged != null)) {
+                    this.SelectAfinidadRowChanged(this, new SelectAfinidadRowChangeEvent(((SelectAfinidadRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.SelectAfinidadRowChanging != null)) {
+                    this.SelectAfinidadRowChanging(this, new SelectAfinidadRowChangeEvent(((SelectAfinidadRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.SelectAfinidadRowDeleted != null)) {
+                    this.SelectAfinidadRowDeleted(this, new SelectAfinidadRowChangeEvent(((SelectAfinidadRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.SelectAfinidadRowDeleting != null)) {
+                    this.SelectAfinidadRowDeleting(this, new SelectAfinidadRowChangeEvent(((SelectAfinidadRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveSelectAfinidadRow(SelectAfinidadRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                dsTopologia ds = new dsTopologia();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "SelectAfinidadDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class SelectListaAfinidadesDataTable : global::System.Data.TypedTableBase<SelectListaAfinidadesRow> {
+            
+            private global::System.Data.DataColumn columnidProyecto;
+            
+            private global::System.Data.DataColumn columnidAfinidad;
+            
+            private global::System.Data.DataColumn columncDescripcion;
+            
+            private global::System.Data.DataColumn columncColor;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SelectListaAfinidadesDataTable() {
+                this.TableName = "SelectListaAfinidades";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal SelectListaAfinidadesDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected SelectListaAfinidadesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -2886,48 +3185,48 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AfinidadesRow this[int index] {
+            public SelectListaAfinidadesRow this[int index] {
                 get {
-                    return ((AfinidadesRow)(this.Rows[index]));
+                    return ((SelectListaAfinidadesRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event AfinidadesRowChangeEventHandler AfinidadesRowChanging;
+            public event SelectListaAfinidadesRowChangeEventHandler SelectListaAfinidadesRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event AfinidadesRowChangeEventHandler AfinidadesRowChanged;
+            public event SelectListaAfinidadesRowChangeEventHandler SelectListaAfinidadesRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event AfinidadesRowChangeEventHandler AfinidadesRowDeleting;
+            public event SelectListaAfinidadesRowChangeEventHandler SelectListaAfinidadesRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event AfinidadesRowChangeEventHandler AfinidadesRowDeleted;
+            public event SelectListaAfinidadesRowChangeEventHandler SelectListaAfinidadesRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddAfinidadesRow(AfinidadesRow row) {
+            public void AddSelectListaAfinidadesRow(SelectListaAfinidadesRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AfinidadesRow AddAfinidadesRow(int idProyecto, int idAfinidad, string cDescripcion, string cColor) {
-                AfinidadesRow rowAfinidadesRow = ((AfinidadesRow)(this.NewRow()));
+            public SelectListaAfinidadesRow AddSelectListaAfinidadesRow(int idProyecto, int idAfinidad, string cDescripcion, string cColor) {
+                SelectListaAfinidadesRow rowSelectListaAfinidadesRow = ((SelectListaAfinidadesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         idProyecto,
                         idAfinidad,
                         cDescripcion,
                         cColor};
-                rowAfinidadesRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowAfinidadesRow);
-                return rowAfinidadesRow;
+                rowSelectListaAfinidadesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSelectListaAfinidadesRow);
+                return rowSelectListaAfinidadesRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AfinidadesRow FindByidProyectoidAfinidad(int idProyecto, int idAfinidad) {
-                return ((AfinidadesRow)(this.Rows.Find(new object[] {
+            public SelectListaAfinidadesRow FindByidProyectoidAfinidad(int idProyecto, int idAfinidad) {
+                return ((SelectListaAfinidadesRow)(this.Rows.Find(new object[] {
                             idProyecto,
                             idAfinidad})));
             }
@@ -2935,7 +3234,7 @@ namespace ProyectoMPLS.Data {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                AfinidadesDataTable cln = ((AfinidadesDataTable)(base.Clone()));
+                SelectListaAfinidadesDataTable cln = ((SelectListaAfinidadesDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -2943,7 +3242,7 @@ namespace ProyectoMPLS.Data {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new AfinidadesDataTable();
+                return new SelectListaAfinidadesDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2978,28 +3277,28 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AfinidadesRow NewAfinidadesRow() {
-                return ((AfinidadesRow)(this.NewRow()));
+            public SelectListaAfinidadesRow NewSelectListaAfinidadesRow() {
+                return ((SelectListaAfinidadesRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new AfinidadesRow(builder);
+                return new SelectListaAfinidadesRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(AfinidadesRow);
+                return typeof(SelectListaAfinidadesRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.AfinidadesRowChanged != null)) {
-                    this.AfinidadesRowChanged(this, new AfinidadesRowChangeEvent(((AfinidadesRow)(e.Row)), e.Action));
+                if ((this.SelectListaAfinidadesRowChanged != null)) {
+                    this.SelectListaAfinidadesRowChanged(this, new SelectListaAfinidadesRowChangeEvent(((SelectListaAfinidadesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -3007,8 +3306,8 @@ namespace ProyectoMPLS.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.AfinidadesRowChanging != null)) {
-                    this.AfinidadesRowChanging(this, new AfinidadesRowChangeEvent(((AfinidadesRow)(e.Row)), e.Action));
+                if ((this.SelectListaAfinidadesRowChanging != null)) {
+                    this.SelectListaAfinidadesRowChanging(this, new SelectListaAfinidadesRowChangeEvent(((SelectListaAfinidadesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -3016,8 +3315,8 @@ namespace ProyectoMPLS.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.AfinidadesRowDeleted != null)) {
-                    this.AfinidadesRowDeleted(this, new AfinidadesRowChangeEvent(((AfinidadesRow)(e.Row)), e.Action));
+                if ((this.SelectListaAfinidadesRowDeleted != null)) {
+                    this.SelectListaAfinidadesRowDeleted(this, new SelectListaAfinidadesRowChangeEvent(((SelectListaAfinidadesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -3025,14 +3324,14 @@ namespace ProyectoMPLS.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.AfinidadesRowDeleting != null)) {
-                    this.AfinidadesRowDeleting(this, new AfinidadesRowChangeEvent(((AfinidadesRow)(e.Row)), e.Action));
+                if ((this.SelectListaAfinidadesRowDeleting != null)) {
+                    this.SelectListaAfinidadesRowDeleting(this, new SelectListaAfinidadesRowChangeEvent(((SelectListaAfinidadesRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveAfinidadesRow(AfinidadesRow row) {
+            public void RemoveSelectListaAfinidadesRow(SelectListaAfinidadesRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -3059,7 +3358,7 @@ namespace ProyectoMPLS.Data {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "AfinidadesDataTable";
+                attribute2.FixedValue = "SelectListaAfinidadesDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -3932,47 +4231,25 @@ namespace ProyectoMPLS.Data {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class AfinidadesRow : global::System.Data.DataRow {
+        public partial class SelectAfinidadRow : global::System.Data.DataRow {
             
-            private AfinidadesDataTable tableAfinidades;
+            private SelectAfinidadDataTable tableSelectAfinidad;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal AfinidadesRow(global::System.Data.DataRowBuilder rb) : 
+            internal SelectAfinidadRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableAfinidades = ((AfinidadesDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int idProyecto {
-                get {
-                    return ((int)(this[this.tableAfinidades.idProyectoColumn]));
-                }
-                set {
-                    this[this.tableAfinidades.idProyectoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int idAfinidad {
-                get {
-                    return ((int)(this[this.tableAfinidades.idAfinidadColumn]));
-                }
-                set {
-                    this[this.tableAfinidades.idAfinidadColumn] = value;
-                }
+                this.tableSelectAfinidad = ((SelectAfinidadDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string cDescripcion {
                 get {
-                    return ((string)(this[this.tableAfinidades.cDescripcionColumn]));
+                    return ((string)(this[this.tableSelectAfinidad.cDescripcionColumn]));
                 }
                 set {
-                    this[this.tableAfinidades.cDescripcionColumn] = value;
+                    this[this.tableSelectAfinidad.cDescripcionColumn] = value;
                 }
             }
             
@@ -3981,27 +4258,103 @@ namespace ProyectoMPLS.Data {
             public string cColor {
                 get {
                     try {
-                        return ((string)(this[this.tableAfinidades.cColorColumn]));
+                        return ((string)(this[this.tableSelectAfinidad.cColorColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'cColor\' in table \'Afinidades\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'cColor\' in table \'SelectAfinidad\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAfinidades.cColorColumn] = value;
+                    this[this.tableSelectAfinidad.cColorColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IscColorNull() {
-                return this.IsNull(this.tableAfinidades.cColorColumn);
+                return this.IsNull(this.tableSelectAfinidad.cColorColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetcColorNull() {
-                this[this.tableAfinidades.cColorColumn] = global::System.Convert.DBNull;
+                this[this.tableSelectAfinidad.cColorColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class SelectListaAfinidadesRow : global::System.Data.DataRow {
+            
+            private SelectListaAfinidadesDataTable tableSelectListaAfinidades;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal SelectListaAfinidadesRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableSelectListaAfinidades = ((SelectListaAfinidadesDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int idProyecto {
+                get {
+                    return ((int)(this[this.tableSelectListaAfinidades.idProyectoColumn]));
+                }
+                set {
+                    this[this.tableSelectListaAfinidades.idProyectoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int idAfinidad {
+                get {
+                    return ((int)(this[this.tableSelectListaAfinidades.idAfinidadColumn]));
+                }
+                set {
+                    this[this.tableSelectListaAfinidades.idAfinidadColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string cDescripcion {
+                get {
+                    return ((string)(this[this.tableSelectListaAfinidades.cDescripcionColumn]));
+                }
+                set {
+                    this[this.tableSelectListaAfinidades.cDescripcionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string cColor {
+                get {
+                    try {
+                        return ((string)(this[this.tableSelectListaAfinidades.cColorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'cColor\' in table \'SelectListaAfinidades\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSelectListaAfinidades.cColorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscColorNull() {
+                return this.IsNull(this.tableSelectListaAfinidades.cColorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcColorNull() {
+                this[this.tableSelectListaAfinidades.cColorColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4247,22 +4600,56 @@ namespace ProyectoMPLS.Data {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class AfinidadesRowChangeEvent : global::System.EventArgs {
+        public class SelectAfinidadRowChangeEvent : global::System.EventArgs {
             
-            private AfinidadesRow eventRow;
+            private SelectAfinidadRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AfinidadesRowChangeEvent(AfinidadesRow row, global::System.Data.DataRowAction action) {
+            public SelectAfinidadRowChangeEvent(SelectAfinidadRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AfinidadesRow Row {
+            public SelectAfinidadRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class SelectListaAfinidadesRowChangeEvent : global::System.EventArgs {
+            
+            private SelectListaAfinidadesRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SelectListaAfinidadesRowChangeEvent(SelectListaAfinidadesRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SelectListaAfinidadesRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -5821,7 +6208,7 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class AfinidadesTableAdapter : global::System.ComponentModel.Component {
+    public partial class SelectAfinidadTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -5835,7 +6222,7 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public AfinidadesTableAdapter() {
+        public SelectAfinidadTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -5932,7 +6319,177 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Afinidades";
+            tableMapping.DataSetTable = "SelectAfinidad";
+            tableMapping.ColumnMappings.Add("cDescripcion", "cDescripcion");
+            tableMapping.ColumnMappings.Add("cColor", "cColor");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::ProyectoMPLS.Properties.Settings.Default.ProyectoMPLSConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.spT_SelectAfinidad";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idAfinidad", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idProyecto", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual dsTopologia.SelectAfinidadDataTable SelectAfinidad(global::System.Nullable<int> idAfinidad, global::System.Nullable<int> idProyecto) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((idAfinidad.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(idAfinidad.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((idProyecto.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(idProyecto.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            dsTopologia.SelectAfinidadDataTable dataTable = new dsTopologia.SelectAfinidadDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class SelectListaAfinidadesTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public SelectListaAfinidadesTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "SelectListaAfinidades";
             tableMapping.ColumnMappings.Add("idProyecto", "idProyecto");
             tableMapping.ColumnMappings.Add("idAfinidad", "idAfinidad");
             tableMapping.ColumnMappings.Add("cDescripcion", "cDescripcion");
@@ -5963,7 +6520,7 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual dsTopologia.AfinidadesDataTable SeleccionarListaAfinidades(global::System.Nullable<int> idProyecto) {
+        public virtual dsTopologia.SelectListaAfinidadesDataTable SelectListaAfinidades(global::System.Nullable<int> idProyecto) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((idProyecto.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(idProyecto.Value));
@@ -5971,7 +6528,7 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            dsTopologia.AfinidadesDataTable dataTable = new dsTopologia.AfinidadesDataTable();
+            dsTopologia.SelectListaAfinidadesDataTable dataTable = new dsTopologia.SelectListaAfinidadesDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

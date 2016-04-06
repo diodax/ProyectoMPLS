@@ -1,0 +1,15 @@
+﻿@model ProyectoMPLS.Models.Topologia.Afinidad
+<div class="modal fade in" id="editarafinidad">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Afinidad</h4>
+
+        </div>
+    }
+</div>
+<div>
+    @Html.ActionLink("Volver", "Editar")
+</div>

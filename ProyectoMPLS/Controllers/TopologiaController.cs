@@ -80,6 +80,13 @@ namespace ProyectoMPLS.Controllers
 
         }
 
+        public ActionResult _EditarAfinidad(int idProyecto, int idAfinidad)
+        {
+            Afinidad a = new Afinidad();
+            a = Afinidad.SelectAfinidad(idProyecto, idAfinidad);
+            return PartialView(a);
+        }
+
         //TODO: Esto
         public ActionResult _GetListaEnlaces (string idProyecto, string idRouter, double nBandwidth)
         {

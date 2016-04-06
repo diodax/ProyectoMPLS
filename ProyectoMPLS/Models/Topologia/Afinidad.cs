@@ -14,6 +14,7 @@ namespace ProyectoMPLS.Models.Topologia
         [Display(Name = "Identificador de Proyecto")]
         public int idProyecto { get; set; }
 
+        [Required]
         [Display(Name = "Descripción")]
         public string cDescripcion { get; set; }
 
@@ -25,15 +26,15 @@ namespace ProyectoMPLS.Models.Topologia
         public static List<Afinidad> SelectListaAfinidades(int idProyecto)
         {
             List<Afinidad> listaAfinidades = new List<Afinidad>();
-            Data.dsTopologiaTableAdapters.AfinidadesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.AfinidadesTableAdapter();
-            Data.dsTopologia.AfinidadesDataTable dt = Adapter.SeleccionarListaAfinidades(idProyecto);
+            Data.dsTopologiaTableAdapters.SelectListaAfinidadesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.SelectListaAfinidadesTableAdapter();
+            Data.dsTopologia.SelectListaAfinidadesDataTable dt = Adapter.SelectListaAfinidades(idProyecto);
 
             foreach (var dr in dt)
             {
                 Afinidad temp = new Afinidad();
                 temp.idProyecto = dr.idProyecto;
                 temp.idAfinidad = dr.idAfinidad;
-                temp.cDescripcion = dr.cDescripcion;
+                temp.cDescripcion = dr.cDescripcion.Trim();
 
                 if (!dr.IscColorNull())
                     temp.cColor = dr.cColor.Trim();
@@ -42,6 +43,24 @@ namespace ProyectoMPLS.Models.Topologia
             }
 
             return listaAfinidades;
+        }
+
+        public static Afinidad SelectAfinidad(int idProyecto, int idAfinidad)
+        {
+            Afinidad a = new Afinidad();
+            Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter Adapter = new Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter();
+            Data.dsTopologia.SelectAfinidadDataTable dt = Adapter.SelectAfinidad(idAfinidad, idProyecto);
+
+            foreach (var dr in dt)
+            {
+                a.idProyecto = idProyecto;
+                a.idAfinidad = idAfinidad;
+                a.cDescripcion = dr.cDescripcion;
+                if (!dr.IscColorNull())
+                    a.cColor = dr.cColor;
+            }
+
+            return a;
         }
     }
 }
