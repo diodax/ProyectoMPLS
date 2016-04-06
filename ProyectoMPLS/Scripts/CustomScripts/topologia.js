@@ -52,7 +52,7 @@ $(document).ready(function () {
         //console.log(idEnlace);
         var idProyecto = $('#tbxIdProyecto').val();
         
-        console.log(obj);
+        //console.log(obj);
 
         // console.log(idProyecto);
         //console.log(obj.data.from);
@@ -115,7 +115,7 @@ $(document).ready(function () {
             model.nodeDataArray = arrayRouters;
 
             var arrayLinks = [];
-            console.log(result.enlaces);
+            //console.log(result.enlaces);
             $.each(result.enlaces, function (i, item) {
                 // console.log(result.enlaces);
                 //console.log("from: " + result.enlaces[i].idRouterA);
@@ -127,8 +127,8 @@ $(document).ready(function () {
             //$(result.enlaces).each(function () {
             //    arrayLinks.push({ "from": $(this).idRouterA, "to": $(this).idRouterB });
             //});
-            console.log(arrayRouters);
-            console.log(arrayLinks);
+            //console.log(arrayRouters);
+            //console.log(arrayLinks);
             //
 
             model.linkDataArray = arrayLinks;
@@ -188,7 +188,7 @@ $(document).ready(function () {
                     result.push({ "idRouter": arrayRouters[i].key, "cHostname": arrayRouters[i].name });
                 });
 
-                console.log(result);
+                //console.log(result);
                 //return result;
                 //idProyecto: $("#tbxIdProyecto").val()
             },
