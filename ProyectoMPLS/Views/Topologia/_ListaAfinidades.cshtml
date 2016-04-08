@@ -2,7 +2,7 @@
 
 <!-- modal placeholder-->
 <div id='afinidad' class='modal fade in'>
-    <div id='myModalContent'></div>
+    <div id='afinidadContent'></div>
 </div>
 
 <div class="modal-header">
@@ -48,7 +48,7 @@
                     </td>
                     <td>
                         @*<button class="btn btn-default" data-toggle="modal" href="#editarAfinidad">Editar</button>*@
-                        <a class="btn btn-default" data-modal="" data-toggle="modal" href="@Url.Action("_EditarAfinidad", "Topologia", new { idProyecto = item.idProyecto, idAfinidad = item.idAfinidad })">Editar</a>
+                        <a class="btn btn-default" id="linkEditarAfinidad" data-modal="" data-toggle="modal" href="@Url.Action("_EditarAfinidad", "Topologia", new { idProyecto = item.idProyecto, idAfinidad = item.idAfinidad })">Editar</a>
                         @*@Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto, idAfinidad = item.idAfinidad}, new { @class = "btn btn-default", data_toggle = "modal" })*@
                     </td>
                     @*<td>*@
@@ -76,6 +76,82 @@
     <h4>Afinidad</h4>
     
 </div>
+
+@*@section scripts
+{
+    @Scripts.Render("~/bundles/modalform")
+
+}*@
+
+<script>
+    $(function () {
+
+        $.ajaxSetup({ cache: false });
+
+        $("a[data-modal]").on("click", function (e) {
+
+            // hide dropdown if any
+            $(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
+
+
+            var modalSizeClass = $(this).attr("class");
+            // extracts the selector class to determine the modals size
+
+            switch (modalSizeClass) {
+                case 'size-sm':
+                    $("#afinidad").removeAttr("data-width");
+                    break;
+                case 'size-lg':
+                    //sets data-width="860"
+                    $("#afinidad").attr("data-width", "860");
+                    break;
+                default:
+                    //default size
+                    //$("#myModal").attr("data-width", "660");
+                    $("#afinidad").removeAttr("data-width");
+            }
+
+
+
+            $('#afinidadContent').load(this.href, function () {
+
+
+                $('#afinidad').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'afinidad');
+
+                bindForm(this);
+            });
+
+            return false;
+        });
+
+
+    });
+
+    function bindForm(dialog) {
+
+        $('form', dialog).submit(function () {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    if (result.success) {
+                        $('#afinidad').modal('hide');
+                        //Refresh
+                        location.reload();
+                    } else {
+                        $('#afinidadContent').html(result);
+                        bindForm();
+                    }
+                }
+            });
+            return false;
+        });
+    }
+</script>
 
 @*<script>
     $(document).ready(function () {
