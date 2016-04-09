@@ -8,25 +8,25 @@
         $(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
         
         var modId = $(this).attr("id");
-        console.log(modId);
+        //console.log(modId);
 
         if (modId == "linkEditarAfinidad") {
-            var modalSizeClass = $(this).attr("class");
-            // extracts the selector class to determine the modals size
+            //var modalSizeClass = $(this).attr("class");
+            //// extracts the selector class to determine the modals size
 
-            switch (modalSizeClass) {
-                case 'size-sm':
-                    $("#afinidad").removeAttr("data-width");
-                    break;
-                case 'size-lg':
-                    //sets data-width="860"
-                    $("#afinidad").attr("data-width", "860");
-                    break;
-                default:
-                    //default size
-                    //$("#myModal").attr("data-width", "660");
-                    $("#afinidad").removeAttr("data-width");
-            }
+            //switch (modalSizeClass) {
+            //    case 'size-sm':
+            //        $("#afinidad").removeAttr("data-width");
+            //        break;
+            //    case 'size-lg':
+            //        //sets data-width="860"
+            //        $("#afinidad").attr("data-width", "860");
+            //        break;
+            //    default:
+            //        //default size
+            //        //$("#myModal").attr("data-width", "660");
+            //        $("#afinidad").removeAttr("data-width");
+            //}
 
 
 
@@ -36,28 +36,33 @@
                 $('#afinidad').modal({
                     /*backdrop: 'static',*/
                     keyboard: true
-                }, 'show');
+                }, 'show').css({
+                    width: 'auto',
+                    'margin-left': function () {
+                        return -($(this).width() / 2);
+                    }
+                });
 
                 bindForm(this);
             });
         }
         else {
-            var modalSizeClass = $(this).attr("class");
-            // extracts the selector class to determine the modals size
+            //var modalSizeClass = $(this).attr("class");
+            //// extracts the selector class to determine the modals size
 
-            switch (modalSizeClass) {
-                case 'size-sm':
-                    $("#myModal").removeAttr("data-width");
-                    break;
-                case 'size-lg':
-                    //sets data-width="860"
-                    $("#myModal").attr("data-width", "860");
-                    break;
-                default:
-                    //default size
-                    //$("#myModal").attr("data-width", "660");
-                    $("#myModal").removeAttr("data-width");
-            }
+            //switch (modalSizeClass) {
+            //    case 'size-sm':
+            //        $("#myModal").removeAttr("data-width");
+            //        break;
+            //    case 'size-lg':
+            //        //sets data-width="860"
+            //        $("#myModal").attr("data-width", "860");
+            //        break;
+            //    default:
+            //        //default size
+            //        //$("#myModal").attr("data-width", "660");
+            //        $("#myModal").removeAttr("data-width");
+            //}
 
 
 
@@ -67,8 +72,12 @@
                 $('#myModal').modal({
                     /*backdrop: 'static',*/
                     keyboard: true
-                }, 'show');
-
+                }, 'show').css({
+                            width: 'auto',
+                            'margin-left': function () {
+                                return -($(this).width() / 2);
+                            }
+                        });
                 bindForm(this);
             });
         }
@@ -79,6 +88,7 @@
 
 
 });
+
 
 function bindForm(dialog) {
 

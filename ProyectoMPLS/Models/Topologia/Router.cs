@@ -76,6 +76,21 @@ namespace ProyectoMPLS.Models.Topologia
     /// </summary>
     public class LER : Router
     {
-        //
+        public LER() { }
+
+        public LER(int idProyecto, int idRouter)
+        {
+            Data.dsTopologiaTableAdapters.RouterTableAdapter Adapter = new Data.dsTopologiaTableAdapters.RouterTableAdapter();
+            Data.dsTopologia.RouterDataTable dt = Adapter.SelectRouter(idProyecto, idRouter);
+
+            foreach (var dr in dt)
+            {
+                this.idRouter = dr.idRouter;
+                if (!dr.IscHostnameNull())
+                    this.cHostname = dr.cHostname.Trim();
+                if (!dr.IscRouterIDNull())
+                    this.cRouterID = dr.cRouterID.Trim();
+            }
+        }
     }
 }
