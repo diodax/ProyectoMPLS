@@ -50,8 +50,8 @@
         $("#submitEditarAfinidad").click(function () {
             var form = $("#EditarAfinidadDataForm")[0];
             var formData = new FormData(form);
-            console.log(form);
-            console.log(formData);
+            //console.log(form);
+            //console.log(formData);
             $.ajax({
                 url: '@Url.Action("_EditarAfinidad", new { controller = "Topologia" })',
                 type: 'POST',

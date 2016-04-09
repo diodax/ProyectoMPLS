@@ -4,10 +4,7 @@
 <div id='afinidad' class='modal fade in'>
     <div id='afinidadContent'></div>
 </div>
-<!-- another modal placeholder (?) -->
-<div id="editarAfinidad" class="modal fade in">
-    <h4>Afinidad</h4>
-</div>
+
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -40,7 +37,7 @@
 <div class="modal-footer">
     <a class="btn btn-default" id="linkCrearAfinidad" data-modal="" data-toggle="modal" href="@Url.Action("_CrearAfinidad", "Topologia", new { idProyecto = Model.First().idProyecto })">Agregar Afinidad</a>
     @*<button class="btn" id="addAfinidad">Agregar Afinidad</button>*@
-    <button class="btn" data-dismiss="modal">Cerrar</button>
+    <button class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 </div>
 
 <script src="~/Scripts/modalform.js"></script>

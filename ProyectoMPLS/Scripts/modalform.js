@@ -10,7 +10,7 @@
         var modId = $(this).attr("id");
         //console.log(modId);
 
-        if (modId == "linkEditarAfinidad") {
+        if (modId == "linkEditarAfinidad" || modId == "linkCrearAfinidad") {
             //var modalSizeClass = $(this).attr("class");
             //// extracts the selector class to determine the modals size
 
@@ -46,6 +46,7 @@
                 bindForm(this);
             });
         }
+
         else {
             //var modalSizeClass = $(this).attr("class");
             //// extracts the selector class to determine the modals size
@@ -73,11 +74,11 @@
                     /*backdrop: 'static',*/
                     keyboard: true
                 }, 'show').css({
-                            width: 'auto',
-                            'margin-left': function () {
-                                return -($(this).width() / 2);
-                            }
-                        });
+                    width: 'auto',
+                    'margin-left': function () {
+                        return -($(this).width() / 2);
+                    }
+                });
                 bindForm(this);
             });
         }
@@ -99,19 +100,23 @@ function bindForm(dialog) {
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    if ($(dialog).attr("id") == "linkEditarAfinidad") {
-                        console.log("entro al success");
+                    //console.log("ID de parametro dialog " + $(dialog).attr("id"));
+                    if ($(dialog).attr("id") == "afinidadContent") {
+                        //console.log("entro al success");
                         $('#afinidad').modal('hide');
                         //Refresh
-                        location.reload();
+                        //location.reload();
+                        $('#myModal').modal('hide');
+                        //$('#myModal').modal('show');
                     }
                     else {
                         $('#myModal').modal('hide');
                         //Refresh
+                        //console.log("Entro al viejo");
                         location.reload();
                     }
                 } else {
-                    if ($(dialog).attr("id") == "linkEditarAfinidad") {
+                    if ($(dialog).attr("id") == "afinidadContent") {
                         $('#afinidadContent').html(result);
                         bindForm();
                     }
