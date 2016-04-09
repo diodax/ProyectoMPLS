@@ -62,5 +62,17 @@ namespace ProyectoMPLS.Models.Topologia
 
             return a;
         }
+
+        public void CrearAfinidad(int idProyecto, string cDescripcion, string cColor)
+        {
+            Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter Adapter = new Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter();
+            Adapter.CrearActualizarAfinidad(idProyecto, 0, cDescripcion, cColor);
+        }
+
+        public void ActualizarAfinidad(int idProyecto, int idAfinidad, string cDescripcion, string cColor)
+        {
+            Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter Adapter = new Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter();
+            Adapter.CrearActualizarAfinidad(idProyecto, idAfinidad, cDescripcion, cColor);
+        }
     }
 }
