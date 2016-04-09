@@ -49,7 +49,30 @@ namespace ProyectoMPLS.Models.Topologia
 
         public LSP(int idProyecto, int idLSP)
         {
-            //
+            //Lee los datos de la tabla de LSP_Header
+            Data.dsTopologiaTableAdapters.LSPsTableAdapter HeaderAdapter = new Data.dsTopologiaTableAdapters.LSPsTableAdapter();
+            Data.dsTopologia.LSPsDataTable hdt = HeaderAdapter.SeleccionarListaLSPs(idProyecto, idLSP);
+
+            foreach(var dr in hdt)
+            {
+                this.idProyecto = dr.idProyecto;
+                this.idLSP = dr.idLSP;
+                this.cNombre = dr.cNombre.Trim();
+                this.nBandwidth = dr.nBandwidth;
+                this.idRouterOrigen = dr.idRouterOrigen;
+                this.idRouterDestino = dr.idRouterDestino;
+                this.nSetupPriority = dr.nSetupPriority;
+                this.nHoldPriority = dr.nHoldPriority;
+            }
+
+            //Agrega router_origen a la lista de nodos
+            this.listaNodos = new List<Router>();
+            this.listaNodos.Add(new LER(this.idRouterOrigen, this.idProyecto));
+
+            //Bucle que agrega los routers de la lista de enlaces
+            
+
+            //Finalmente, agrega router_destino a la lista de nodos
         }
 
         public static List<LSP> SelectListaLSP(int idProyecto)
