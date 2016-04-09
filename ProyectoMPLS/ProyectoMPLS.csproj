@@ -177,6 +177,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\ComunicacionController.cs" />
+    <Compile Include="Controllers\EnrutamientoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TopologiaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -1414,6 +1415,7 @@
     <Content Include="Content\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="Views\ajax-loader.gif" />
     <Content Include="Web.config" />
     <Content Include="Views\Topologia\_CrearProyectoVacio.cshtml" />
     <Content Include="Views\Topologia\_CrearCSPF.cshtml" />
@@ -1791,6 +1793,7 @@
     <Content Include="bower_components\bootbox.js\LICENSE.md" />
     <Content Include="bower_components\bootbox.js\package.json" />
     <Content Include="bower_components\bootbox.js\README.md" />
+    <Content Include="bower.json" />
     <None Include="Data\dsEnrutamiento.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -1804,6 +1807,7 @@
     <Content Include="Views\Topologia\_ConfigEnlace.cshtml" />
     <Content Include="Views\Topologia\_ListaAfinidades.cshtml" />
     <Content Include="Views\Topologia\_EditarAfinidad.cshtml" />
+    <Content Include="Views\Enrutamiento\_EditarLSP.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2111,8 +2115,8 @@
     <Content Include="Views\Topologia\Editar.cshtml" />
     <Content Include="Views\Topologia\CrearProyectoRP.cshtml" />
     <Content Include="Views\Topologia\CrearProyectoArchivo.cshtml" />
-    <Content Include="Views\Topologia\_IndexLSPs.cshtml" />
-    <Content Include="Views\Topologia\_CrearLSP.cshtml" />
+    <Content Include="Views\Enrutamiento\_IndexLSPs.cshtml" />
+    <Content Include="Views\Enrutamiento\_CrearLSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

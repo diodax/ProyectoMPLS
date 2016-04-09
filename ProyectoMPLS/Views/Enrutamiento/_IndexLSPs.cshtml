@@ -70,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.nHoldPriority)
             </td>*@
                     <td>
-                        @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Editar", "_EditarLSP", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" })
                         @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })*@
                         @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })
                     </td>

@@ -4,70 +4,29 @@
     ViewBag.Title = "Editar";
 }
 
-@*<h2>Editar Topología</h2>*@
+<!--Nombre del Archivo en Edicion-->
 <h2>@Html.DisplayTextFor(model => model.cTitulo)</h2>
 
 @Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
 
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade'>
-    @*<div class="modal-dialog modal-lg">
-        <div class="modal-content">*@
-            <div id='myModalContent'></div>
-        @*</div>
-    </div>*@
+    <div id='myModalContent'></div>  
 </div>
 
-
-
-
+<!--Barra de Menus-->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            @*<!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Brand</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>*@
 
             <!--Actual Link to LSP list-->
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" href='@Url.Action("_IndexLSPs", "Topologia", new { idProyecto = Model.idProyecto })'>Lista de LSPs</a></li>
+                <li><a data-modal="" href='@Url.Action("_IndexLSPs", "Enrutamiento", new { idProyecto = Model.idProyecto })'>Lista de LSPs</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" class="size-lg" href='@Url.Action("_CrearLSP", "Topologia", new { idProyecto = Model.idProyecto })'>Agregar LSP</a></li>
+                <li><a data-modal="" class="size-lg" href='@Url.Action("_CrearLSP", "Enrutamiento", new { idProyecto = Model.idProyecto })'>Agregar LSP</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
@@ -77,12 +36,6 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a data-modal="" href='@Url.Action("_ListaAfinidades", "Topologia", new { idProyecto = Model.idProyecto})'>Lista de Afinidades</a></li>
             </ul>
-
-            @*<ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" href='@Url.Action("_ConfigEnlace", "Topologia", new { idEnlace = ViewBag.idEnlace, idProyecto = Model.idProyecto})'>Configurar Enlace</a></li>
-            </ul>*@
-
-
             @*<ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
@@ -100,6 +53,7 @@
     </div><!-- /.container-fluid -->
 </nav>
 
+<!--Barra de Herramientas-->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <ul class="nav navbar-nav navbar-left">
@@ -116,54 +70,65 @@
 </nav>
 
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-10">
-                <div id="myDiagramDiv" style="width: 900px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
+<div class="container-fluid">
+    <!--Barra de Componentes-->
+    <div class="sidebar right">
+        <div class="panel panel-info">
+            <div class="panel-heading">Componentes</div>
+            <div class="panel-body">
+                <div id="myPaletteDiv" style="width: 180px; height: 427px; position: relative;"></div>
             </div>
-            <div class="col-md-2">
-                <div class="panel panel-info">
-                    <div class="panel-heading">Componentes</div>
-                    <div class="panel-body">
-                        <div id="myPaletteDiv" style="width: 200px; height: 500px; position: relative;"></div>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     </div>
-
-
-
-
-
-@*<span id="diagramSpan" style="display: inline-block; vertical-align: top">
-
-    <div id="myDiagramDiv" style="width: 900px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
-</span>
-<span class="panel panel-info">
-    <div class="panel-heading">Componentes</div>
-    <div class="panel-body">
-        <span id="paletteSpan" style="display: inline-block; vertical-align: top">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div id="myPaletteDiv" style="width: 120px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
-                </div>
-            </nav>
-        </span>
+    <!--Fin Barra de Componentes-->
+    <!--Ventana Principal de Edicion-->
+    <div class="content fluid-fixed">
+        <div id="myDiagramDiv" class="well" style="width: auto; height: 500px; position: relative;"></div>
     </div>
-</span>*@
-
+    <!--Fin Ventana Principal de Edicion-->
+        
+</div>
 
 @section scripts
 {
     @Scripts.Render("~/bundles/modalform")
-
     @Scripts.Render("~/Scripts/CustomScripts/topologia.js")
-
 }
 
+<style>
+    .container-fluid > .sidebar {
+        position: relative;
+        top: 0;
+        left:auto;
+        width: 220px;
+        margin-top: 0px;
+    }
+
+    .left {
+        float:left;
+    }
+
+    .right {
+        float:right;
+    }
+
+    .fixed-fluid {
+        margin-left: 240px;
+    }
+    .fluid-fixed {
+        margin-right: 240px;
+        margin-left:auto !important;
+    }
+    .fixed-fixed {
+        margin: 0 240px;
+    }
+</style>
+   
 
 
 
+
+
+
+
+  
