@@ -394,8 +394,8 @@ namespace ProyectoMPLS.Controllers
         {
             //int idProyecto = 79;
             EnlaceViewModel newModel = new EnlaceViewModel(idEnlace, idProyecto);
-
-
+            
+            //List<SelectListItem> dpAfinidades = Afinidad.ConvertDropdownListaAfinidades(listaAfinidades);
 
             return PartialView(newModel);
         }

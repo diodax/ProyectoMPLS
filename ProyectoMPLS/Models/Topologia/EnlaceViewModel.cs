@@ -39,6 +39,8 @@ namespace ProyectoMPLS.Models.Topologia
         [Display(Name = "Criterio de la Métrica")]
         public int nTipoMetrica { get; set; }
 
+        public List<SelectListItem> dpAfinidades { get; set; }
+
         //public Proyecto proyectoActual { get; set; }
         public Enlace enlaceActual { get; set; }
         public List<SelectListItem> listaNodos { get; set; }
@@ -77,7 +79,7 @@ namespace ProyectoMPLS.Models.Topologia
                     this.idRouterB = dr.idRouterB;
                 if (!dr.IscAfinidadNull())
                     this.idAfinidad = dr.idAfinidad;
-                
+
                 //var idRouterA = this.idRouterA;
                 //var idRouterB = this.idRouterB;
 
@@ -88,12 +90,27 @@ namespace ProyectoMPLS.Models.Topologia
                 this.cNombreRouterB = routerB.cHostname;
             }
 
+            List<Afinidad> listaAfinidades = Afinidad.SelectListaAfinidades(this.idProyecto);
+            this.dpAfinidades = Afinidad.ConvertDropdownListaAfinidades(listaAfinidades);
+
         }
 
         public void insertUpdateEnlace()
         {
-            Data.dsTopologiaTableAdapters.EnlacesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.EnlacesTableAdapter();
-            Adapter.InsertarActualizarEnlace(this.idProyecto, this.idEnlace, this.cNombre, this.idRouterA, this.idRouterB, (int)this.nBandwidth, (int)this.nPesoAdministrativo, this.idAfinidad);
+            if (this.idAfinidad == 0)
+            {
+                Data.dsTopologiaTableAdapters.EnlacesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.EnlacesTableAdapter();
+                Adapter.InsertarActualizarEnlace(this.idProyecto, this.idEnlace, this.cNombre, this.idRouterA, this.idRouterB, (int)this.nBandwidth, (int)this.nPesoAdministrativo, null);
+            }
+
+            else
+            {
+                Data.dsTopologiaTableAdapters.EnlacesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.EnlacesTableAdapter();
+                Adapter.InsertarActualizarEnlace(this.idProyecto, this.idEnlace, this.cNombre, this.idRouterA, this.idRouterB, (int)this.nBandwidth, (int)this.nPesoAdministrativo, this.idAfinidad);
+            }
+            
+
+
         }
     }
 }
