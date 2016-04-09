@@ -1,11 +1,11 @@
 ﻿@model ProyectoMPLS.Models.Topologia.Afinidad
 
 
-<div class="modal-header" id="editarafinidad">
-    <h4 class="modal-title">Editar Afinidad</h4>
+<div class="modal-header" id="crearafinidad">
+    <h4 class="modal-title">Crear Afinidad</h4>
 </div>
 
-@using (Html.BeginForm("_EditarAfinidad", "Topologia", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "EditarAfinidadDataForm" }))
+@using (Html.BeginForm("_CrearAfinidad", "Topologia", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "CrearAfinidadDataForm" }))
 {
     <div class="modal-body">
         @Html.AntiForgeryToken()
@@ -41,19 +41,19 @@
 
     <div class="modal-footer">
         <input class="btn btn-primary" type="submit" value="Guardar" />
-        <button id="submitEditarAfinidad" class="btn" data-dismiss="modal">Cerrar</button>
+        <button id="submitCrearAfinidad" class="btn" data-dismiss="modal">Cerrar</button>
     </div>
 }
 
 <script>
     $(document).ready(function () {
-        $("#submitEditarAfinidad").click(function () {
-            var form = $("#EditarAfinidadDataForm")[0];
+        $("#submitCrearAfinidad").click(function () {
+            var form = $("#CrearAfinidadDataForm")[0];
             var formData = new FormData(form);
             //console.log(form);
             //console.log(formData);
             $.ajax({
-                url: '@Url.Action("_EditarAfinidad", new { controller = "Topologia" })',
+                url: '@Url.Action("_CrearAfinidad", new { controller = "Topologia" })',
                 type: 'POST',
                 contentType: false,
                 processData: false,

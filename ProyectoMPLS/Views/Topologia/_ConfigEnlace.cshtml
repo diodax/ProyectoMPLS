@@ -69,6 +69,16 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.idAfinidad)
+            </label>
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.idAfinidad, Model.dpAfinidades, new { @class = "form-control", @id = "dpxAfinidades" })
+                @Html.ValidationMessageFor(model => model.idAfinidad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
 
         @*<div class="form-group">
                 <label for="focusedinput" class="col-sm-3 control-label">
@@ -85,7 +95,7 @@
 
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal">Cerrar</button>
-        <a class="btn btn-primary" id="submitConfigEnlace">Ejecutar</a>
+        <a class="btn btn-primary" id="submitConfigEnlace">Guardar</a>
     </div>
 }
 

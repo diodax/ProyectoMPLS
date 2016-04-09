@@ -36,7 +36,7 @@ namespace ProyectoMPLS.Controllers
         {
             //Proyecto proyectoActual = new Proyecto(newModel.idProyecto);
             NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
-            
+
             SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
             routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto);
 
@@ -71,6 +71,10 @@ namespace ProyectoMPLS.Controllers
             return PartialView(newModel);
         }
 
+        #endregion
+
+        #region Afinidad
+
         public ActionResult _ListaAfinidades(int idProyecto)
         {
             List<Afinidad> listaAfinidades = new List<Afinidad>();
@@ -81,25 +85,62 @@ namespace ProyectoMPLS.Controllers
 
         public ActionResult _EditarAfinidad(int idProyecto, int idAfinidad)
         {
-            Afinidad a = new Afinidad();
-            a = Afinidad.SelectAfinidad(idProyecto, idAfinidad);
-            return PartialView(a);
+            Afinidad newModel = new Afinidad();
+            newModel = Afinidad.SelectAfinidad(idProyecto, idAfinidad);
+            return PartialView(newModel);
         }
 
+        [HttpPost]
+        public ActionResult _EditarAfinidad(Afinidad newModel)
+        {
+            if (ModelState.IsValid)
+            {
+                newModel.ActualizarAfinidad(newModel.idProyecto, newModel.idAfinidad, newModel.cDescripcion, newModel.cColor);
+                //return RedirectToAction("Index");
+                return Json(new { success = true });
+            }
+            else
+            {
+                return PartialView(newModel);
+            }
+        }
+
+        public ActionResult _CrearAfinidad(int idProyecto)
+        {
+            Afinidad newModel = new Afinidad();
+            //newModel = Afinidad.SelectAfinidad(idProyecto, idAfinidad);
+            return PartialView(newModel);
+        }
+
+        [HttpPost]
+        public ActionResult _CrearAfinidad(Afinidad newModel)
+        {
+            if (ModelState.IsValid)
+            {
+                newModel.CrearAfinidad(newModel.idProyecto, newModel.cDescripcion, newModel.cColor);
+                //return RedirectToAction("Index");
+                return Json(new { success = true });
+            }
+            else
+            {
+                return PartialView(newModel);
+            }
+        }
+
+        #endregion
+
         //TODO: Esto
-        public ActionResult _GetListaEnlaces (string idProyecto, string idRouter, double nBandwidth)
+        public ActionResult _GetListaEnlaces(string idProyecto, string idRouter, double nBandwidth)
         {
             List<Router> listaNextHops = new List<Router>();
             listaNextHops = LSP.SelectListaNodosDisponibles(Int32.Parse(idProyecto), Int32.Parse(idRouter), (int)nBandwidth);
             return Json(listaNextHops, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult _GetListaNodos (string idProyecto, string idRouter)
+        public ActionResult _GetListaNodos(string idProyecto, string idRouter)
         {
             return Json(1);
         }
-
-        #endregion
 
         #region CrearProyecto
 
@@ -204,7 +245,7 @@ namespace ProyectoMPLS.Controllers
                 //string answer = ""; //ConexionSSH.EjecutarOSPFDiscovery(newModel.cRaspberryIP, newModel.nPuerto, newModel.cRouterIP, newModel.cCommunityString);
 
                 List<Tabla> tablaDatos = new List<Tabla>();
-                
+
                 #region response
                 /*
                 answer = @"Hostname; OSPFRouterID; OSPFNeighborRouterID; OSPFNeighborIP\n\n" +
@@ -347,13 +388,13 @@ namespace ProyectoMPLS.Controllers
         }
 
         #region Enlace
-        
+
         public ActionResult _ConfigEnlace(int idEnlace, int idProyecto)
         {
             //int idProyecto = 79;
             EnlaceViewModel newModel = new EnlaceViewModel(idEnlace, idProyecto);
-
-
+            
+            //List<SelectListItem> dpAfinidades = Afinidad.ConvertDropdownListaAfinidades(listaAfinidades);
 
             return PartialView(newModel);
         }
@@ -382,7 +423,7 @@ namespace ProyectoMPLS.Controllers
             Router routerA = new LSR(idRouterA, idProyecto);
             Router routerB = new LSR(idRouterB, idProyecto);
 
-            return Json(new { nombreRouterA = routerA.cHostname, nombreRouterB = routerB.cHostname}, JsonRequestBehavior.AllowGet);
+            return Json(new { nombreRouterA = routerA.cHostname, nombreRouterB = routerB.cHostname }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

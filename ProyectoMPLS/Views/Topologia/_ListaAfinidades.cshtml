@@ -4,10 +4,7 @@
 <div id='afinidad' class='modal fade in'>
     <div id='afinidadContent'></div>
 </div>
-<!-- another modal placeholder (?) -->
-<div id="editarAfinidad" class="modal fade in">
-    <h4>Afinidad</h4>
-</div>
+
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -23,23 +20,24 @@
                 <th></th>
             </tr>
         </thead>
-
-        @foreach (var item in Model)
-        {
-            <tbody>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                @*@Html.HiddenFor(modelItem => item.idProyecto, new { id = "tbxIdProyecto" })*@
                 <tr>
                     <td class="descripcion">@Html.DisplayFor(modelItem => item.cDescripcion)</td>
                     <td class="color">@Html.DisplayFor(modelItem => item.cColor)</td>
                     <td><a class="btn btn-default" id="linkEditarAfinidad" data-modal="" data-toggle="modal" href="@Url.Action("_EditarAfinidad", "Topologia", new { idProyecto = item.idProyecto, idAfinidad = item.idAfinidad })">Editar</a></td>
                 </tr>
-            </tbody>
-        }
+            }
+        </tbody>
     </table>
 </div>
 
 <div class="modal-footer">
-    <button class="btn" id="addAfinidad">Agregar Afinidad</button>
-    <button class="btn" data-dismiss="modal">Cerrar</button>
+    <a class="btn btn-default" id="linkCrearAfinidad" data-modal="" data-toggle="modal" href="@Url.Action("_CrearAfinidad", "Topologia", new { idProyecto = Model.First().idProyecto })">Agregar Afinidad</a>
+    @*<button class="btn" id="addAfinidad">Agregar Afinidad</button>*@
+    <button class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 </div>
 
 <script src="~/Scripts/modalform.js"></script>
