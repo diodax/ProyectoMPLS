@@ -22,6 +22,7 @@ namespace ProyectoMPLS.Models.Topologia
 
         public List<Router> listadoRouters { get; set; }
         public List<Enlace> listadoEnlaces { get; set; }
+        public List<LSP> listadoLSPs { get; set; }
 
         public Proyecto() { }
 
@@ -48,6 +49,7 @@ namespace ProyectoMPLS.Models.Topologia
 
             this.listadoRouters = Proyecto.SelectListaRouters(this.idProyecto);
             this.listadoEnlaces = Proyecto.SelectListaEnlaces(this.idProyecto);
+            this.listadoLSPs = LSP.SelectListaLSP(this.idProyecto);
         }
 
         /// <summary>

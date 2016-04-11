@@ -5,7 +5,7 @@
 }
 
 <!--Nombre del Archivo en Edicion-->
-<h2>@Html.DisplayTextFor(model => model.cTitulo)</h2>
+ <h2><i class="fa fa-folder-open"></i> @Html.DisplayTextFor(model => model.cTitulo)</h2>
 
 @Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
 
@@ -34,7 +34,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" href='@Url.Action("_ListaAfinidades", "Topologia", new { idProyecto = Model.idProyecto})'>Lista de Afinidades</a></li>
+                <li><a data-modal="" href='@Url.Action("_ListaAfinidades", "Topologia", new { idProyecto = Model.idProyecto })'>Lista de Afinidades</a></li>
             </ul>
             @*<ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Link</a></li>
@@ -71,16 +71,32 @@
 
 
 <div class="container-fluid">
-    <!--Barra de Componentes-->
+    <!--Barras Laterales-->
     <div class="sidebar right">
+        <!--Barra de Componentes-->
         <div class="panel panel-info">
-            <div class="panel-heading">Componentes</div>
-            <div class="panel-body">
-                <div id="myPaletteDiv" style="width: 180px; height: 427px; position: relative;"></div>
+            <div class="panel-heading">
+                <a class="panel-title" data-toggle="collapse" data-target="#collapseOne" href="#collapseOne">Componentes</a> 
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div id="myPaletteDiv" style="width: 180px; height: 427px; position: relative;"></div>
+                </div>
+            </div>
+        </div>
+        <!--Barra de LSPs-->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <a class="panel-title" data-toggle="collapse" data-target="#collapseOne" href="#collapseOne">Listado de LSPs</a>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    @{ Html.RenderPartial("~/Views/Enrutamiento/_InlineIndexLSPs.cshtml", Model.listadoLSPs); }
+                </div>
             </div>
         </div>
     </div>
-    <!--Fin Barra de Componentes-->
+    <!--Fin Barras Laterales-->
     <!--Ventana Principal de Edicion-->
     <div class="content fluid-fixed">
         <div id="myDiagramDiv" class="well" style="width: auto; height: 500px; position: relative;"></div>

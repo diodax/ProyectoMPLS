@@ -62,12 +62,16 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 this.idProyecto = dr.idProyecto;
                 this.idLSP = dr.idLSP;
-                this.cNombre = dr.cNombre.Trim();
-                this.nBandwidth = dr.nBandwidth;
+                if (!dr.IscNombreNull())
+                    this.cNombre = dr.cNombre.Trim();
+                if (!dr.IsnBandwidthNull())
+                    this.nBandwidth = dr.nBandwidth;
                 this.idRouterOrigen = dr.idRouterOrigen;
                 this.idRouterDestino = dr.idRouterDestino;
-                this.nSetupPriority = dr.nSetupPriority;
-                this.nHoldPriority = dr.nHoldPriority;
+                if (!dr.IsnSetupPriorityNull())
+                    this.nSetupPriority = dr.nSetupPriority;
+                if (!dr.IsnHoldPriorityNull())
+                    this.nHoldPriority = dr.nHoldPriority;
             }
 
             //Agrega router_origen al stack de nodos

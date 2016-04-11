@@ -7,18 +7,10 @@
 
 <div class="modal-body">
 
-    @*<p>
-        @Html.ActionLink("Crear Nuevo", "_CrearLSP", "Topologia", null, new { data_modal = "", id = "btnCreate", @class = "btn btn-success" })
-    </p>*@
+   
     <table class="table">
         <thead>
             <tr>
-                @*<th>
-                @Html.DisplayNameFor(model => model.idProyecto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.idLSP)
-            </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.cNombre)
                 </th>
@@ -31,12 +23,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.idRouterDestino)
                 </th>
-                @*<th>
-                @Html.DisplayNameFor(model => model.nSetupPriority)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nHoldPriority)
-            </th>*@
                 <th></th>
             </tr>
         </thead>
@@ -45,12 +31,6 @@
         {
             <tbody>
                 <tr>
-                    @*<td>
-                @Html.DisplayFor(modelItem => item.idProyecto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.idLSP)
-            </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.cNombre)
                     </td>
@@ -63,15 +43,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.idRouterDestino)
                     </td>
-                    @*<td>
-                @Html.DisplayFor(modelItem => item.nSetupPriority)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nHoldPriority)
-            </td>*@
                     <td>
                         @Html.ActionLink("Editar", "_EditarLSP", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" })
-                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })*@
                         @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })
                     </td>
                 </tr>
@@ -85,7 +58,6 @@
 
 <div class="modal-footer">
     <button class="btn" data-dismiss="modal">Cerrar</button>
-    @*<input class="btn btn-primary" type="submit" value="Save" />*@
 </div>
 
 

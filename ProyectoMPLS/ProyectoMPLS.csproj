@@ -1808,6 +1808,8 @@
     <Content Include="Views\Topologia\_ListaAfinidades.cshtml" />
     <Content Include="Views\Topologia\_EditarAfinidad.cshtml" />
     <Content Include="Views\Enrutamiento\_EditarLSP.cshtml" />
+    <Content Include="Views\Topologia\_CrearAfinidad.cshtml" />
+    <Content Include="Views\Enrutamiento\_InlineIndexLSPs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

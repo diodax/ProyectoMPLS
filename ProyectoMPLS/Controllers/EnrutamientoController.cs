@@ -15,6 +15,13 @@ namespace ProyectoMPLS.Controllers
             return View();
         }
 
+        public ActionResult _InlineIndexLSPs(int idProyecto)
+        {
+            List<LSP> listaLSPs = new List<LSP>();
+            listaLSPs = LSP.SelectListaLSP(idProyecto);
+            return PartialView(listaLSPs);
+        }
+
         public ActionResult _IndexLSPs(int idProyecto)
         {
             List<LSP> listaLSPs = new List<LSP>();
