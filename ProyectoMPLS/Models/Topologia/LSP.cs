@@ -44,7 +44,12 @@ namespace ProyectoMPLS.Models.Topologia
 
         public LSP(int idProyecto)
         {
-            //
+            //Populando los selectlists e inicializando las listas
+            this.listaNodosOrigen = LSP.ConvertDropdownNodosDisponibles(LSP.SelectListaNodosDisponibles(idProyecto, null, 0));
+            this.listaNextHop = new List<SelectListItem>();
+
+            this.listaEnlaces = new List<Enlace>();
+            this.listaNodos = new List<Router>();
         }
 
         public LSP(int idProyecto, int idLSP)
@@ -57,22 +62,48 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 this.idProyecto = dr.idProyecto;
                 this.idLSP = dr.idLSP;
-                this.cNombre = dr.cNombre.Trim();
-                this.nBandwidth = dr.nBandwidth;
+                if (!dr.IscNombreNull())
+                    this.cNombre = dr.cNombre.Trim();
+                if (!dr.IsnBandwidthNull())
+                    this.nBandwidth = dr.nBandwidth;
                 this.idRouterOrigen = dr.idRouterOrigen;
                 this.idRouterDestino = dr.idRouterDestino;
-                this.nSetupPriority = dr.nSetupPriority;
-                this.nHoldPriority = dr.nHoldPriority;
+                if (!dr.IsnSetupPriorityNull())
+                    this.nSetupPriority = dr.nSetupPriority;
+                if (!dr.IsnHoldPriorityNull())
+                    this.nHoldPriority = dr.nHoldPriority;
             }
 
-            //Agrega router_origen a la lista de nodos
-            this.listaNodos = new List<Router>();
-            this.listaNodos.Add(new LER(this.idRouterOrigen, this.idProyecto));
-
-            //Bucle que agrega los routers de la lista de enlaces
+            //Agrega router_origen al stack de nodos
+            Stack<Router> stackNodos = new Stack<Router>();
+            stackNodos.Push(new LER(this.idRouterOrigen, this.idProyecto));
             
 
-            //Finalmente, agrega router_destino a la lista de nodos
+            //Bucle que agrega los routers de la lista de enlaces
+            Data.dsTopologiaTableAdapters.EnlacesLSPsTableAdapter DetailAdapter = new Data.dsTopologiaTableAdapters.EnlacesLSPsTableAdapter();
+            Data.dsTopologia.EnlacesLSPsDataTable ddt = DetailAdapter.SeleccionarListaEnlacesLSPs(idProyecto, idLSP); 
+
+            foreach(var dr in ddt)
+            {
+                Enlace temp = new Enlace(dr.idLSP, dr.idProyecto);
+                Router lastNode = stackNodos.Peek();
+
+                //Agrega el router asociado al enlace que no esta en el tope del stack
+                if (lastNode.idRouter != temp.idRouterA)
+                    stackNodos.Push(new LSR(temp.idRouterA, this.idProyecto));
+                else
+                    stackNodos.Push(new LSR(temp.idRouterB, this.idProyecto));
+            }
+
+            //Finalmente, agrega router_destino al stack de nodos
+            stackNodos.Push(new LER(this.idRouterDestino, this.idProyecto));
+
+            //Convierte el stack a una lista
+            this.listaNodos = stackNodos.ToList();
+
+            //Populando los selectlists
+            this.listaNodosOrigen = LSP.ConvertDropdownNodosDisponibles(LSP.SelectListaNodosDisponibles(idProyecto, null, 0));
+            this.listaNextHop = new List<SelectListItem>();
         }
 
         public static List<LSP> SelectListaLSP(int idProyecto)

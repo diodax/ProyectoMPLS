@@ -5,7 +5,7 @@
     <h4 class="modal-title" id="myModalLabel">Ruteo Explícito</h4>
 </div>
 
-@using (Html.BeginForm("_CrearLSP", "Topologia", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "DataForm" }))
+@using (Html.BeginForm("_CrearLSP", "Enrutamiento", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "DataForm" }))
 {
 <div class="modal-body">
    
@@ -66,55 +66,24 @@
 
     <br />
 
-    @foreach(var node in Model.listaNodos)
-    {
-
-    }
-
-
     <ul class="timeline" id="timeline">
-        <li class="li">
-            <div class="timestamp">
-                <span>Dirección IP:</span>
-                <span class="ip-address">-</span>
-            </div>
-            <div class="status"><h4></h4></div>
-            <input type="hidden" class="next-link" />
-            <input type="hidden" class="node-id" />
-        </li>
-
-
-
-        <li class="li complete">
-            <div class="timestamp">
-                <span class="author">IP Address:</span>
-                <span class="date">10.100.0.1</span>
-            </div>
-            <div class="status">
-                <h4> R1 </h4>
-            </div>
-        </li>
-        
-        <li class="li complete">
-            <div class="timestamp">
-                <span class="author">IP Address:</span>
-                <span class="date">10.100.0.4</span>
-            </div>
-            <div class="status">
-                <h4> R4 </h4>
-            </div>
-        </li>
-
-        <li class="li">
-            <div class="timestamp">
-                <span class="author">IP Address:</span>
-                <span class="date">-</span>
-            </div>
-            <div class="status">
-                <h4> 3 Links Available </h4>
-            </div>
-        </li>
+        @foreach (var item in Model.listaNodos)
+        {
+            <li class="li complete">
+                <div class="timestamp">
+                    <span>Dirección IP:</span>
+                    <span class="ip-address">@item.cRouterID</span>
+                </div>
+                <div class="status"><h4>@item.cHostname</h4></div>
+                <input type="hidden" class="next-link" />
+                <input type="hidden" class="node-id" value="@(item.idRouter)" />
+            </li>
+        }
     </ul>
+   
+
+        
+    
 
 </div>
 <div class="modal-footer">

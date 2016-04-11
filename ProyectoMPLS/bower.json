@@ -1,0 +1,37 @@
+{
+  "name": "ProyectoMPLS",
+  "homepage": "https://github.com/diodax/ProyectoMPLS",
+  "authors": [
+    "diodax <diosdavi20@gmail.com>"
+  ],
+  "description": "Sistema web de análisis TE para redes MPLS",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "mpls",
+    "te",
+    "network",
+    "scan",
+    "tool"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "blueimp-file-upload": "jquery-file-upload#~9.12.1",
+    "jquery": "^2.2.2",
+    "bootstrap": "^3.3.6",
+    "startbootstrap-sb-admin-2": "^1.0.8",
+    "gojs": "^1.6.2",
+    "bootstrap-modal": "^2.2.6"
+  },
+  "resolutions": {
+    "jquery": "^2.2.2",
+    "bootstrap": "^3.3.6"
+  }
+}
