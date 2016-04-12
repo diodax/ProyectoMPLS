@@ -94,5 +94,12 @@ namespace ProyectoMPLS.Models.Topologia
             Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter Adapter = new Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter();
             Adapter.CrearActualizarAfinidad(idProyecto, idAfinidad, cDescripcion, cColor);
         }
+
+        public static bool BorrarAfinidad(int idProyecto, int idAfinidad)
+        {
+            Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter Adapter = new Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter();
+            bool bExito = (bool)Adapter.BorrarAfinidad(idProyecto, idAfinidad);
+            return bExito;
+        }
     }
 }

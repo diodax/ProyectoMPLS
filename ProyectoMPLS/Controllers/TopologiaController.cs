@@ -107,6 +107,29 @@ namespace ProyectoMPLS.Controllers
                 return PartialView(newModel);
             }
         }
+        
+        [HttpPost]
+        public ActionResult _BorrarAfinidad(int idProyecto, int idAfinidad)
+        {
+            if (ModelState.IsValid)
+            {
+                bool a = Afinidad.BorrarAfinidad(idProyecto, idAfinidad);
+                if (a)
+                {
+                    //return RedirectToAction("Index");
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false });
+                }
+                
+            }
+            else
+            {
+                return Json(new { success = true });
+            }
+        }
 
         #endregion
 
