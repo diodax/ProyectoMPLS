@@ -78,7 +78,11 @@ namespace ProyectoMPLS.Controllers
         public ActionResult _ListaAfinidades(int idProyecto)
         {
             List<Afinidad> listaAfinidades = new List<Afinidad>();
-            listaAfinidades = Afinidad.SelectListaAfinidades(idProyecto);
+            if ((listaAfinidades.Count > 0))
+
+                listaAfinidades = Afinidad.SelectListaAfinidades(idProyecto);
+            else
+                listaAfinidades = new List<Afinidad>();
             return PartialView(listaAfinidades);
 
         }
