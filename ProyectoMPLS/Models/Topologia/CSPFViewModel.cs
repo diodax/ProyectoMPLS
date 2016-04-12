@@ -19,10 +19,12 @@ namespace ProyectoMPLS.Models.Topologia
         public string cNombre { get; set; }
         [Display(Name = "Restricción de BW")]
         public double nBandwidth { get; set; }
+        [Display(Name = "Afinidad")]
+        public int idAfinidad { get; set; }
 
         [Display(Name = "Nodo de Origen")]
         public int nRouterOrigen { get; set; }
-        [Display(Name = "Nodo Actual")]
+        [Display(Name = "Nodo de Destino")]
         public int nRouterDestino { get; set; }
 
         [Display(Name = "Criterio de la Métrica")]
@@ -30,6 +32,11 @@ namespace ProyectoMPLS.Models.Topologia
 
         public Proyecto proyectoActual { get; set; }
         public List<SelectListItem> listaNodos { get; set; }
+
+        //SelectList con todos los nodos de la topologia. Estatico
+        public List<SelectListItem> listaNodosOrigen { get; set; }
+        //SelectList con los nodos de la topologia, excepto el seleccionado en listaNodosOrigen. Dinamico
+        public List<SelectListItem> listaNodosDestino { get; set; }
 
         /// <summary>
         /// Constructor para inicializar la plantilla con el ID de un proyecto específico

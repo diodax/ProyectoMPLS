@@ -50,29 +50,6 @@ namespace ProyectoMPLS.Controllers
 
         #endregion
 
-        #region LSP
-
-        public ActionResult _IndexLSPs(int idProyecto)
-        {
-            List<LSP> listaLSPs = new List<LSP>();
-            listaLSPs = LSP.SelectListaLSP(idProyecto);
-            return PartialView(listaLSPs);
-        }
-
-        public ActionResult _CrearLSP(int idProyecto)
-        {
-            LSP newModel = new LSP(idProyecto);
-            return PartialView(newModel);
-        }
-
-        public ActionResult _EditarLSP(int idProyecto, int idLSP)
-        {
-            LSP newModel = new LSP(idProyecto, idLSP);
-            return PartialView(newModel);
-        }
-
-        #endregion
-
         #region Afinidad
 
         public ActionResult _ListaAfinidades(int idProyecto)

@@ -1,0 +1,138 @@
+﻿@model ProyectoMPLS.Models.Topologia.CSPFViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Ruteo por CSPF</h4>
+</div>
+
+@using (Html.BeginForm("_CrearCSPF", "Enrutamiento", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "DataFormCSPF" }))
+{
+    <div class="modal-body">
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    @Html.HiddenFor(model => model.idProyecto)
+    @Html.HiddenFor(model => model.idLSP)
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.cNombre)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.cNombre, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cNombre, "", new {@class = "text-danger"}).ToHtmlString()))
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.nBandwidth)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.nBandwidth, new {htmlAttributes = new {@class = "form-control", @type = "number", min = "0"}})
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nBandwidth, "", new {@class = "text-danger"}).ToHtmlString()))
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.idAfinidad)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.idAfinidad, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.idAfinidad, "", new {@class = "text-danger"}).ToHtmlString()))
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.nRouterOrigen)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.nRouterOrigen, Model.listaNodos, new {@class = "form-control", id = "dpxRouterOrigen"})
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nRouterOrigen, "", new {@class = "text-danger"}).ToHtmlString()))
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.nRouterDestino)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.nRouterDestino, Model.listaNodos, new {@class = "form-control", id = "dpxRouterDestino"})
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nRouterDestino, "", new {@class = "text-danger"}).ToHtmlString()))
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="focusedinput" class="col-sm-3 control-label">
+                    @Html.LabelFor(model => model.nTipoMetrica)
+                </label>
+                <div class="col-md-6">
+                    <label class="radio-inline" for="nTipoMetrica_1">
+                        @Html.RadioButtonFor(model => model.nTipoMetrica, "1", new {@class = "form-control"})
+                        Pesos Administrativos
+                    </label>
+                    <label class="radio-inline" for="nTipoMetrica_2">
+                        @Html.RadioButtonFor(model => model.nTipoMetrica, "2", new { @class = "form-control" })
+                        Mínima Cantidad de Saltos
+                    </label>
+                    <label class="radio-inline" for="nTipoMetrica_3">
+                        @Html.RadioButtonFor(model => model.nTipoMetrica, "3", new {@class = "form-control"})
+                        BW Reservado
+                    </label>
+                    <label class="radio-inline" for="nTipoMetrica_4">
+                        @Html.RadioButtonFor(model => model.nTipoMetrica, "4", new { @class = "form-control" })
+                        BW Disponible
+                    </label>
+
+                    @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nTipoMetrica, "", new {@class = "text-danger"}).ToHtmlString()))
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">Cerrar</button>
+        <a class="btn btn-primary" id="submitCSPF">Ejecutar</a>
+    </div>
+}
+
+<script>
+        $(document).ready(function () {
+            $("#submitCSPF").click(function () {
+                var form = $("#DataFormCSPF")[0];
+                var formData = new FormData(form);
+                $.ajax({
+                    url: '@Url.Action("_CrearCSPF", new { controller = "Enrutamiento" })',
+                    type: 'POST',
+                    //contentType: false,
+                    //processData: false,
+                    data: formData,
+                    success: function (result) {
+                        if (result.success) {
+                            $('#myModal').modal('hide');
+                            window.location.reload(true);   //refresh page
+                        } else {
+                            $('#myModalContent').html(result);
+                        }
+                    },
+                    error: function (error) { $("#error").html(error); }
+                });
+            });
+        });
+</script>
+

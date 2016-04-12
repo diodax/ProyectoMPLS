@@ -12,8 +12,8 @@
     
 </div>
 
-<a href="#" class="btn btn-default btn-block">Agregar Ruta Estática</a>
-<a href="#" class="btn btn-default btn-block">Agregar por CPSF</a>
+<a data-modal="" href='@Url.Action("_CrearLSP", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto })' class="btn btn-default btn-block">Agregar Ruta Estática</a>
+<a data-modal="" href='@Url.Action("_CrearCSPF", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto) })' class="btn btn-default btn-block">Agregar por CPSF</a>
 
 
 
