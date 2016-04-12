@@ -9,16 +9,21 @@ namespace ProyectoMPLS.Models.Topologia
     public class Dijkstra
     {
         /// <summary>
-        /// Generar el árbol SPF de la topología en un proyecto, tomando el parámetro como punto de origen
+        /// Generar y retornar el árbol SPF de la topología en un proyecto, tomando el parámetro como punto de origen
         /// </summary>
         /// <param name="idRouterOrigen"></param>
         /// <param name="idProyecto"></param>
+        /// <param name="minBW"></param>
         /// <returns></returns>
-        public static SimplePriorityQueue<NodoDijkstra> GenerarRutas(NodoDijkstra idRouterOrigen, int idProyecto)
+        public static List<NodoDijkstra> GenerarRutas(NodoDijkstra idRouterOrigen, int idProyecto, double minBW)
         {
             idRouterOrigen.nMinDistancia = 0.0;
             SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
             routerQueue.Enqueue(idRouterOrigen, 1);
+
+            //mantiene el registro de todos los nodos de la topologia por el que se pasa
+            List<NodoDijkstra> routerList = new List<NodoDijkstra>();
+            routerList.Add(idRouterOrigen);
 
             while (routerQueue.Count > 0)
             {
@@ -29,16 +34,34 @@ namespace ProyectoMPLS.Models.Topologia
                     NodoDijkstra vecino = new NodoDijkstra(enlace.idRouterB, idProyecto);
                     double nPesoBandwidth = enlace.nBandwidth;
                     double nDistanciaTotal = currentRouter.nMinDistancia + nPesoBandwidth;
-                    if (nDistanciaTotal < vecino.nMinDistancia)
+                    
+                    //En este if ocurre el filtro por BW disponible
+                    if (nDistanciaTotal < vecino.nMinDistancia && minBW < enlace.nBandwidth) //Constraint check
                     {
-                        routerQueue.Remove(vecino);
+                        if (routerQueue.Contains(vecino))
+                            routerQueue.Remove(vecino);
                         vecino.nMinDistancia = nDistanciaTotal;
                         vecino.idRouterPrevio = currentRouter;
+                        enlace.nBandwidthDisponible -= minBW; //reservar el BW en el enlace
+                        
                         routerQueue.Enqueue(vecino, 1);
                     }
+
+                    //Agrega el router (bueno, los 2) al registro
+                    int indexTarget = routerList.FindIndex(n => n.idRouter == vecino.idRouter);
+                    if (indexTarget != -1)
+                        routerList[indexTarget] = vecino;
+                    else
+                        routerList.Add(vecino);
+                    int indexSource = routerList.FindIndex(n => n.idRouter == currentRouter.idRouter);
+                    if (indexSource != -1)
+                        routerList[indexSource] = currentRouter;
+                    else
+                        routerList.Add(currentRouter);
+                    
                 }
             }
-            return routerQueue;
+            return routerList;
         }
 
         /// <summary>
@@ -49,12 +72,10 @@ namespace ProyectoMPLS.Models.Topologia
         public static List<NodoDijkstra> GetRutaMasCortaHasta(NodoDijkstra idRouterDestino)
         {
             List<NodoDijkstra> path = new List<NodoDijkstra>();
-
             for (NodoDijkstra r = idRouterDestino; r != null; r = r.idRouterPrevio)
             {
                 path.Add(r);   
             }
-
             path.Reverse();
             return path;
         }

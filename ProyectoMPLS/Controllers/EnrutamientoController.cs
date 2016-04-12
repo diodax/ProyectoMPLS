@@ -57,11 +57,11 @@ namespace ProyectoMPLS.Controllers
         [HttpPost]
         public ActionResult _CrearCSPF(CSPFViewModel newModel)
         {
-            //Proyecto proyectoActual = new Proyecto(newModel.idProyecto);
+            //Inicializa el nodo que servira como punto de partida para el algoritmo
             NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
 
-            SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
-            routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto);
+            List<NodoDijkstra> routerQueue = new List<NodoDijkstra>();
+            routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto, newModel.nBandwidth);
 
             NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
 

@@ -34,16 +34,16 @@ namespace ProyectoMPLS.Controllers
         [HttpPost]
         public ActionResult _CrearCSPF(CSPFViewModel newModel)
         {
-            //Proyecto proyectoActual = new Proyecto(newModel.idProyecto);
-            NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
+            
+            //NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
 
-            SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
-            routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto);
+            //SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
+            //routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto);
 
-            NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
+            //NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
 
-            List<NodoDijkstra> result = new List<NodoDijkstra>();
-            result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
+            //List<NodoDijkstra> result = new List<NodoDijkstra>();
+            //result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
 
             return Json(1);
         }

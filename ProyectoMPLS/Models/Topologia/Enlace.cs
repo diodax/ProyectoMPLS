@@ -22,7 +22,7 @@ namespace ProyectoMPLS.Models.Topologia
         public int idAfinidad { get; set; }
 
         //Nuevos parametros
-        public double nBandwidthReservado { get; set; }
+        public double nBandwidthDisponible { get; set; }
 
         //Coodernadas para la interfaz gráfica
         public int x1 { get; set; }
@@ -55,6 +55,7 @@ namespace ProyectoMPLS.Models.Topologia
                     this.nBandwidth = dr.nBandwidth;
                 if (!dr.IsnPesoAdministrativoNull())
                     this.nPesoAdministrativo = dr.nPesoAdministrativo;
+                this.nBandwidthDisponible = nBandwidth;
             }
         }
     }
