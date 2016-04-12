@@ -31,9 +31,10 @@
                 <label for="focusedinput" class="col-sm-3 control-label">
                     @Html.LabelFor(model => model.cColor)
                 </label>
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cColor, "", new { @class = "text-danger" }).ToHtmlString()))
+                <div class="col-md-3">
+                    <input type="text" value="fff" name="cColor" class="pick-a-color form-control">
+                    @*@Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cColor, "", new { @class = "text-danger" }).ToHtmlString()))*@
                 </div>
             </div>
         </div>
@@ -47,6 +48,7 @@
 
 <script>
     $(document).ready(function () {
+        $(".pick-a-color").pickAColor();
         $("#submitEditarAfinidad").click(function () {
             var form = $("#EditarAfinidadDataForm")[0];
             var formData = new FormData(form);

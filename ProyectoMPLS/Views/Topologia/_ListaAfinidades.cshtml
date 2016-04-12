@@ -23,12 +23,17 @@
         <tbody>
             @foreach (var item in Model)
             {
+
                 @*@Html.HiddenFor(modelItem => item.idProyecto, new { id = "tbxIdProyecto" })*@
                 <tr>
-                    <td class="descripcion">@Html.DisplayFor(modelItem => item.cDescripcion)</td>
-                    <td class="color">@Html.DisplayFor(modelItem => item.cColor)</td>
+                    <td class="descripcion">
+                        @Html.DisplayFor(modelItem => item.cDescripcion)
+                    </td>
+                    <td class="color" bgcolor="#@item.cColor">
+                        
+                    </td>
                     <td>
-                        @using (Html.BeginForm("_EliminarAfinidad", "Topologia", FormMethod.Post))
+                        @using (Html.BeginForm("_BorrarAfinidad", "Topologia", FormMethod.Post))
                         {
                             <div class="btn-group" role="group">
                                 <a class="btn btn-default" id="linkEditarAfinidad" data-modal="" data-toggle="modal" href="@Url.Action("_EditarAfinidad", "Topologia", new { idProyecto = item.idProyecto, idAfinidad = item.idAfinidad })">Editar</a>
@@ -37,12 +42,14 @@
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </div>
                         }
-                        
+
                         @*<a class="btn btn-danger" id="linkEliminarAfinidad" data-modal="" data-toggle="modal" href="">Eliminar</a>*@
                     </td>
                 </tr>
+
             }
         </tbody>
+
     </table>
 </div>
 
@@ -61,7 +68,7 @@
         $('form').submit(function (e) {
             var currentForm = this;
             e.preventDefault();
-            bootbox.confirm('¿Está seguro de que desea eliminar este proyecto?', function (result) {
+            bootbox.confirm('¿Está seguro de que desea eliminar esta afinidad?', function (result) {
                 if (result) {
                     currentForm.submit();
                 }
