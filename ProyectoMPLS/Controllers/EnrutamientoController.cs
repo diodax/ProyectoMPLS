@@ -68,7 +68,7 @@ namespace ProyectoMPLS.Controllers
             List<NodoDijkstra> result = new List<NodoDijkstra>();
             result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
 
-            return Json(1);
+            return PartialView(newModel);
         }
 
         #endregion
