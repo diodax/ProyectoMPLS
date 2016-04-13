@@ -28,7 +28,8 @@
     "bootstrap": "^3.3.6",
     "startbootstrap-sb-admin-2": "^1.0.8",
     "gojs": "^1.6.2",
-    "bootstrap-modal": "^2.2.6"
+    "bootstrap-modal": "^2.2.6",
+    "pick-a-color": "^1.2.3"
   },
   "resolutions": {
     "jquery": "^2.2.2",

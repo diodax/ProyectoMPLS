@@ -1,7 +1,7 @@
 {
   "name": "gojs",
   "description": "Interactive diagrams, charts, and graphs, such as trees, flowcharts, orgcharts, UML, BPMN, or business diagrams",
-  "main": "release/go-debug.js",
+  "main": "release/go.js",
   "moduleType": [
     "globals",
     "amd",
@@ -124,15 +124,14 @@
     "Northwoods Software"
   ],
   "homepage": "http://gojs.net",
-  "version": "1.6.2",
-  "_release": "1.6.2",
+  "version": "1.6.3",
+  "_release": "1.6.3",
   "_resolution": {
     "type": "version",
-    "tag": "v1.6.2",
-    "commit": "12f99be3523cfbd39e9457f53137ebd59076d47f"
+    "tag": "v1.6.3",
+    "commit": "afe7160042420502c885a93eb864577b661cc982"
   },
-  "_source": "git://github.com/NorthwoodsSoftware/GoJS.git",
+  "_source": "https://github.com/NorthwoodsSoftware/GoJS.git",
   "_target": "^1.6.2",
-  "_originalSource": "gojs",
-  "_direct": true
+  "_originalSource": "gojs"
 }

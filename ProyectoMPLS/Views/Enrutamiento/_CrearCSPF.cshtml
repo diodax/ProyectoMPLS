@@ -37,15 +37,42 @@
                         @Html.EditorFor(model => model.nBandwidth, new {htmlAttributes = new {@class = "form-control", @type = "number", min = "0"}})
                         @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nBandwidth, "", new {@class = "text-danger"}).ToHtmlString()))
                     </div>
+                    <div class="col-md-3">
+                        <p class="help-block">Mbps</p>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="focusedinput" class="col-sm-3 control-label">
-                        @Html.LabelFor(model => model.idAfinidad)
+                        @Html.LabelFor(model => model.nTipoMetrica)
                     </label>
                     <div class="col-md-6">
-                        @Html.EditorFor(model => model.idAfinidad, new {htmlAttributes = new {@class = "form-control"}})
-                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.idAfinidad, "", new {@class = "text-danger"}).ToHtmlString()))
+                        <div class="radio">
+                            <label for="nTipoMetrica_1">
+                                @Html.RadioButtonFor(model => model.nTipoMetrica, "1")
+                                Pesos Administrativos
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label for="nTipoMetrica_2">
+                                @Html.RadioButtonFor(model => model.nTipoMetrica, "2")
+                                Mínima Cantidad de Saltos
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label for="nTipoMetrica_3">
+                                @Html.RadioButtonFor(model => model.nTipoMetrica, "3")
+                                BW Reservado
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label for="nTipoMetrica_4">
+                                @Html.RadioButtonFor(model => model.nTipoMetrica, "4")
+                                BW Disponible
+                            </label>
+                        </div>
+
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nTipoMetrica, "", new { @class = "text-danger" }).ToHtmlString()))
                     </div>
                 </div>
 
@@ -72,35 +99,21 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.idAfinidad)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.idAfinidad, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.idAfinidad, "", new { @class = "text-danger" }).ToHtmlString()))
+                    </div>
+                </div>
+
             </div>
         </div>
 
         <div class="row">
-            <div class="form-group">
-                <label for="focusedinput" class="col-sm-3 control-label">
-                    @Html.LabelFor(model => model.nTipoMetrica)
-                </label>
-                <div class="col-md-6">
-                    <label class="radio-inline" for="nTipoMetrica_1">
-                        @Html.RadioButtonFor(model => model.nTipoMetrica, "1", new {@class = "form-control"})
-                        Pesos Administrativos
-                    </label>
-                    <label class="radio-inline" for="nTipoMetrica_2">
-                        @Html.RadioButtonFor(model => model.nTipoMetrica, "2", new { @class = "form-control" })
-                        Mínima Cantidad de Saltos
-                    </label>
-                    <label class="radio-inline" for="nTipoMetrica_3">
-                        @Html.RadioButtonFor(model => model.nTipoMetrica, "3", new {@class = "form-control"})
-                        BW Reservado
-                    </label>
-                    <label class="radio-inline" for="nTipoMetrica_4">
-                        @Html.RadioButtonFor(model => model.nTipoMetrica, "4", new { @class = "form-control" })
-                        BW Disponible
-                    </label>
-
-                    @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nTipoMetrica, "", new {@class = "text-danger"}).ToHtmlString()))
-                </div>
-            </div>
+            
         </div>
 
     </div>
