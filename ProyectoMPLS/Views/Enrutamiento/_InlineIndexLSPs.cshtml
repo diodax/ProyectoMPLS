@@ -1,19 +1,30 @@
 ﻿@model IEnumerable<ProyectoMPLS.Models.Topologia.LSP>
 
 <div class="list-group">
-    @foreach (var item in Model)
+
+    @if (Model != null && Model.Any())
     {
-        <a data-modal="" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })' class="list-group-item">
-            @Html.DisplayFor(modelItem => item.cNombre)
-        </a>
+        foreach (var item in Model)
+        {
+            <a data-modal="" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })' class="list-group-item">
+                @Html.DisplayFor(modelItem => item.cNombre)
+            </a>
+        }
     }
+    else
+    {
+        //Message to display no student record found.
+    }
+
+
+    
 
     
     
 </div>
 
 <a data-modal="" href='@Url.Action("_CrearLSP", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto })' class="btn btn-default btn-block">Agregar Ruta Estática</a>
-<a data-modal="" href='@Url.Action("_CrearCSPF", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto) })' class="btn btn-default btn-block">Agregar por CPSF</a>
+<a data-modal="" href='@Url.Action("_CrearCSPF", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto })' class="btn btn-default btn-block">Agregar por CPSF</a>
 
 
 

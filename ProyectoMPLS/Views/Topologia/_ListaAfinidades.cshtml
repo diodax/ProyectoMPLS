@@ -15,39 +15,40 @@
     <table class="table table-striped table-bordered" id="tblAfinidades">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(model => model.cDescripcion)</th>
-                <th>@Html.DisplayNameFor(model => model.cColor)</th>
-                <th></th>
+                @*<th>@Html.DisplayNameFor(model => model.cDescripcion)</th>
+                <th>@Html.DisplayNameFor(model => model.cColor)</th>*@
+                <th></th><th></th><th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model != null && Model.Any())
             {
+                foreach (var item in Model)
+                {
 
-                @*@Html.HiddenFor(modelItem => item.idProyecto, new { id = "tbxIdProyecto" })*@
-                <tr>
-                    <td class="descripcion">
-                        @Html.DisplayFor(modelItem => item.cDescripcion)
-                    </td>
-                    <td class="color" bgcolor="#@item.cColor">
-                        
-                    </td>
-                    <td>
-                        @using (Html.BeginForm("_BorrarAfinidad", "Topologia", FormMethod.Post))
-                        {
-                            <div class="btn-group" role="group">
-                                <a class="btn btn-default" id="linkEditarAfinidad" data-modal="" data-toggle="modal" href="@Url.Action("_EditarAfinidad", "Topologia", new { idProyecto = item.idProyecto, idAfinidad = item.idAfinidad })">Editar</a>
-                                @Html.Hidden("idProyecto", item.idProyecto)
-                                @Html.Hidden("idAfinidad", item.idAfinidad)
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                            </div>
-                        }
+                    @*@Html.HiddenFor(modelItem => item.idProyecto, new { id = "tbxIdProyecto" })*@
+                    <tr>
+                        <td class="descripcion">
+                            @Html.DisplayFor(modelItem => item.cDescripcion)
+                        </td>
+                        <td class="color" bgcolor="#@item.cColor"></td>
+                        <td>
+                            @using (Html.BeginForm("_BorrarAfinidad", "Topologia", FormMethod.Post))
+                            {
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-default" id="linkEditarAfinidad" data-modal="" data-toggle="modal" href="@Url.Action("_EditarAfinidad", "Topologia", new { idProyecto = item.idProyecto, idAfinidad = item.idAfinidad })">Editar</a>
+                                    @Html.Hidden("idProyecto", item.idProyecto)
+                                    @Html.Hidden("idAfinidad", item.idAfinidad)
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </div>
+                            }
 
-                        @*<a class="btn btn-danger" id="linkEliminarAfinidad" data-modal="" data-toggle="modal" href="">Eliminar</a>*@
-                    </td>
-                </tr>
+                            @*<a class="btn btn-danger" id="linkEliminarAfinidad" data-modal="" data-toggle="modal" href="">Eliminar</a>*@
+                        </td>
+                    </tr>
 
-            }
+                }
+            }            
         </tbody>
 
     </table>
