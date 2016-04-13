@@ -37,10 +37,11 @@
                     /*backdrop: 'static',*/
                     keyboard: true
                 }, 'show').css({
-                    width: 'auto',
-                    'margin-left': function () {
-                        return -($(this).width() / 2);
-                    }
+                    width: 'auto'
+                    //,
+                    //'margin-left': function () {
+                    //    return -($(this).width() / 2);
+                    //}
                 });
 
                 bindForm(this);
@@ -66,7 +67,7 @@
             //}
 
 
-
+            console.log(this.href);
             $('#myModalContent').load(this.href, function () {
 
 

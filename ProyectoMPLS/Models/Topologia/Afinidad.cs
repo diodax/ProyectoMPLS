@@ -21,7 +21,7 @@ namespace ProyectoMPLS.Models.Topologia
         [Display(Name = "Color")]
         public string cColor { get; set; }
 
-        public List<SelectListItem> listaAfinidades { get; set; }
+        //public List<SelectListItem> listaAfinidades { get; set; }
 
         public Afinidad() { }
 
