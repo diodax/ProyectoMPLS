@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Priority_Queue;
 
 namespace ProyectoMPLS.Controllers
 {
@@ -14,6 +15,8 @@ namespace ProyectoMPLS.Controllers
         {
             return View();
         }
+
+        #region LSP_Manual
 
         public ActionResult _InlineIndexLSPs(int idProyecto)
         {
@@ -40,5 +43,35 @@ namespace ProyectoMPLS.Controllers
             LSP newModel = new LSP(idProyecto, idLSP);
             return PartialView(newModel);
         }
+
+        #endregion
+
+        #region CSPF
+
+        public ActionResult _CrearCSPF(int idProyecto)
+        {
+            CSPFViewModel newModel = new CSPFViewModel(idProyecto);
+            return PartialView(newModel);
+        }
+
+        [HttpPost]
+        public ActionResult _CrearCSPF(CSPFViewModel newModel)
+        {
+            //Inicializa el nodo que servira como punto de partida para el algoritmo
+            NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
+
+            List<NodoDijkstra> routerQueue = new List<NodoDijkstra>();
+            routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto, newModel.nBandwidth);
+
+            NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
+
+            List<NodoDijkstra> result = new List<NodoDijkstra>();
+            result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
+
+            return PartialView(newModel);
+        }
+
+        #endregion
+
     }
 }

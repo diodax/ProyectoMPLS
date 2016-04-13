@@ -34,41 +34,18 @@ namespace ProyectoMPLS.Controllers
         [HttpPost]
         public ActionResult _CrearCSPF(CSPFViewModel newModel)
         {
-            //Proyecto proyectoActual = new Proyecto(newModel.idProyecto);
-            NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
+            
+            //NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
 
-            SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
-            routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto);
+            //SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
+            //routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto);
 
-            NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
+            //NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
 
-            List<NodoDijkstra> result = new List<NodoDijkstra>();
-            result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
+            //List<NodoDijkstra> result = new List<NodoDijkstra>();
+            //result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
 
             return Json(1);
-        }
-
-        #endregion
-
-        #region LSP
-
-        public ActionResult _IndexLSPs(int idProyecto)
-        {
-            List<LSP> listaLSPs = new List<LSP>();
-            listaLSPs = LSP.SelectListaLSP(idProyecto);
-            return PartialView(listaLSPs);
-        }
-
-        public ActionResult _CrearLSP(int idProyecto)
-        {
-            LSP newModel = new LSP(idProyecto);
-            return PartialView(newModel);
-        }
-
-        public ActionResult _EditarLSP(int idProyecto, int idLSP)
-        {
-            LSP newModel = new LSP(idProyecto, idLSP);
-            return PartialView(newModel);
         }
 
         #endregion

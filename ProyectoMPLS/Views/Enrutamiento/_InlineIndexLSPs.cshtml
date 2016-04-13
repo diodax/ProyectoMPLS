@@ -1,6 +1,23 @@
 ﻿@model IEnumerable<ProyectoMPLS.Models.Topologia.LSP>
 
-<table class="table">
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a data-modal="" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })' class="list-group-item">
+            @Html.DisplayFor(modelItem => item.cNombre)
+        </a>
+    }
+
+    
+    
+</div>
+
+<a data-modal="" href='@Url.Action("_CrearLSP", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto })' class="btn btn-default btn-block">Agregar Ruta Estática</a>
+<a data-modal="" href='@Url.Action("_CrearCSPF", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto })' class="btn btn-default btn-block">Agregar por CPSF</a>
+
+
+
+@*<table class="table">
     <tr>
         <th class="hidden">
             @Html.DisplayNameFor(model => model.idProyecto)
@@ -11,24 +28,7 @@
         <th>
             @Html.DisplayNameFor(model => model.cNombre)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.nBandwidth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idRouterOrigen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idRouterNextHop)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idRouterDestino)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nSetupPriority)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nHoldPriority)
-        </th>*@
+        
         <th></th>
     </tr>
 
@@ -43,24 +43,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.cNombre)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.nBandwidth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idRouterOrigen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idRouterNextHop)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idRouterDestino)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nSetupPriority)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nHoldPriority)
-        </td>*@
+  
         <td>
             <div class="btn-group" role="group">
                 <a class="btn btn-default" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })'><p class="fa fa-edit"></p></a>
@@ -71,4 +54,4 @@
     </tr>
 }
 
-</table>
+</table>*@

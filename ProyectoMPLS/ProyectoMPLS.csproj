@@ -211,6 +211,7 @@
     <Compile Include="Models\Topologia\Dijkstra.cs" />
     <Compile Include="Models\Topologia\Enlace.cs" />
     <Compile Include="Models\Topologia\LSP.cs" />
+    <Compile Include="Models\Topologia\LSPViewModel.cs" />
     <Compile Include="Models\Topologia\Proyecto.cs" />
     <Compile Include="Models\Topologia\Router.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1925,6 +1926,7 @@
     <Content Include="Views\Enrutamiento\_EditarLSP.cshtml" />
     <Content Include="Views\Topologia\_CrearAfinidad.cshtml" />
     <Content Include="Views\Enrutamiento\_InlineIndexLSPs.cshtml" />
+    <Content Include="Views\Enrutamiento\_CrearCSPF.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
