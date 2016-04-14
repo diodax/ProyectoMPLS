@@ -15,6 +15,7 @@ namespace ProyectoMPLS.Models.Topologia
         public int idProyecto { get; set; }
         public int idLSP { get; set; }
 
+        [Required]
         [Display(Name = "Nombre")]
         public string cNombre { get; set; }
         [Display(Name = "Restricción de BW")]
@@ -22,8 +23,10 @@ namespace ProyectoMPLS.Models.Topologia
         [Display(Name = "Afinidad")]
         public int idAfinidad { get; set; }
 
+        [Required]
         [Display(Name = "Nodo de Origen")]
         public int nRouterOrigen { get; set; }
+        [Required]
         [Display(Name = "Nodo de Destino")]
         public int nRouterDestino { get; set; }
 
@@ -37,6 +40,8 @@ namespace ProyectoMPLS.Models.Topologia
         public List<SelectListItem> listaNodosOrigen { get; set; }
         //SelectList con los nodos de la topologia, excepto el seleccionado en listaNodosOrigen. Dinamico
         public List<SelectListItem> listaNodosDestino { get; set; }
+        //SelectList con la lista de afinidades
+        public List<SelectListItem> listaAfinidades { get; set; }
 
         /// <summary>
         /// Constructor para inicializar la plantilla con el ID de un proyecto específico
@@ -52,9 +57,15 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 SelectListItem temp = new SelectListItem();
                 temp.Value = nodo.idRouter.ToString();
-                temp.Text = nodo.cHostname.ToString().Trim();
+                string tempHostname = nodo.cHostname != null ? nodo.cHostname.Trim() : String.Empty;
+                string tempIpAdress = nodo.cRouterID != null ? "[" + nodo.cRouterID.Trim() + "]" : String.Empty;
+
+                temp.Text = tempHostname + " " + tempIpAdress;
                 listaNodos.Add(temp);
             }
+
+            List<Afinidad> listaAfinidades = Afinidad.SelectListaAfinidades(this.idProyecto);
+            this.listaAfinidades = Afinidad.ConvertDropdownListaAfinidades(listaAfinidades);
         }
     }
 }

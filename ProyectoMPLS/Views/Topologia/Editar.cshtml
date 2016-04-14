@@ -1,11 +1,12 @@
-﻿@model ProyectoMPLS.Models.Topologia.Proyecto
+﻿@using System.Data.Entity.Infrastructure
+@model ProyectoMPLS.Models.Topologia.Proyecto
 
 @{
     ViewBag.Title = "Editar";
 }
 
 <!--Nombre del Archivo en Edicion-->
- <h2><i class="fa fa-folder-open"></i> @Html.DisplayTextFor(model => model.cTitulo)</h2>
+ <h2><i class="fa fa-folder-open"></i> @Html.DisplayTextFor(model => model.cTitulo, new { @id = "txtTitulo"})</h2>
 
 @Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
 

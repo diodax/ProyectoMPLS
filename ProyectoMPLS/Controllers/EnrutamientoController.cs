@@ -10,12 +10,6 @@ namespace ProyectoMPLS.Controllers
 {
     public class EnrutamientoController : Controller
     {
-        // GET: Enrutamiento
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         #region LSP_Manual
 
         public ActionResult _InlineIndexLSPs(int idProyecto)
@@ -55,18 +49,37 @@ namespace ProyectoMPLS.Controllers
         }
 
         [HttpPost]
+        public ActionResult _EjecutarDijkstra(CSPFViewModel newModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //Inicializa el nodo que servira como punto de partida para el algoritmo
+                NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
+
+                List<NodoDijkstra> routerQueue = new List<NodoDijkstra>();
+                routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto, newModel.nBandwidth);
+
+                NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
+
+                List<NodoDijkstra> result = new List<NodoDijkstra>();
+                result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
+                return Json(new {path = result, success = true});
+            }
+            else
+            {
+                return Json(new {path = new List<NodoDijkstra>(), success = false});
+            }
+            
+        }
+
+        [HttpPost]
         public ActionResult _CrearCSPF(CSPFViewModel newModel)
         {
-            //Inicializa el nodo que servira como punto de partida para el algoritmo
-            NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
-
-            List<NodoDijkstra> routerQueue = new List<NodoDijkstra>();
-            routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto, newModel.nBandwidth);
-
-            NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
-
-            List<NodoDijkstra> result = new List<NodoDijkstra>();
-            result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
+            if (ModelState.IsValid)
+            {
+                //Actualiza el LSP 
+                return Json(new {success = true});
+            }
 
             return PartialView(newModel);
         }

@@ -32,8 +32,11 @@
                 @Html.LabelFor(model => model.nBandwidth)
             </label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.nBandwidth, new { htmlAttributes = new { @class = "form-control", @id = "tbxBandwidth", @type = "number", min = "0" } })
-                @Html.ValidationMessageFor(model => model.nBandwidth, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.nBandwidth, new {htmlAttributes = new {@class = "form-control", @id = "tbxBandwidth", @type = "number", min = "0"}})
+                @Html.ValidationMessageFor(model => model.nBandwidth, "", new {@class = "text-danger"})
+            </div>
+            <div class="col-md-3">
+                <p class="help-block">Mbps</p>
             </div>
         </div>
 

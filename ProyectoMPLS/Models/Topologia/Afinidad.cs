@@ -77,8 +77,7 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 SelectListItem temp = new SelectListItem();
                 temp.Value = item.idAfinidad.ToString();
-                temp.Text = item.cDescripcion.ToString();
-                dpAfinidades.Add(temp);
+                temp.Text = item.cDescripcion;
             }
             return dpAfinidades;
         }

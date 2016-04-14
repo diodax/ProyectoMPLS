@@ -16,11 +16,12 @@ $(document).ready(function () {
     myDiagram.addDiagramListener("Modified", function (e) {
         var button = document.getElementById("save");
         if (button) button.disabled = !myDiagram.isModified;
-        var idx = document.title.indexOf("*");
+        var idx = ("#txtTitulo").indexOf("*");
+        //var idx = document.title.indexOf("*");
         if (myDiagram.isModified) {
-            if (idx < 0) document.title += "*";
+            if (idx < 0) ("#txtTitulo").val(("#txtTitulo").val() + "*" );
         } else {
-            if (idx >= 0) document.title = document.title.substr(0, idx);
+            if (idx >= 0) ("#txtTitulo").val(("#txtTitulo").val().substr(0, idx));  
         }
     });
 
@@ -46,19 +47,8 @@ $(document).ready(function () {
     
     // funcion que abre modal de _ConfigEnlace
     function abrirConfigEnlace(e, obj) {
-        //window.open('/Topologia/_ConfigEnlace?idEnlace=1&idProyecto=79', '_self', 'datamodal=""');
-
-        //var idEnlace = $('#tbxIdEnlace').val();
-        //console.log(idEnlace);
         var idProyecto = $('#tbxIdProyecto').val();
-        
-        //console.log(obj);
-
-        // console.log(idProyecto);
-        //console.log(obj.data.from);
-        //console.log(obj.data.to);
         idEnlace = obj.data.idEnlace;
-        //console.log(idEnlace);
         var href = '/Topologia/_ConfigEnlace?idEnlace=' + idEnlace + '&idProyecto=' + idProyecto;
 
         // hide dropdown if any
@@ -97,13 +87,7 @@ $(document).ready(function () {
         success: function (result) {
             //Inicio AJAX --
             var image2 = '/Content/Images/' + 'router.png';
-            //var model = $$(go.GraphLinksModel);
-
-            //alert("working");
-            //console.log(result.routers);
-            //console.log(result.enlaces);
-
-                
+            //var model = $$(go.GraphLinksModel);  
             var arrayRouters = [];
             $.each(result.routers, function (i, item) {
                 arrayRouters.push({ "key": result.routers[i].idRouter, "name": result.routers[i].cHostname, "source": image2 });
@@ -115,7 +99,7 @@ $(document).ready(function () {
             model.nodeDataArray = arrayRouters;
 
             var arrayLinks = [];
-            //console.log(result.enlaces);
+     
             $.each(result.enlaces, function (i, item) {
                 // console.log(result.enlaces);
                 //console.log("from: " + result.enlaces[i].idRouterA);
@@ -127,9 +111,6 @@ $(document).ready(function () {
             //$(result.enlaces).each(function () {
             //    arrayLinks.push({ "from": $(this).idRouterA, "to": $(this).idRouterB });
             //});
-            //console.log(arrayRouters);
-            //console.log(arrayLinks);
-            //
 
             model.linkDataArray = arrayLinks;
             myDiagram.model = model;
@@ -159,12 +140,6 @@ $(document).ready(function () {
     myPalette.model.nodeDataArray = [
         { source: image, color: "LER" },
         { source: image, color: "LSR" },
-        //{ source: image, color: "aquamarine" },
-        //{ source: image, color: "turquoise" },
-        //{ source: image, color: "powderblue" },
-        //{ source: image, color: "lightblue" },
-        //{ source: image, color: "lightskyblue" },
-        //{ source: image, color: "deepskyblue" }
     ];
 
     $('#file').click(function () {
@@ -192,9 +167,7 @@ $(document).ready(function () {
                 //return result;
                 //idProyecto: $("#tbxIdProyecto").val()
             },
-            data: {
-                result
-            },
+            data: { result },
             success: function () {
                 //Inicio AJAX --
                 /*var arrayRouters = model.nodeDataArray;

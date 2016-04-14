@@ -48,25 +48,25 @@
                     </label>
                     <div class="col-md-6">
                         <div class="radio">
-                            <label for="nTipoMetrica_1">
+                            <label for="nTipoMetrica_1" data-toggle="tooltip" data-placement="right" title="Emplea los pesos definidos manualmente para cada enlace.">
                                 @Html.RadioButtonFor(model => model.nTipoMetrica, "1")
                                 Pesos Administrativos
                             </label>
                         </div>
                         <div class="radio">
-                            <label for="nTipoMetrica_2">
+                            <label for="nTipoMetrica_2" data-toggle="tooltip" data-placement="right" title="Emplea la cantidad de saltos como métrica.">
                                 @Html.RadioButtonFor(model => model.nTipoMetrica, "2")
                                 Mínima Cantidad de Saltos
                             </label>
                         </div>
                         <div class="radio">
-                            <label for="nTipoMetrica_3">
+                            <label for="nTipoMetrica_3" data-toggle="tooltip" data-placement="right" title="Da preferencia a los enlaces con mayor BW Reservado.">
                                 @Html.RadioButtonFor(model => model.nTipoMetrica, "3")
                                 BW Reservado
                             </label>
                         </div>
                         <div class="radio">
-                            <label for="nTipoMetrica_4">
+                            <label for="nTipoMetrica_4" data-toggle="tooltip" data-placement="right" title="Da preferencia a los enlaces con mayor BW Disponible.">
                                 @Html.RadioButtonFor(model => model.nTipoMetrica, "4")
                                 BW Disponible
                             </label>
@@ -104,7 +104,7 @@
                         @Html.LabelFor(model => model.idAfinidad)
                     </label>
                     <div class="col-md-6">
-                        @Html.EditorFor(model => model.idAfinidad, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DropDownListFor(model => model.idAfinidad, Model.listaAfinidades, new { @class = "form-control", @id = "dpxAfinidades" })
                         @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.idAfinidad, "", new { @class = "text-danger" }).ToHtmlString()))
                     </div>
                 </div>
@@ -112,40 +112,67 @@
             </div>
         </div>
 
-        <div class="row">
+        <div id="dijkstraResults">
             
         </div>
 
     </div>
 
     <div class="modal-footer">
+
+        <a class="btn btn-info pull-left" id="runDijkstra">Ejecutar Algoritmo</a>
         <button class="btn" data-dismiss="modal">Cerrar</button>
-        <a class="btn btn-primary" id="submitCSPF">Ejecutar</a>
+        <a class="btn btn-primary" id="submitCSPF">Guardar</a>
     </div>
 }
 
 <script>
-        $(document).ready(function () {
-            $("#submitCSPF").click(function () {
-                var form = $("#DataFormCSPF")[0];
-                var formData = new FormData(form);
-                $.ajax({
-                    url: '@Url.Action("_CrearCSPF", new { controller = "Enrutamiento" })',
-                    type: 'POST',
-                    //contentType: false,
-                    //processData: false,
-                    data: formData,
-                    success: function (result) {
-                        if (result.success) {
-                            $('#myModal').modal('hide');
-                            window.location.reload(true);   //refresh page
-                        } else {
-                            $('#myModalContent').html(result);
-                        }
-                    },
-                    error: function (error) { $("#error").html(error); }
-                });
+    $(document).ready(function () {
+        //Inicializa todos los tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+
+        //Evento para ejecutar el algoritmo de Dijkstra server-side
+        $('#runDijkstra').click(function() {
+            var form = $("#DataFormCSPF")[0];
+            var formData = new FormData(form);
+            $.ajax({
+                url: '@Url.Action("_EjecutarDijkstra", new { controller = "Enrutamiento" })',
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    if (result.success) {
+                        //Crear la tabla en el div 
+                        //Popular la tabla de dijkstraResults
+                    } else {
+                        //
+                    }
+                },
+                error: function (error) { $("#error").html(error); }
+            });
+
+        });
+
+
+        $("#submitCSPF").click(function () {
+            var form = $("#DataFormCSPF")[0];
+            var formData = new FormData(form);
+            $.ajax({
+                url: '@Url.Action("_CrearCSPF", new { controller = "Enrutamiento" })',
+                type: 'POST',
+                //contentType: false,
+                //processData: false,
+                data: formData,
+                success: function (result) {
+                    if (result.success) {
+                        $('#myModal').modal('hide');
+                        window.location.reload(true);   //refresh page
+                    } else {
+                        $('#myModalContent').html(result);
+                    }
+                },
+                error: function (error) { $("#error").html(error); }
             });
         });
+    });
 </script>
 
