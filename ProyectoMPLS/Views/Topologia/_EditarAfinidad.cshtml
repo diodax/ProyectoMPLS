@@ -32,7 +32,8 @@
                     @Html.LabelFor(model => model.cColor)
                 </label>
                 <div class="col-md-3">
-                    <input type="text" value="fff" name="cColor" class="pick-a-color form-control">
+                    @Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "pick-a-color form-control" } })
+                    @*<input type="text" value="fff" name="cColor" class="pick-a-color form-control">*@
                     @*@Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cColor, "", new { @class = "text-danger" }).ToHtmlString()))*@
                 </div>
