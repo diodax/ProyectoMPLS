@@ -18,4 +18,19 @@ namespace ProyectoMPLS.Models.Topologia
 
         public LSPViewModel() { }
     }
+
+    public class InlineLSPViewModel
+    {
+        public List<LSP> listaLSPs { get; set; }
+        public int idProyecto { get; set; }
+
+        public InlineLSPViewModel() { }
+
+        public InlineLSPViewModel(int idProyecto)
+        {
+            this.idProyecto = idProyecto;
+            this.listaLSPs = new List<LSP>();
+            this.listaLSPs = LSP.SelectListaLSP(idProyecto);
+        }
+    }
 }
