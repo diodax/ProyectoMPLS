@@ -54,13 +54,8 @@ namespace ProyectoMPLS.Controllers
 
         public ActionResult _ListaAfinidades(int idProyecto)
         {
-            List<Afinidad> listaAfinidades = new List<Afinidad>();
-            if ((listaAfinidades.Count > 0))
-
-                listaAfinidades = Afinidad.SelectListaAfinidades(idProyecto);
-            else
-                listaAfinidades = new List<Afinidad>();
-            return PartialView(listaAfinidades);
+            AfinidadViewModel newModel = new AfinidadViewModel(idProyecto);
+            return PartialView(newModel);
 
         }
 
@@ -332,7 +327,7 @@ namespace ProyectoMPLS.Controllers
         public ActionResult Editar(int idProyecto)
         {
             Proyecto newModel = new Proyecto(idProyecto);
-            ViewBag.idEnlace = "1";
+            //ViewBag.idEnlace = "1";
             return View(newModel);
         }
 

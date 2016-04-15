@@ -227,6 +227,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModuleAuthorize.cs" />
     <Compile Include="Models\Topologia\Afinidad.cs" />
+    <Compile Include="Models\Topologia\AfinidadViewModel.cs" />
     <Compile Include="Models\Topologia\EnlaceViewModel.cs" />
     <Compile Include="Models\Topologia\CSPFViewModel.cs" />
     <Compile Include="Models\Topologia\Dijkstra.cs" />

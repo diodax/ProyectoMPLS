@@ -10,59 +10,69 @@
                 @Html.DisplayFor(modelItem => item.cNombre)
             </a>
         }
+
+
     }
     else
     {
         //Message to display no student record found.
+
     }
 
-
-    
-
-    
-    
 </div>
 
-<a data-modal="" href='@Url.Action("_CrearLSP", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto })' class="btn btn-default btn-block">Agregar Ruta Estática</a>
-<a data-modal="" href='@Url.Action("_CrearCSPF", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto })' class="btn btn-default btn-block">Agregar por CPSF</a>
-
-
-
-@*<table class="table">
-    <tr>
-        <th class="hidden">
-            @Html.DisplayNameFor(model => model.idProyecto)
-        </th>
-        <th class="hidden">
-            @Html.DisplayNameFor(model => model.idLSP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cNombre)
-        </th>
-        
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td class="hidden">
-            @Html.DisplayFor(modelItem => item.idProyecto)
-        </td>
-        <td class="hidden">
-            @Html.DisplayFor(modelItem => item.idLSP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cNombre)
-        </td>
-  
-        <td>
-            <div class="btn-group" role="group">
-                <a class="btn btn-default" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })'><p class="fa fa-edit"></p></a>
-                <a class="btn btn-outline btn-danger" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })'><p class="fa fa-trash-o"></p></a>
-            </div>
-           
-        </td>
-    </tr>
+@if (Model != null && Model.Any())
+{
+    <a data-modal="" href='@Url.Action("_CrearLSP", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto })' class="btn btn-default btn-block">Agregar Ruta Estática</a>
+    <a data-modal="" href='@Url.Action("_CrearCSPF", "Enrutamiento", new { idProyecto = Model.FirstOrDefault().idProyecto })' class="btn btn-default btn-block">Agregar por CPSF</a>
 }
 
-</table>*@
+
+
+
+
+
+
+
+
+
+
+
+    @*<table class="table">
+            <tr>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.idProyecto)
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.idLSP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.cNombre)
+                </th>
+
+                <th></th>
+            </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.idProyecto)
+                </td>
+                <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.idLSP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cNombre)
+                </td>
+
+                <td>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-default" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })'><p class="fa fa-edit"></p></a>
+                        <a class="btn btn-outline btn-danger" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })'><p class="fa fa-trash-o"></p></a>
+                    </div>
+
+                </td>
+            </tr>
+        }
+
+        </table>*@
