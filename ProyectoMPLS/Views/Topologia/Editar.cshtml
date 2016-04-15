@@ -6,7 +6,7 @@
 }
 
 <!--Nombre del Archivo en Edicion-->
- <h2><i class="fa fa-folder-open"></i> @Html.DisplayTextFor(model => model.cTitulo, new { @id = "txtTitulo"})</h2>
+ <h2><i class="fa fa-folder-open"></i> <span id="txtTitulo">@Html.DisplayTextFor(model => model.cTitulo)</span></h2>
 
 @Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
 

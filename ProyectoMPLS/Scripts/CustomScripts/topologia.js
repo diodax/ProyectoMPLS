@@ -16,12 +16,12 @@ $(document).ready(function () {
     myDiagram.addDiagramListener("Modified", function (e) {
         var button = document.getElementById("save");
         if (button) button.disabled = !myDiagram.isModified;
-        var idx = ("#txtTitulo").indexOf("*");
+        var idx = $("#txtTitulo").val().indexOf("*");
         //var idx = document.title.indexOf("*");
         if (myDiagram.isModified) {
-            if (idx < 0) ("#txtTitulo").val(("#txtTitulo").val() + "*" );
+            if (idx < 0) $("#txtTitulo").val($("#txtTitulo").val() + "*" );
         } else {
-            if (idx >= 0) ("#txtTitulo").val(("#txtTitulo").val().substr(0, idx));  
+            if (idx >= 0) $("#txtTitulo").val($("#txtTitulo").val().substr(0, idx));  
         }
     });
 
