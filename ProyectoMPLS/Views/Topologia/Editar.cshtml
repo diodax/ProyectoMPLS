@@ -1,4 +1,5 @@
 ﻿@using System.Data.Entity.Infrastructure
+@using ProyectoMPLS.Models.Topologia
 @model ProyectoMPLS.Models.Topologia.Proyecto
 
 @{
@@ -47,49 +48,106 @@
                 <!--Barra de Herramientas-->
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="btn-toolbar m-t-20" role="toolbar">
+                        <div class="btn-toolbar m-t-20 nav navbar-btn" role="toolbar">
                             <div class="btn-group">
-                                <button id="file" type="button" class="btn btn-default waves-effect waves-light">
-                                    <i class="fa fa-file"></i>
+                                <button id="file" type="button" class="btn btn-default btn-custom waves-light">
+                                    <i class="fa fa-2x fa-file"></i>
                                 </button>
-                                <button id="save" type="button" class="btn btn-default waves-effect waves-light">
-                                    <i class="fa fa-save"></i>
+                                <button id="save" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-save"></i>
                                 </button>
-                                <button id="delete" type="button" class="btn btn-default waves-effect waves-light">
-                                    <i class="fa fa-trash-o"></i>
+                                <button id="delete" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-trash-o"></i>
                                 </button>
                             </div>
 
                             <div class="btn-group">
-                                <button id="cut" type="button" class="btn btn-default waves-effect waves-light">
-                                    <i class="fa fa-cut"></i>
+                                <button id="cut" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-cut"></i>
                                 </button>
-                                <button id="copy" type="button" class="btn btn-default waves-effect waves-light">
-                                    <i class="fa fa-copy"></i>
+                                <button id="copy" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-copy"></i>
                                 </button>
-                                <button id="paste" type="button" class="btn btn-default waves-effect waves-light">
-                                    <i class="fa fa-paste"></i>
+                                <button id="paste" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-paste"></i>
                                 </button>
                             </div>
 
                             <div class="btn-group">
-                                <button id="undo" type="button" class="btn btn-default waves-effect waves-light">
-                                    <i class="fa fa-arrow-circle-left"></i>
+                                <button id="undo" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-arrow-circle-left"></i>
                                 </button>
-                                <button id="redo" type="button" class="btn btn-default waves-effect waves-light">
-                                    <i class="fa fa-arrow-circle-right"></i>
+                                <button id="redo" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-arrow-circle-right"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End row -->
-            </div>
+                <!--Fin Barra de Herramientas-->
 
+                <div class="container-fluid">
+                    <!--Barras Laterales-->
+                    <div class="sidebar right">
+                        <!--Barra de Componentes-->
+                        <div class="panel panel-border panel-primary">
+                            <div class="panel-heading">
+                                <a class="panel-title" data-toggle="collapse" data-target="#collapseOne" href="#collapseOne">Componentes</a>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div id="myPaletteDiv" style="width: 180px; height: 427px; position: relative;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Barra de LSPs-->
+                        <div class="panel panel-border panel-primary">
+                            <div class="panel-heading">
+                                <a class="panel-title" data-toggle="collapse" data-target="#collapseOne" href="#collapseOne">Listado de LSPs</a>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    @{ Html.RenderPartial("~/Views/Enrutamiento/_InlineIndexLSPs.cshtml", new InlineLSPViewModel(Model.idProyecto)); }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin Barras Laterales-->
+                    <!--Ventana Principal de Edicion-->
+                    <div class="content fluid-fixed">
+                        <div id="myDiagramDiv" class="well" style="width: auto; height: 500px; position: relative;"></div>
+                    </div>
+                    <!--Fin Ventana Principal de Edicion-->
+                </div>
+            </div>
+            <!--Fin Contenido Tab de Topología-->
             <!--Contenido Tab de Estadísticas-->
             <div class="tab-pane" id="estadisticas-21"></div>
+            <!--Fin Contenido Tab de Estadísticas-->
             <!--Contenido Tab de Configuraciones-->
-            <div class="tab-pane" id="configuracion-21"></div>
+            <div class="tab-pane" id="configuracion-21">
+
+                <h4 class="m-t-0 m-b-20 header-title"><b>Utilización</b></h4>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <p class="text-muted m-b-30 font-13">
+                            Add an attribute to your input element and it will be converted into switch.
+                        </p>
+                    </div>
+                    @*<div class="col-lg-4">
+                        <input type="checkbox" checked data-plugin="switchery" data-color="#3bafda" />
+                    </div>*@
+                </div>
+
+                <div class="form-group">
+                    <label for="range_04" class="col-sm-2 control-label"><b>Range</b><span class="font-normal text-muted f-s-12 clearfix">Set up range with negative values</span></label>
+                    <div class="col-sm-10">
+                        <input type="text" id="range_04">
+                    </div>
+                </div>
+
+            </div>
+            <!--Fin Contenido Tab de Configuraciones-->
         </div>
     </div>
 </div>
@@ -135,44 +193,11 @@
     </div><!-- /.container-fluid -->
 </nav>
 
-<div class="container-fluid">
-    <!--Barras Laterales-->
-    <div class="sidebar right">
-        <!--Barra de Componentes-->
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <a class="panel-title" data-toggle="collapse" data-target="#collapseOne" href="#collapseOne">Componentes</a> 
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <div id="myPaletteDiv" style="width: 180px; height: 427px; position: relative;"></div>
-                </div>
-            </div>
-        </div>
-        <!--Barra de LSPs-->
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <a class="panel-title" data-toggle="collapse" data-target="#collapseOne" href="#collapseOne">Listado de LSPs</a>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
-                <div class="panel-body">
-                   @{ Html.RenderPartial("~/Views/Enrutamiento/_InlineIndexLSPs.cshtml", Model.listadoLSPs); }
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Fin Barras Laterales-->
-    <!--Ventana Principal de Edicion-->
-    <div class="content fluid-fixed">
-        <div id="myDiagramDiv" class="well" style="width: auto; height: 500px; position: relative;"></div>
-    </div>
-    <!--Fin Ventana Principal de Edicion-->
-        
-</div>
+
 
 @section scripts
 {
-    @Scripts.Render("~/bundles/modalform")
+    @*@Scripts.Render("~/bundles/modalform")*@
     @Scripts.Render("~/Scripts/CustomScripts/topologia.js")
 }
 
@@ -180,26 +205,28 @@
     .container-fluid > .sidebar {
         position: relative;
         top: 0;
-        left:auto;
+        left: auto;
         width: 220px;
-        margin-top: 0px;
+        /*margin-top: 0px;*/
     }
 
     .left {
-        float:left;
+        float: left;
     }
 
     .right {
-        float:right;
+        float: right;
     }
 
     .fixed-fluid {
         margin-left: 240px;
     }
+
     .fluid-fixed {
         margin-right: 240px;
-        margin-left:auto !important;
+        margin-left: auto !important;
     }
+
     .fixed-fixed {
         margin: 0 240px;
     }
