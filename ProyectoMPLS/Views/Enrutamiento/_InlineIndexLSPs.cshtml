@@ -6,7 +6,7 @@
     {
         foreach (var item in Model.listaLSPs)
         {
-            <a data-toggle="modal" data-target=".bs-example-modal-lg" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })' class="list-group-item">
+            <a data-toggle="modal" data-target="#myLSPModal" href='@Url.Action("_EditarLSP", "Enrutamiento", new { idProyecto = item.idProyecto, idLSP = item.idLSP })' class="list-group-item">
                 @Html.DisplayFor(modelItem => item.cNombre)
             </a>
         }
@@ -28,23 +28,30 @@
 <a href='@Url.Action("_CrearLSP", "Enrutamiento", new { idProyecto = Model.idProyecto })'
    role="button"
    class="btn btn-default btn-block waves-effect waves-light m-t-10"
-   data-toggle="modal" data-target=".bs-example-modal-lg">
+   data-toggle="modal" data-target="#myLSPModal">
     Agregar Ruta Estática
 </a>
 
 <a href='@Url.Action("_CrearCSPF", "Enrutamiento", new { idProyecto = Model.idProyecto })'
    role="button"
    class="btn btn-default btn-block waves-effect waves-light m-t-10"
-   data-toggle="modal" data-target=".bs-example-modal-lg">
+   data-toggle="modal" data-target="#myCSPFModal">
     Agregar por CPSF
 </a>
 
 
-<!--  Modal content for the above example -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+<!-- Modal content para el Partial View de CSPF -->
+<div id="myCSPFModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal content para el Partial View de LSPs Estaticos -->
+<div id="myLSPModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>

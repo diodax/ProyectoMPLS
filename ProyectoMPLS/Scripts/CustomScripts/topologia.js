@@ -124,7 +124,10 @@ $(document).ready(function () {
         }
     });
 
-    var myPalette = $$(go.Palette, "myPaletteDiv");
+    var myPalette = $$(go.Palette, "myPaletteDiv", {
+        allowZoom: false,
+        scale: 2
+    });
 
     // the Palette's node template is different from the main Diagram's
     myPalette.nodeTemplate =
@@ -141,6 +144,8 @@ $(document).ready(function () {
         { source: image, color: "LER" },
         { source: image, color: "LSR" },
     ];
+
+    
 
     $('#file').click(function () {
         //myDiagram.commandHandler.
