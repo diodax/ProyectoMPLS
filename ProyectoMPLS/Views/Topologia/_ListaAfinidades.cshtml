@@ -42,9 +42,9 @@
                         <td class="descripcion">
                             @Html.DisplayFor(modelItem => item.cDescripcion)
                         </td>
-                        @*<td class="color" bgcolor="#@item.cColor">*@
-                        <td>
-                            <i class="fa fa-circle m-l-5" color="#@item.cColor"></i>
+                        <td class="color" bgcolor="#@item.cColor">
+                        @*<td>*@
+                            @*<i class="fa fa-circle m-l-5" color="#@item.cColor"></i>*@
                             @*<div class="btn-circle btn-lg" background-color="#@item.cColor">
                                 </div>*@
                         </td>
@@ -112,14 +112,14 @@ else
     </div>*@
 <script>
 
-    $(document).ready(function () {
-        //$('fa-circle').on('load', function(){
-        $(".fa-circle").each(function () {
-            console.log("esto " + $(this).val());
-        });
-        $(".fa-circle").each(function () {
-            $(this).attr("color", $(this).parents('td').next().next().val());
-        });
+    //$(document).ready(function () {
+    //    //$('fa-circle').on('load', function(){
+    //    $(".fa-circle").each(function () {
+    //        console.log("esto " + $(this).val());
+    //    });
+    //    $(".fa-circle").each(function () {
+    //        $(this).attr("color", $(this).parents('td').next().next().val());
+    //    });
         //});
         //$("div.test").on("show", function () {
 
