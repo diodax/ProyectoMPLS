@@ -9,12 +9,21 @@
 <!--Nombre del Archivo en Edicion-->
  <h2><i class="fa fa-folder-open"></i> <span id="txtTitulo">@Html.DisplayTextFor(model => model.cTitulo)</span></h2>
 
-@Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
+@*@Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })*@
 
 <!-- modal placeholder-->
 <div id='myModal' class='modal container fade'>
     <div id='myModalContent'></div>
 </div>
+
+<!--  Modal content for the above example -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!--Panel Principal-->
 <div class="row">
@@ -107,7 +116,7 @@
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in">
                                 <div class="panel-body">
-                                    @{ Html.RenderPartial("~/Views/Enrutamiento/_InlineIndexLSPs.cshtml", new InlineLSPViewModel(Model.idProyecto)); }
+                                    @*@{ Html.RenderPartial("~/Views/Enrutamiento/_InlineIndexLSPs.cshtml", new InlineLSPViewModel(Model.idProyecto)); }*@
                                 </div>
                             </div>
                         </div>
@@ -126,17 +135,17 @@
             <!--Fin Contenido Tab de Estadísticas-->
             <!--Contenido Tab de Configuraciones-->
             <div class="tab-pane" id="configuracion-21">
-
-                <h4 class="m-t-0 m-b-20 header-title"><b>Utilización</b></h4>
+                @{ Html.RenderPartial("~/Views/Topologia/_ListaAfinidades.cshtml", new AfinidadViewModel(Model.idProyecto)); }
+                @*<h4 class="m-t-0 m-b-20 header-title"><b>Utilización</b></h4>
                 <div class="row">
                     <div class="col-lg-8">
                         <p class="text-muted m-b-30 font-13">
                             Add an attribute to your input element and it will be converted into switch.
                         </p>
                     </div>
-                    @*<div class="col-lg-4">
+                    <div class="col-lg-4">
                         <input type="checkbox" checked data-plugin="switchery" data-color="#3bafda" />
-                    </div>*@
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -144,7 +153,7 @@
                     <div class="col-sm-10">
                         <input type="text" id="range_04">
                     </div>
-                </div>
+                </div>*@
 
             </div>
             <!--Fin Contenido Tab de Configuraciones-->
@@ -174,7 +183,12 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" href='@Url.Action("_ListaAfinidades", "Topologia", new { idProyecto = Model.idProyecto })'>Lista de Afinidades</a></li>
+                <li>
+                    <a data-modal=""
+                       data-toggle="modal"
+                       data-target=".bs-example-modal-lg"
+                       href='@Url.Action("_ListaAfinidades", "Topologia", new { idProyecto = Model.idProyecto })'>Lista de Afinidades</a>
+                </li>
             </ul>
             @*<ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Link</a></li>
