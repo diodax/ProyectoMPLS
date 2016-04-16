@@ -135,32 +135,6 @@ else
         <button type="button" class="btn btn-primary">Ok</button>
       </div>
     </div>*@
-<script>
 
-    $(document).ready(function () {
-    //    //$('fa-circle').on('load', function(){
-    //    $(".fa-circle").each(function () {
-    //        console.log("esto " + $(this).val());
-    //    });
-    //    $(".fa-circle").each(function () {
-    //        $(this).attr("color", $(this).parents('td').next().next().val());
-    //    });
-        //});
-        //$("div.test").on("show", function () {
-
-        //});
-
-        $('form').submit(function (e) {
-            var currentForm = this;
-            e.preventDefault();
-            bootbox.confirm('¿Está seguro de que desea eliminar esta afinidad?', function (result) {
-                if (result) {
-                    currentForm.submit();
-                }
-            });
-        });
-    });
-
-</script>
 
 
