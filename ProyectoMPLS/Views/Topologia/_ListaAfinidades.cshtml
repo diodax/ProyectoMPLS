@@ -1,12 +1,27 @@
 ﻿@model ProyectoMPLS.Models.Topologia.AfinidadViewModel
 
+<style>
+    .colorpicker, .colorpicker * {
+        z-index: 9999;
+    }
+</style>
+
 <!-- modal placeholder -->
 <div id='afinidad' class='modal fade '>
     <div id='afinidadContent'></div>
 </div>
 
-<!--  Modal content for the above example -->
+<!--  Modal content para editar afinidad -->
 <div class="modal fade editar-afinidad" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--  Modal content para borrar afinidad -->
+<div class="modal fade agregar-afinidad" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -42,13 +57,13 @@
                         <td class="descripcion">
                             @Html.DisplayFor(modelItem => item.cDescripcion)
                         </td>
-                        <td class="color" bgcolor="#@item.cColor">
+                        <td class="color" bgcolor="@item.cColor">
                         @*<td>*@
                             @*<i class="fa fa-circle m-l-5" color="#@item.cColor"></i>*@
                             @*<div class="btn-circle btn-lg" background-color="#@item.cColor">
                                 </div>*@
                         </td>
-                        <td class="color_value">#@item.cColor</td>
+                        <td class="color_value">@item.cColor</td>
                         <td>
                             @using (Html.BeginForm("_BorrarAfinidad", "Topologia", FormMethod.Post))
                             {
@@ -92,7 +107,13 @@ else
 
 
 <div class="modal-footer">
-    <a class="btn btn-default" id="linkCrearAfinidad" data-modal="" data-toggle="modal" href="@Url.Action("_CrearAfinidad", "Topologia", new { idProyecto = Model.idProyecto })">Agregar Afinidad</a>
+    <a class="btn btn-default" 
+       id="linkCrearAfinidad" 
+       data-modal="" data-toggle="modal" 
+       data-target=".agregar-afinidad"
+       href="@Url.Action("_CrearAfinidad", "Topologia", new { idProyecto = Model.idProyecto })">
+        Agregar Afinidad
+    </a>
     @*<button class="btn" id="addAfinidad">Agregar Afinidad</button>*@
     <button class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 </div>
@@ -116,7 +137,7 @@ else
     </div>*@
 <script>
 
-    //$(document).ready(function () {
+    $(document).ready(function () {
     //    //$('fa-circle').on('load', function(){
     //    $(".fa-circle").each(function () {
     //        console.log("esto " + $(this).val());
@@ -129,15 +150,15 @@ else
 
         //});
 
-        //$('form').submit(function (e) {
-        //    var currentForm = this;
-        //    e.preventDefault();
-        //    bootbox.confirm('¿Está seguro de que desea eliminar esta afinidad?', function (result) {
-        //        if (result) {
-        //            currentForm.submit();
-        //        }
-        //    });
-        //});
+        $('form').submit(function (e) {
+            var currentForm = this;
+            e.preventDefault();
+            bootbox.confirm('¿Está seguro de que desea eliminar esta afinidad?', function (result) {
+                if (result) {
+                    currentForm.submit();
+                }
+            });
+        });
     });
 
 </script>
