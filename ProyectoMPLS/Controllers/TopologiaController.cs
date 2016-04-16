@@ -382,7 +382,7 @@ namespace ProyectoMPLS.Controllers
         public ActionResult SetJsonTopologia(JsonResult result)
         {
             var arrayRouters = result.Data;
-            Console.Write(result);
+            //Console.Write(result);
             return Json(arrayRouters);
         }
 
