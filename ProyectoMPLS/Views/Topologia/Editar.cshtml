@@ -135,6 +135,12 @@
             <!--Contenido Tab de Configuraciones-->
             <div class="tab-pane" id="configuracion-21">
                 @{ Html.RenderPartial("~/Views/Topologia/_ListaAfinidades.cshtml", new AfinidadViewModel(Model.idProyecto)); }
+
+                
+
+                
+
+
                 @*<h4 class="m-t-0 m-b-20 header-title"><b>Utilización</b></h4>
                     <div class="row">
                         <div class="col-lg-8">
@@ -214,18 +220,7 @@
 <script>
 
     $(document).ready(function () {
-    //    //$('fa-circle').on('load', function(){
-    //    $(".fa-circle").each(function () {
-    //        console.log("esto " + $(this).val());
-    //    });
-    //    $(".fa-circle").each(function () {
-    //        $(this).attr("color", $(this).parents('td').next().next().val());
-    //    });
-        //});
-        //$("div.test").on("show", function () {
-
-        //});
-
+  
         $('form').submit(function (e) {
             var currentForm = this;
             e.preventDefault();

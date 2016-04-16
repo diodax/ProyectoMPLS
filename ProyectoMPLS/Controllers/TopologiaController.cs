@@ -31,23 +31,6 @@ namespace ProyectoMPLS.Controllers
             return PartialView(newModel);
         }
 
-        [HttpPost]
-        public ActionResult _CrearCSPF(CSPFViewModel newModel)
-        {
-            
-            //NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
-
-            //SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
-            //routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto);
-
-            //NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
-
-            //List<NodoDijkstra> result = new List<NodoDijkstra>();
-            //result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
-
-            return Json(1);
-        }
-
         #endregion
 
         #region Afinidad
@@ -61,8 +44,7 @@ namespace ProyectoMPLS.Controllers
 
         public ActionResult _EditarAfinidad(int idProyecto, int idAfinidad)
         {
-            Afinidad newModel = new Afinidad();
-            newModel = Afinidad.SelectAfinidad(idProyecto, idAfinidad);
+            Afinidad newModel = new Afinidad(idProyecto, idAfinidad);
             return PartialView(newModel);
         }
 
@@ -94,7 +76,6 @@ namespace ProyectoMPLS.Controllers
             if (ModelState.IsValid)
             {
                 newModel.CrearAfinidad(newModel.idProyecto, newModel.cDescripcion, newModel.cColor);
-                //return RedirectToAction("Index");
                 return Json(new { success = true });
             }
             else
@@ -214,7 +195,6 @@ namespace ProyectoMPLS.Controllers
                 return PartialView(newModel);
             }
         }
-
 
         // GET: Topologia/CrearProyectoRP
         public ActionResult CrearProyectoRP()

@@ -25,6 +25,26 @@ namespace ProyectoMPLS.Models.Topologia
 
         public Afinidad() { }
 
+        public Afinidad(int idProyecto)
+        {
+            this.idProyecto = idProyecto;
+        }
+
+        public Afinidad(int idProyecto, int idAfinidad)
+        {
+            Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter Adapter = new Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter();
+            Data.dsTopologia.SelectAfinidadDataTable dt = Adapter.SelectAfinidad(idAfinidad, idProyecto);
+
+            foreach (var dr in dt)
+            {
+                this.idProyecto = idProyecto;
+                this.idAfinidad = idAfinidad;
+                this.cDescripcion = dr.cDescripcion;
+                if (!dr.IscColorNull())
+                    this.cColor = dr.cColor;
+            }
+        }
+
         public static List<Afinidad> SelectListaAfinidades(int idProyecto)
         {
             List<Afinidad> listaAfinidades = new List<Afinidad>();
@@ -47,23 +67,6 @@ namespace ProyectoMPLS.Models.Topologia
             return listaAfinidades;
         }
 
-        public static Afinidad SelectAfinidad(int idProyecto, int idAfinidad)
-        {
-            Afinidad a = new Afinidad();
-            Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter Adapter = new Data.dsTopologiaTableAdapters.SelectAfinidadTableAdapter();
-            Data.dsTopologia.SelectAfinidadDataTable dt = Adapter.SelectAfinidad(idAfinidad, idProyecto);
-
-            foreach (var dr in dt)
-            {
-                a.idProyecto = idProyecto;
-                a.idAfinidad = idAfinidad;
-                a.cDescripcion = dr.cDescripcion;
-                if (!dr.IscColorNull())
-                    a.cColor = dr.cColor;
-            }
-
-            return a;
-        }
         public static List<SelectListItem> ConvertDropdownListaAfinidades(List<Afinidad> listaAfinidades)
         {
             List<SelectListItem> dpAfinidades = new List<SelectListItem>();
