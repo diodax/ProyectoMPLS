@@ -32,7 +32,12 @@
                     @Html.LabelFor(model => model.cColor)
                 </label>
                 <div class="col-md-3">
-                    @Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "pick-a-color form-control" } })
+                    <div id="editar_color" class="input-group colorpicker-component">
+                        @Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })
+                        @*<input type="text" value="#FFFFFF" class="form-control" />*@
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                    @*@Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "pick-a-color form-control" } })*@
                     @*<input type="text" value="fff" name="cColor" class="pick-a-color form-control">*@
                     @*@Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cColor, "", new { @class = "text-danger" }).ToHtmlString()))*@
@@ -49,7 +54,8 @@
 
 <script>
     $(document).ready(function () {
-        $(".pick-a-color").pickAColor();
+        $('#editar_color').colorpicker();
+        //$(".pick-a-color").pickAColor();
         $("#submitEditarAfinidad").click(function () {
             var form = $("#EditarAfinidadDataForm")[0];
             var formData = new FormData(form);
