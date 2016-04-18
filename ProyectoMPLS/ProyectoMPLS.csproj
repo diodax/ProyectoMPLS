@@ -207,6 +207,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsEnrutamiento.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Data\dsEstadisticas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsEstadisticas.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Data\dsTopologia.Designer.cs" />
     <Compile Include="Data\dsUsuarios.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -224,6 +229,7 @@
     <Compile Include="Models\Comunicacion\ProyectoRaspberryViewModel.cs" />
     <Compile Include="Models\Comunicacion\ProyectoVacioViewModel.cs" />
     <Compile Include="Models\Comunicacion\Tabla.cs" />
+    <Compile Include="Models\Estadisticas\EnlaceStats.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModuleAuthorize.cs" />
     <Compile Include="Models\Topologia\Afinidad.cs" />
@@ -4718,6 +4724,17 @@
     </None>
     <Content Include="Data\dsEnrutamiento.xss">
       <DependentUpon>dsEnrutamiento.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsEstadisticas.xsc">
+      <DependentUpon>dsEstadisticas.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsEstadisticas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsEstadisticas.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Data\dsEstadisticas.xss">
+      <DependentUpon>dsEstadisticas.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\AWS.pubxml" />
     <Content Include="Views\Usuario\Settings.cshtml" />

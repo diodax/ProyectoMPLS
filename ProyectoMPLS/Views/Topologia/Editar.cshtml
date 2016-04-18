@@ -134,8 +134,10 @@
             <!--Fin Contenido Tab de Estadísticas-->
             <!--Contenido Tab de Configuraciones-->
             <div class="tab-pane" id="configuracion-21">
-                @{ Html.RenderPartial("~/Views/Topologia/_ListaAfinidades.cshtml", new AfinidadViewModel(Model.idProyecto)); }
-
+                
+                <div id="seccionAfinidades">
+                    @{ Html.RenderPartial("~/Views/Topologia/_ListaAfinidades.cshtml", new AfinidadViewModel(Model.idProyecto)); }
+                </div>
                 
 
                 
@@ -220,7 +222,7 @@
 <script>
 
     $(document).ready(function () {
-  
+        //Scripts de la pagina de edicion
         $('form').submit(function (e) {
             var currentForm = this;
             e.preventDefault();
@@ -230,6 +232,15 @@
                 }
             });
         });
+
+        //$('#agregar_color').colorpicker();
+        //$(".pick-a-color").pickAColor();
+        //$('#editar_color').colorpicker();
+
+        //Scripts del partial view _CrearAfinidad
+        
+
+        
     });
 
 </script>

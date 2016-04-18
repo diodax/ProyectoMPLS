@@ -1,6 +1,5 @@
 ﻿@model ProyectoMPLS.Models.Topologia.Afinidad
 
-
 <div class="modal-header" id="editarafinidad">
     <h4 class="modal-title">Editar Afinidad</h4>
 </div>
@@ -47,15 +46,16 @@
     </div>
 
     <div class="modal-footer">
-        <input class="btn btn-primary" type="submit" value="Guardar" />
-        <button id="submitEditarAfinidad" class="btn" data-dismiss="modal">Cerrar</button>
+        <input id="submitEditarAfinidad" class="btn btn-primary" type="submit" value="Guardar" />
+        <button class="btn" data-dismiss="modal">Cerrar</button>
     </div>
 }
 
 <script>
+    //alert("co;o");
     $(document).ready(function () {
-        $('#editar_color').colorpicker();
-        //$(".pick-a-color").pickAColor();
+        //alert("its wolking");
+        //$('#agregar_color').colorpicker();
         $("#submitEditarAfinidad").click(function () {
             var form = $("#EditarAfinidadDataForm")[0];
             var formData = new FormData(form);
@@ -68,15 +68,19 @@
                 processData: false,
                 data: formData,
                 success: function (result) {
-                    if (result.success) {
-                        $('#afinidad').modal('hide');
-                        //window.location.reload(true);   //refresh page
-                    } else {
-                        $('#afinidadContent').html(result);
-                    }
+                    $('#afinidad').modal('hide');
+                    $("#seccionAfinidades").html(result);
+                    //$('#afinidadContent').html(result);
                 },
                 error: function (error) { $("#error").html(error); }
             });
         });
+
     });
 </script>
+
+<style>
+    .colorpicker, .colorpicker * {
+        z-index: 9999;
+    }
+</style>

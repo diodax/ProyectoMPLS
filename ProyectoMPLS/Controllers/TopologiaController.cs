@@ -53,9 +53,19 @@ namespace ProyectoMPLS.Controllers
         {
             if (ModelState.IsValid)
             {
-                newModel.ActualizarAfinidad(newModel.idProyecto, newModel.idAfinidad, newModel.cDescripcion, newModel.cColor);
-                //return RedirectToAction("Index");
-                return Json(new { success = true });
+                try
+                {
+                    //Actualiza la DB 
+                    newModel.ActualizarAfinidad(newModel.idProyecto, newModel.idAfinidad, newModel.cDescripcion, newModel.cColor);
+                    //Si la operacion fue un exito, crea un PartialView del ViewModel que contiene la tabla actualizada
+                    //El ajax en la vista se encargara de usar el resultado y reemplazar el html
+                    AfinidadViewModel result = new AfinidadViewModel(newModel.idProyecto);
+                    return PartialView("_ListaAfinidades", result);
+                }
+                catch (Exception)
+                {
+                    return PartialView(newModel);
+                }
             }
             else
             {
@@ -75,8 +85,19 @@ namespace ProyectoMPLS.Controllers
         {
             if (ModelState.IsValid)
             {
-                newModel.CrearAfinidad(newModel.idProyecto, newModel.cDescripcion, newModel.cColor);
-                return Json(new { success = true });
+                try
+                {
+                    //Actualiza la DB 
+                    newModel.CrearAfinidad(newModel.idProyecto, newModel.cDescripcion, newModel.cColor);
+                    //Si la operacion fue un exito, crea un PartialView del ViewModel que contiene la tabla actualizada
+                    //El ajax en la vista se encargara de usar el resultado y reemplazar el html
+                    AfinidadViewModel result = new AfinidadViewModel(newModel.idProyecto);
+                    return PartialView("_ListaAfinidades", result);
+                }
+                catch (Exception ex)
+                {
+                    return PartialView(newModel);
+                }
             }
             else
             {
@@ -92,8 +113,8 @@ namespace ProyectoMPLS.Controllers
                 bool a = Afinidad.BorrarAfinidad(idProyecto, idAfinidad);
                 if (a)
                 {
-                    //return RedirectToAction("Index");
-                    return Json(new { success = true });
+                    AfinidadViewModel result = new AfinidadViewModel(idProyecto);
+                    return PartialView("_ListaAfinidades", result);
                 }
                 else
                 {
