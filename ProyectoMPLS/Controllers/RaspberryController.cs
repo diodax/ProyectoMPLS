@@ -32,6 +32,10 @@ namespace ProyectoMPLS.Controllers
         [System.Web.Http.AllowAnonymous]
         public HttpResponseMessage Post([FromBody]HttpPostedFileBase fArchivoCSV, string cUsername, string cFileName)
         {
+            if (fArchivoCSV == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
             try
             {
                 //Llama al SP para crear el nuevo proyecto en la DB

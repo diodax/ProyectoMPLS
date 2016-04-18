@@ -131,68 +131,69 @@
                 <i class="fa fa-bar-chart-o fa-fw"></i> Listado de Proyectos
             </div>
             <div class="panel-body">
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.idProyecto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.cUserName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.cTitulo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.dtFechaCreacion)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.dtFechaUltEdicion)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach (var item in Model)
-                        {
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.idProyecto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.cUserName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.cTitulo)
-                                </td>
-                                <td>
-                                    @*@Html.DisplayFor(modelItem => item.dtFechaCreacion)*@
-                                    @((item.dtFechaCreacion != default(DateTime)) ? @item.dtFechaCreacion.ToString("MM/dd/yyyy") : string.Empty)
-                                </td>
-                                <td>
-                                    @*@Html.DisplayFor(modelItem => item.dtFechaUltEdicion)*@
-                                    @((item.dtFechaUltEdicion != default(DateTime)) ? @item.dtFechaUltEdicion.ToString("MM/dd/yyyy") : string.Empty)
-                                </td>
-                       
-
-                                <td>
-                                    @using (Html.BeginForm("Eliminar", "Topologia", FormMethod.Post))
-                                    {
-                                        <div class="btn-group" role="group">
-                                            @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" }) 
-                                            @Html.Hidden("idProyecto", item.idProyecto)
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                        </div>
-                                    }
-                                </td>
-
+                                <th>
+                                    @Html.DisplayNameFor(model => model.idProyecto)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.cUserName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.cTitulo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.dtFechaCreacion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.dtFechaUltEdicion)
+                                </th>
+                                <th></th>
                             </tr>
-                        }
-                    </tbody>
+                        </thead>
+                        <tbody>
 
-                </table>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.idProyecto)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.cUserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.cTitulo)
+                                    </td>
+                                    <td>
+                                        @*@Html.DisplayFor(modelItem => item.dtFechaCreacion)*@
+                                        @((item.dtFechaCreacion != default(DateTime)) ? @item.dtFechaCreacion.ToString("MM/dd/yyyy") : string.Empty)
+                                    </td>
+                                    <td>
+                                        @*@Html.DisplayFor(modelItem => item.dtFechaUltEdicion)*@
+                                        @((item.dtFechaUltEdicion != default(DateTime)) ? @item.dtFechaUltEdicion.ToString("MM/dd/yyyy") : string.Empty)
+                                    </td>
+
+
+                                    <td>
+                                        @using (Html.BeginForm("Eliminar", "Topologia", FormMethod.Post))
+                                        {
+                                            <div class="btn-group" role="group">
+                                                @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" })
+                                                @Html.Hidden("idProyecto", item.idProyecto)
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
             <!-- /.panel-body -->
         </div>    
