@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ProyectoMPLS.Models.Topologia
 {
@@ -23,6 +24,8 @@ namespace ProyectoMPLS.Models.Topologia
         public List<Router> listadoRouters { get; set; }
         public List<Enlace> listadoEnlaces { get; set; }
         public List<LSP> listadoLSPs { get; set; }
+
+        public List<SelectListItem> listadoDPEnlaces { get; set; }
 
         public Proyecto() { }
 
@@ -50,6 +53,7 @@ namespace ProyectoMPLS.Models.Topologia
             this.listadoRouters = Proyecto.SelectListaRouters(this.idProyecto);
             this.listadoEnlaces = Proyecto.SelectListaEnlaces(this.idProyecto);
             this.listadoLSPs = LSP.SelectListaLSP(this.idProyecto);
+            this.listadoDPEnlaces = Proyecto.ConvertDropdownEnlaces(this.listadoEnlaces);
         }
 
         /// <summary>
@@ -235,6 +239,21 @@ namespace ProyectoMPLS.Models.Topologia
                 listaEnlaces.Add(temp);
             }
 
+            return listaEnlaces;
+        }
+
+        public static List<SelectListItem> ConvertDropdownEnlaces(List<Enlace> lista)
+        {
+            List<SelectListItem> listaEnlaces = new List<SelectListItem>();
+            foreach (var item in lista)
+            {
+                SelectListItem temp = new SelectListItem();
+                temp.Value = item.idEnlace.ToString();
+                string tempRouterA = new LER(item.idRouterA, item.idProyecto).cHostname;
+                string tempRouterB = new LER(item.idRouterB, item.idProyecto).cHostname;
+                temp.Text = "Enlace #" + item.idEnlace.ToString() + " [" + tempRouterA + " - " + tempRouterB + "]";
+                listaEnlaces.Add(temp);
+            }
             return listaEnlaces;
         }
 

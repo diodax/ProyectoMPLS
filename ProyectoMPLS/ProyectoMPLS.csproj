@@ -198,6 +198,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ComunicacionController.cs" />
     <Compile Include="Controllers\EnrutamientoController.cs" />
+    <Compile Include="Controllers\EstadisticasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TopologiaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -4821,6 +4822,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\plugins\" />
+    <Folder Include="Views\Estadisticas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
