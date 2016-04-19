@@ -370,8 +370,30 @@ namespace ProyectoMPLS.Controllers
         {
             Proyecto temp = new Proyecto(idProyecto);
 
+            //Transforma las listas en formato Json de GoJS
             var nodeDataArray = temp.listadoRouters.toJson();
             var linkDataArray = temp.listadoEnlaces.toJson();
+            return Json(new { @class = "go.GraphLinksModel", nodeDataArray, linkDataArray }, 
+                        JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SaveJsonNetwork(List<EnlaceJson> linkDataArray, List<RouterJson> nodeDataArray, int idProyecto)
+        {
+            List<Router> listaRouters = nodeDataArray.ToModeList(idProyecto);
+            List<Enlace> listaEnlaces = linkDataArray.ToModeList(idProyecto);
+            Proyecto newModel = new Proyecto(idProyecto, listaRouters, listaEnlaces);
+
+            try
+            {
+                newModel.InsertUpdateListaRouters();
+                newModel.InsertUpdateListaEnlaces();
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+            }    
         }
 
         #region Enlace

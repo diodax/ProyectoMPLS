@@ -57,6 +57,32 @@ namespace ProyectoMPLS.Models.Topologia
         }
 
         /// <summary>
+        /// Constructor a usar cuando ya se conoce la topologia de un proyecto especifico
+        /// </summary>
+        /// <param name="idProyecto"></param>
+        /// <param name="listaRouters"></param>
+        /// <param name="listaEnlaces"></param>
+        public Proyecto(int idProyecto, List<Router> listaRouters, List<Enlace> listaEnlaces)
+        {
+            Data.dsTopologiaTableAdapters.ProyectosTableAdapter Adapter = new Data.dsTopologiaTableAdapters.ProyectosTableAdapter();
+            Data.dsTopologia.ProyectosDataTable dt = Adapter.SeleccionarListaProyectos(idProyecto, null);
+
+            if (dt.Rows.Count > 0)
+            {
+                Data.dsTopologia.ProyectosRow dr = dt[0];
+                this.idProyecto = dr.idProyecto;
+                this.cUserName = dr.cUserName.Trim();
+                this.cTitulo = dr.cFileName.Trim();
+                if (!dr.IsdtFechaCreacionNull())
+                    this.dtFechaCreacion = dr.dtFechaCreacion;
+                if (!dr.IsdtFechaUltEdicionNull())
+                    this.dtFechaUltEdicion = dr.dtFechaUltEdicion;
+            }
+            this.listadoRouters = listaRouters;
+            this.listadoEnlaces = listaEnlaces;
+        }
+
+        /// <summary>
         /// Genera la lista de proyectos asociados a un usuario
         /// </summary>
         /// <param name="cUserName"></param>
