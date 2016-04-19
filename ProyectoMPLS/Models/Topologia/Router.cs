@@ -18,8 +18,8 @@ namespace ProyectoMPLS.Models.Topologia
         //Coordenadas para la interfaz gráfica
         public int cx { get; set; }
         public int cy { get; set; }
-        public decimal rx { get; set; }
-        public decimal ry { get; set; }
+        //public decimal rx { get; set; }
+        //public decimal ry { get; set; }
 
         
 

@@ -116,6 +116,17 @@ $(document).ready(function () {
             myDiagram.model = model;
                
             //Fin AJAX --
+
+            var modelAsText = myDiagram.model.toJson();
+            console.log(modelAsText);
+
+            var data = myDiagram.model.findNodeDataForKey(1);
+            // This will update the color of the "Delta" Node
+            if (data !== null) myDiagram.model.setDataProperty(data, "new_property", "red");
+
+            var modelAsText = myDiagram.model.toJson();
+            console.log(modelAsText);
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus);

@@ -229,6 +229,7 @@
     <Compile Include="Models\Comunicacion\ProyectoArchivoViewModel.cs" />
     <Compile Include="Models\Comunicacion\ProyectoRaspberryViewModel.cs" />
     <Compile Include="Models\Comunicacion\ProyectoVacioViewModel.cs" />
+    <Compile Include="Models\Comunicacion\JsonObjects.cs" />
     <Compile Include="Models\Comunicacion\Tabla.cs" />
     <Compile Include="Models\Estadisticas\EnlaceStats.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
