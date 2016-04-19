@@ -10,6 +10,7 @@ namespace ProyectoMPLS.Models.Topologia
     /// </summary>
     public abstract class Router
     {
+        public int idProyecto { get; set; }
         public int idRouter { get; set; }
         public string cHostname { get; set; }
         public string cRouterID { get; set; }

@@ -36,31 +36,28 @@ namespace ProyectoMPLS.Models.Comunicacion
         public int idEnlace { get; set; }
         public string name { get; set; }
         public double total_bw { get; set; }
-        public int weight { get; set; }
+        public double weight { get; set; }
         public int afinity { get; set; }
-        public int ocupped_bw { get; set; }
+        public double free_bw { get; set; }
 
         public EnlaceJson() { }
 
         public EnlaceJson(int idProyecto, int idEnlace)
         {
-            //
+            Enlace temp = new Enlace(idEnlace, idProyecto);
+            this.idEnlace = temp.idEnlace;
+            this.name = temp.cNombre;
+            this.from = temp.idRouterA;
+            this.to = temp.idRouterB;
+            this.toArrow = "";
+            this.total_bw = temp.nBandwidth;
+            this.weight = temp.nPesoAdministrativo;
+            this.afinity = temp.idAfinidad;
+            this.free_bw = temp.nBandwidthDisponible;
         }
+
+        
     }
 }
 
 
-
-/*
-
-"idEnlace": idEnlace
-"toArrow":""
-"from": idRouterA
-"to": idRouterB
-"name": cNombre
-"total_bw": nBandwidth
-"weight": nPesoAdministrativo
-"afinity": cAfinidad
-"ocupped_bw": nBandwidthReservado
-
-*/

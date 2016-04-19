@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoMPLS.Models;
 
 namespace ProyectoMPLS.Controllers
 {
@@ -332,28 +333,6 @@ namespace ProyectoMPLS.Controllers
             return View(newModel);
         }
 
-        // POST: Topologia/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Topologia/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
         // POST: Topologia/Delete/5
         [HttpPost]
         public ActionResult Eliminar(int idProyecto)
@@ -385,6 +364,14 @@ namespace ProyectoMPLS.Controllers
             var arrayRouters = result.Data;
             //Console.Write(result);
             return Json(arrayRouters);
+        }
+
+        public ActionResult LoadJsonNetwork(int idProyecto)
+        {
+            Proyecto temp = new Proyecto(idProyecto);
+
+            var nodeDataArray = temp.listadoRouters.toJson();
+            var linkDataArray = temp.listadoEnlaces.toJson();
         }
 
         #region Enlace
