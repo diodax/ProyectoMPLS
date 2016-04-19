@@ -1,10 +1,16 @@
 ﻿@model ProyectoMPLS.Models.Topologia.Afinidad
 
-<style>
-    .colorpicker, .colorpicker * {
-        z-index: 9999;
-    }
-</style>
+<script src="~/assets/js/jquery.min.js"></script>
+<script src="~/assets/js/bootstrap.min.js"></script>
+<script src="~/assets/js/detect.js"></script>
+<script src="~/assets/js/fastclick.js"></script>
+<script src="~/assets/js/jquery.blockUI.js"></script>
+<script src="~/assets/js/waves.js"></script>
+<script src="~/assets/js/wow.min.js"></script>
+<script src="~/assets/js/jquery.nicescroll.js"></script>
+<script src="~/assets/js/jquery.scrollTo.min.js"></script>
+<script src="~/assets/plugins/colorpicker/bootstrap-colorpicker.js"></script>
+
 <div class="modal-header" id="crearafinidad">
     <h4 class="modal-title">Crear Afinidad</h4>
 </div>
@@ -37,7 +43,7 @@
                 </label>
                 <div class="col-md-3">
                     <div id="agregar_color" class="input-group colorpicker-component">
-                        <input type="text" value="fff" name="cColor" class="pick-a-color form-control">
+                        <input type="text" value="#FFFFFF" name="cColor" class="pick-a-color form-control">
                         @*@Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })*@
                         @*<input type="text" value="#FFFFFF" class="form-control" />*@
                         <span class="input-group-addon"><i></i></span>
@@ -51,15 +57,16 @@
     </div>
 
     <div class="modal-footer">
-        <input class="btn btn-primary" type="submit" value="Guardar" />
-        <button id="submitCrearAfinidad" class="btn" data-dismiss="modal">Cerrar</button>
+        <input id="submitCrearAfinidad" class="btn btn-primary" type="submit" value="Guardar" />
+        <button class="btn" data-dismiss="modal">Cerrar</button>
     </div>
 }
 
 <script>
+    //alert("co;o");
     $(document).ready(function () {
-        $('#agregar_color').colorpicker();
-        //$(".pick-a-color").pickAColor();
+        //alert("its wolking");
+        //$('#agregar_color').colorpicker();
         $("#submitCrearAfinidad").click(function () {
             var form = $("#CrearAfinidadDataForm")[0];
             var formData = new FormData(form);
@@ -72,15 +79,19 @@
                 processData: false,
                 data: formData,
                 success: function (result) {
-                    if (result.success) {
-                        $('#afinidad').modal('hide');
-                        //window.location.reload(true);   //refresh page
-                    } else {
-                        $('#afinidadContent').html(result);
-                    }
+                    $('#afinidad').modal('hide');
+                    $("#seccionAfinidades").html(result);
+                    //$('#afinidadContent').html(result);
                 },
                 error: function (error) { $("#error").html(error); }
             });
         });
+
     });
 </script>
+
+<style>
+    .colorpicker, .colorpicker * {
+        z-index: 9999;
+    }
+</style>

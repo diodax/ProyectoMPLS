@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoMPLS.Models;
 
 namespace ProyectoMPLS.Controllers
 {
@@ -53,9 +54,19 @@ namespace ProyectoMPLS.Controllers
         {
             if (ModelState.IsValid)
             {
-                newModel.ActualizarAfinidad(newModel.idProyecto, newModel.idAfinidad, newModel.cDescripcion, newModel.cColor);
-                //return RedirectToAction("Index");
-                return Json(new { success = true });
+                try
+                {
+                    //Actualiza la DB 
+                    newModel.ActualizarAfinidad(newModel.idProyecto, newModel.idAfinidad, newModel.cDescripcion, newModel.cColor);
+                    //Si la operacion fue un exito, crea un PartialView del ViewModel que contiene la tabla actualizada
+                    //El ajax en la vista se encargara de usar el resultado y reemplazar el html
+                    AfinidadViewModel result = new AfinidadViewModel(newModel.idProyecto);
+                    return PartialView("_ListaAfinidades", result);
+                }
+                catch (Exception)
+                {
+                    return PartialView(newModel);
+                }
             }
             else
             {
@@ -75,8 +86,19 @@ namespace ProyectoMPLS.Controllers
         {
             if (ModelState.IsValid)
             {
-                newModel.CrearAfinidad(newModel.idProyecto, newModel.cDescripcion, newModel.cColor);
-                return Json(new { success = true });
+                try
+                {
+                    //Actualiza la DB 
+                    newModel.CrearAfinidad(newModel.idProyecto, newModel.cDescripcion, newModel.cColor);
+                    //Si la operacion fue un exito, crea un PartialView del ViewModel que contiene la tabla actualizada
+                    //El ajax en la vista se encargara de usar el resultado y reemplazar el html
+                    AfinidadViewModel result = new AfinidadViewModel(newModel.idProyecto);
+                    return PartialView("_ListaAfinidades", result);
+                }
+                catch (Exception ex)
+                {
+                    return PartialView(newModel);
+                }
             }
             else
             {
@@ -92,8 +114,8 @@ namespace ProyectoMPLS.Controllers
                 bool a = Afinidad.BorrarAfinidad(idProyecto, idAfinidad);
                 if (a)
                 {
-                    //return RedirectToAction("Index");
-                    return Json(new { success = true });
+                    AfinidadViewModel result = new AfinidadViewModel(idProyecto);
+                    return PartialView("_ListaAfinidades", result);
                 }
                 else
                 {
@@ -311,28 +333,6 @@ namespace ProyectoMPLS.Controllers
             return View(newModel);
         }
 
-        // POST: Topologia/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Topologia/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
         // POST: Topologia/Delete/5
         [HttpPost]
         public ActionResult Eliminar(int idProyecto)
@@ -364,6 +364,36 @@ namespace ProyectoMPLS.Controllers
             var arrayRouters = result.Data;
             //Console.Write(result);
             return Json(arrayRouters);
+        }
+
+        public ActionResult LoadJsonNetwork(int idProyecto)
+        {
+            Proyecto temp = new Proyecto(idProyecto);
+
+            //Transforma las listas en formato Json de GoJS
+            var nodeDataArray = temp.listadoRouters.toJson();
+            var linkDataArray = temp.listadoEnlaces.toJson();
+            return Json(new { @class = "go.GraphLinksModel", nodeDataArray, linkDataArray }, 
+                        JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SaveJsonNetwork(List<EnlaceJson> linkDataArray, List<RouterJson> nodeDataArray, int idProyecto)
+        {
+            List<Router> listaRouters = nodeDataArray.ToModeList(idProyecto);
+            List<Enlace> listaEnlaces = linkDataArray.ToModeList(idProyecto);
+            Proyecto newModel = new Proyecto(idProyecto, listaRouters, listaEnlaces);
+
+            try
+            {
+                newModel.InsertUpdateListaRouters();
+                newModel.InsertUpdateListaEnlaces();
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+            }    
         }
 
         #region Enlace

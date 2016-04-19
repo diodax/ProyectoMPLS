@@ -3,7 +3,7 @@ $(document).ready(function () {
     var $$ = go.GraphObject.make;
     //var myDiagram = $(go.Diagram, "myDiagramDiv");
 
-    var myDiagram = $$(go.Diagram, "myDiagramDiv", {
+    myDiagram = $$(go.Diagram, "myDiagramDiv", {
         initialContentAlignment: go.Spot.Center,        // center Diagram contents
         "undoManager.isEnabled": true,                   // enable Ctrl-Z to undo and Ctrl-Y to redo
         //layout: $(go.TreeLayout,                        // specify a Diagram.layout that arranges trees
@@ -73,16 +73,14 @@ $(document).ready(function () {
         $$(go.Shape, { strokeWidth: 3, stroke: "#555" }),
         { contextClick: abrirConfigEnlace }
         //{ idEnlace: 0 }
-        ); // the link shape
+        ); 
 
     var image = '/Content/Images/' + 'router.png';
     var model = $$(go.GraphLinksModel);
 
     $.ajax({
         url: '/Topologia/GetJsonTopologia',
-        //type: 'POST',
         contentType: "application/json",
-        //datatype: "json",
         data: { idProyecto: $("#tbxIdProyecto").val() },
         success: function (result) {
             //Inicio AJAX --
@@ -116,6 +114,18 @@ $(document).ready(function () {
             myDiagram.model = model;
                
             //Fin AJAX --
+
+            //---TESTING, REMOVE LATER---
+            var modelAsText = myDiagram.model.toJson();
+            console.log(modelAsText);
+
+            var data = myDiagram.model.findNodeDataForKey(1);
+            // This will update the color of the "Delta" Node
+            if (data !== null) myDiagram.model.setDataProperty(data, "new_property", "red");
+
+            var modelAsText = myDiagram.model.toJson();
+            console.log(modelAsText);
+            //---TESTING, REMOVE LATER---
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -145,45 +155,27 @@ $(document).ready(function () {
         { source: image, color: "LSR" },
     ];
 
-    
-
     $('#file').click(function () {
         //myDiagram.commandHandler.
     })
 
     $('#save').click(function () {
-        //document.getElementById("mySavedModel").value = myDiagram.model.toJson();
-        var result = [];
+        var modelAsText = myDiagram.model.toJson();
+        var nodeDataArray = modelAsText.nodeDataArray;
+        var linkDataArray = modelAsText.linkDataArray;
+        var idProyecto = $("#tbxIdProyecto").val();
 
         $.ajax({
-            url: '/Topologia/SetJsonTopologia',
+            url: '/Topologia/SaveJsonNetwork',
             type: 'POST',
             contentType: "application/json",
-            //datatype: "json",
-            beforeSend: function () {
-                var arrayRouters = model.nodeDataArray;
-                //result = [];
-
-                $.each(arrayRouters, function (i, item) {
-                    result.push({ "idRouter": arrayRouters[i].key, "cHostname": arrayRouters[i].name });
-                });
-
-                //console.log(result);
-                //return result;
-                //idProyecto: $("#tbxIdProyecto").val()
-            },
-            data: { result },
-            success: function () {
-                //Inicio AJAX --
-                /*var arrayRouters = model.nodeDataArray;
-                result = [];
-
-                $.each(arrayRouters, function (i, item) {
-                    result.push({ "idRouter": arrayRouters[i].key, "cHostname": arrayRouters[i].name });
-                });
-
-                console.log(result);*/
-                //Fin AJAX --
+            data: { linkDataArray: linkDataArray, nodeDataArray: nodeDataArray, idProyecto: idProyecto },
+            success: function (result) {
+                if (result.success) {
+                    myDiagram.isModified = false;
+                } else {
+                    myDiagram.isModified = true;
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
@@ -191,9 +183,6 @@ $(document).ready(function () {
                 $("#error").html(jqXHR.responseText);
             }
         });
-
-        // TODO cambiar linea anterior por metodo que vayamos a usar para grabar
-        myDiagram.isModified = false;
     })
 
     $('#cut').click(function () {

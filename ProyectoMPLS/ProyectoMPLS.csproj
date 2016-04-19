@@ -198,6 +198,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ComunicacionController.cs" />
     <Compile Include="Controllers\EnrutamientoController.cs" />
+    <Compile Include="Controllers\EstadisticasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TopologiaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -206,6 +207,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsEnrutamiento.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsEstadisticas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsEstadisticas.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\dsTopologia.Designer.cs" />
     <Compile Include="Data\dsUsuarios.Designer.cs">
@@ -226,7 +232,10 @@
     <Compile Include="Models\Comunicacion\ProyectoArchivoViewModel.cs" />
     <Compile Include="Models\Comunicacion\ProyectoRaspberryViewModel.cs" />
     <Compile Include="Models\Comunicacion\ProyectoVacioViewModel.cs" />
+    <Compile Include="Models\Comunicacion\JsonObjects.cs" />
     <Compile Include="Models\Comunicacion\Tabla.cs" />
+    <Compile Include="Models\Estadisticas\EnlaceStats.cs" />
+    <Compile Include="Models\ListExtensions.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModuleAuthorize.cs" />
     <Compile Include="Models\Topologia\Afinidad.cs" />
@@ -4722,6 +4731,17 @@
     <Content Include="Data\dsEnrutamiento.xss">
       <DependentUpon>dsEnrutamiento.xsd</DependentUpon>
     </Content>
+    <Content Include="Data\dsEstadisticas.xsc">
+      <DependentUpon>dsEstadisticas.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsEstadisticas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsEstadisticas.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Data\dsEstadisticas.xss">
+      <DependentUpon>dsEstadisticas.xsd</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\AWS.pubxml" />
     <Content Include="Views\Usuario\Settings.cshtml" />
     <Content Include="Views\Topologia\_ConfigEnlace.cshtml" />
@@ -4807,6 +4827,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\plugins\" />
+    <Folder Include="Views\Estadisticas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
