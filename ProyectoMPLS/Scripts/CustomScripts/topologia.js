@@ -99,10 +99,6 @@ $(document).ready(function () {
             var arrayLinks = [];
      
             $.each(result.enlaces, function (i, item) {
-                // console.log(result.enlaces);
-                //console.log("from: " + result.enlaces[i].idRouterA);
-                //console.log("to: " + result.enlaces[i].idRouterB);
-                //console.log("idEnlace: " + result.enlaces[i].idEnlace);
                 arrayLinks.push({ "from": result.enlaces[i].idRouterA, "to": result.enlaces[i].idRouterB, toArrow: "", "idEnlace": result.enlaces[i].idEnlace});
             });
 
@@ -164,12 +160,13 @@ $(document).ready(function () {
         var nodeDataArray = modelAsText.nodeDataArray;
         var linkDataArray = modelAsText.linkDataArray;
         var idProyecto = $("#tbxIdProyecto").val();
+        console.log("idProyecto: " + idProyecto);
 
         $.ajax({
             url: '/Topologia/SaveJsonNetwork',
             type: 'POST',
             contentType: "application/json",
-            data: { linkDataArray: linkDataArray, nodeDataArray: nodeDataArray, idProyecto: idProyecto },
+            data: { linkDataArray: linkDataArray, nodeDataArray: nodeDataArray, 'idProyecto': idProyecto },
             success: function (result) {
                 if (result.success) {
                     myDiagram.isModified = false;
@@ -178,9 +175,8 @@ $(document).ready(function () {
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-                console.log(errorThrown);
                 $("#error").html(jqXHR.responseText);
+                console.log(jqXHR.responseText);
             }
         });
     })
