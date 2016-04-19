@@ -29,6 +29,7 @@ namespace ProyectoMPLS.Models
                 temp.weight = item.nPesoAdministrativo;
                 temp.afinity = item.idAfinidad;
                 temp.free_bw = item.nBandwidthDisponible;
+                temp.id_proyecto = item.idProyecto;
                 listaEnlaces.Add(temp);
             }
             return listaEnlaces;
@@ -51,7 +52,7 @@ namespace ProyectoMPLS.Models
                 temp.loopback_ip = item.cRouterID;
                 if (item.cx != 0 && item.cy != 0)
                     temp.loc = item.cx + " " + item.cy;
-
+                temp.id_proyecto = item.idProyecto;
                 listaRouters.Add(temp);
             }
             return listaRouters;
@@ -63,14 +64,14 @@ namespace ProyectoMPLS.Models
         /// <param name="list"></param>
         /// <param name="idProyecto"></param>
         /// <returns></returns>
-        public static List<Enlace> ToModeList(this List<EnlaceJson> list, int idProyecto)
+        public static List<Enlace> ToModeList(this List<EnlaceJson> list)
         {
             List<Enlace> listaEnlaces = new List<Enlace>();
             foreach (var item in list)
             {
                 Enlace temp = new Enlace();
                 temp.idEnlace = item.idEnlace;
-                temp.idProyecto = idProyecto;
+                temp.idProyecto = item.id_proyecto;
                 temp.cNombre = item.name;
                 temp.idRouterA = item.from;
                 temp.idRouterB = item.to;
@@ -90,14 +91,14 @@ namespace ProyectoMPLS.Models
         /// <param name="list"></param>
         /// <param name="idProyecto"></param>
         /// <returns></returns>
-        public static List<Router> ToModeList(this List<RouterJson> list, int idProyecto)
+        public static List<Router> ToModeList(this List<RouterJson> list)
         {
             List<Router> listaRouters = new List<Router>();
             foreach (var item in list)
             {
                 LER temp = new LER();
                 temp.idRouter = item.key;
-                temp.idProyecto = idProyecto;
+                temp.idProyecto = item.id_proyecto;
                 temp.cHostname = item.name;
                 temp.cRouterID = item.loopback_ip;
                 //temp.cx = item.loc;

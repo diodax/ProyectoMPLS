@@ -28,6 +28,7 @@ $(document).ready(function () {
     // define a simple Node template
     myDiagram.nodeTemplate =
         $$(go.Node, "Auto",
+        new go.Binding("location", "loc"),  // get the Node.location from the data.loc value
         // the entire node will have a light-blue background
         //{ background: "#44CCFF" },
         $$(go.Picture,
@@ -79,56 +80,47 @@ $(document).ready(function () {
     var model = $$(go.GraphLinksModel);
 
     $.ajax({
+        url: '/Topologia/LoadJsonNetwork',
+        contentType: "application/json",
+        data: { idProyecto: $("#tbxIdProyecto").val() },
+        success: function (result) {
+            //var image2 = '/Content/Images/' + 'router.png';
+            myDiagram.model = go.Model.fromJson(result);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $("#error").html(jqXHR.responseText);
+            console.log(jqXHR.responseText);
+        }
+    });
+
+    /*
+    $.ajax({
         url: '/Topologia/GetJsonTopologia',
         contentType: "application/json",
         data: { idProyecto: $("#tbxIdProyecto").val() },
         success: function (result) {
             //Inicio AJAX --
             var image2 = '/Content/Images/' + 'router.png';
-            //var model = $$(go.GraphLinksModel);  
             var arrayRouters = [];
             $.each(result.routers, function (i, item) {
                 arrayRouters.push({ "key": result.routers[i].idRouter, "name": result.routers[i].cHostname, "source": image2 });
             });
-
-            //$(result.routers).each(function () {
-            //    arrayRouters.push({ "key": $(this).idRouter, "name": $(this).cHostname, source: image2 });
-            //});
             model.nodeDataArray = arrayRouters;
-
             var arrayLinks = [];
      
             $.each(result.enlaces, function (i, item) {
                 arrayLinks.push({ "from": result.enlaces[i].idRouterA, "to": result.enlaces[i].idRouterB, toArrow: "", "idEnlace": result.enlaces[i].idEnlace});
             });
-
-            //$(result.enlaces).each(function () {
-            //    arrayLinks.push({ "from": $(this).idRouterA, "to": $(this).idRouterB });
-            //});
-
             model.linkDataArray = arrayLinks;
             myDiagram.model = model;
-               
             //Fin AJAX --
-
-            //---TESTING, REMOVE LATER---
-            var modelAsText = myDiagram.model.toJson();
-            console.log(modelAsText);
-
-            var data = myDiagram.model.findNodeDataForKey(1);
-            // This will update the color of the "Delta" Node
-            if (data !== null) myDiagram.model.setDataProperty(data, "new_property", "red");
-
-            var modelAsText = myDiagram.model.toJson();
-            console.log(modelAsText);
-            //---TESTING, REMOVE LATER---
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
-            console.log(errorThrown);
             $("#error").html(jqXHR.responseText);
+            console.log(jqXHR.responseText);
         }
     });
+    */
 
     var myPalette = $$(go.Palette, "myPaletteDiv", {
         allowZoom: false,
@@ -157,16 +149,25 @@ $(document).ready(function () {
 
     $('#save').click(function () {
         var modelAsText = myDiagram.model.toJson();
-        var nodeDataArray = modelAsText.nodeDataArray;
-        var linkDataArray = modelAsText.linkDataArray;
-        var idProyecto = $("#tbxIdProyecto").val();
-        console.log("idProyecto: " + idProyecto);
+        delete modelAsText.class;
+        console.log(modelAsText);
+
+        //var nodeDataArray = [];
+        //nodeDataArray= modelAsText.nodeDataArray;
+        //var linkDataArray = [];
+        //linkDataArray = modelAsText.linkDataArray;
+        //var idProyecto = $("#tbxIdProyecto").val();
+        //console.log("idProyecto: " + idProyecto);
+
+        //var parsed = jQuery.parseJSON("'" + { linkDataArray: linkDataArray, nodeDataArray: nodeDataArray, idProyecto: idProyecto } + "'");
+        //console.log({ linkDataArray: linkDataArray, nodeDataArray: nodeDataArray });
 
         $.ajax({
             url: '/Topologia/SaveJsonNetwork',
             type: 'POST',
+            //dataType: 'text/json',
             contentType: "application/json",
-            data: { linkDataArray: linkDataArray, nodeDataArray: nodeDataArray, 'idProyecto': idProyecto },
+            data: { modelAsText },
             success: function (result) {
                 if (result.success) {
                     myDiagram.isModified = false;
