@@ -13,6 +13,7 @@ namespace ProyectoMPLS.Models.Comunicacion
         public string source { get; set; }
         public string loopback_ip { get; set; }
         public string loc { get; set; }
+        public int id_proyecto { get; set; }
 
         public RouterJson() { }
 
@@ -25,6 +26,7 @@ namespace ProyectoMPLS.Models.Comunicacion
             this.loopback_ip = temp.cRouterID;
             if (temp.cx != 0 && temp.cy != 0)
                 this.loc = temp.cx + " " + temp.cy;
+            this.id_proyecto = temp.idProyecto;
         }
     }
 
@@ -39,6 +41,7 @@ namespace ProyectoMPLS.Models.Comunicacion
         public double weight { get; set; }
         public int afinity { get; set; }
         public double free_bw { get; set; }
+        public int id_proyecto { get; set; }
 
         public EnlaceJson() { }
 
@@ -54,8 +57,8 @@ namespace ProyectoMPLS.Models.Comunicacion
             this.weight = temp.nPesoAdministrativo;
             this.afinity = temp.idAfinidad;
             this.free_bw = temp.nBandwidthDisponible;
+            this.id_proyecto = temp.idProyecto;
         }
-
         
     }
 }

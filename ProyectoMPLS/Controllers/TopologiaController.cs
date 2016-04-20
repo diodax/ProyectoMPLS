@@ -378,14 +378,15 @@ namespace ProyectoMPLS.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveJsonNetwork(List<EnlaceJson> linkDataArray, List<RouterJson> nodeDataArray, int idProyecto)
+        public ActionResult SaveJsonNetwork(List<RouterJson> nodeDataArray, List<EnlaceJson> linkDataArray)
         {
-            List<Router> listaRouters = nodeDataArray.ToModeList(idProyecto);
-            List<Enlace> listaEnlaces = linkDataArray.ToModeList(idProyecto);
-            Proyecto newModel = new Proyecto(idProyecto, listaRouters, listaEnlaces);
-
             try
             {
+                List<Router> listaRouters = nodeDataArray.ToModeList();
+                List<Enlace> listaEnlaces = linkDataArray.ToModeList();
+                int idProyecto = listaRouters.FirstOrDefault().idProyecto;
+                Proyecto newModel = new Proyecto(idProyecto, listaRouters, listaEnlaces);
+
                 newModel.InsertUpdateListaRouters();
                 newModel.InsertUpdateListaEnlaces();
                 return Json(new { success = true });
