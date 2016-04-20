@@ -113,7 +113,33 @@
         </div>
 
         <div id="dijkstraResults">
-            
+            <p>Camino: </p>
+            @Html.DisplayFor(model => model.cRutaHostnames)
+            <table>
+                <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().idEnlace)</th>
+                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().cNombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().nBandwidth)</th>
+                    <th>BW Utilizado (Mbps)</th>
+                    <th>BW Utilizado (%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.listaEnlacesPath)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.idEnlace)</td>
+                        <td>@Html.DisplayFor(model => item.cNombre)</td>
+                        <td>@Html.DisplayFor(model => item.nBandwidth)</td>
+                        <td>@(item.nBandwidth - item.nBandwidthDisponible)</td>
+                        <td>@((item.nBandwidth - item.nBandwidthDisponible)/item.nBandwidth*100)</td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+
         </div>
 
     </div>

@@ -116,5 +116,67 @@ namespace ProyectoMPLS.Models
 
             return listaRouters;
         }
+
+        /// <summary>
+        /// Genera una lista de Enlaces en base a la lista de Nodos Dijkstra
+        /// </summary>
+        /// <param name="nodeList"></param>
+        /// <returns></returns>
+        public static List<Enlace> ToEnlaces(this List<NodoDijkstra> nodePathList, int idProyecto)
+        {
+            Proyecto tempModel = new Proyecto(idProyecto);
+            List<Enlace> listaEnlacesLSP = new List<Enlace>();
+
+            //Genera una lista de Enlaces en base a la lista de Nodos Dijkstra
+            for (int cont = 0; cont < nodePathList.Count; ++cont)
+            {
+                int curr_n = cont;
+                int next_n = cont + 1;
+
+                if (next_n < nodePathList.Count)
+                {
+                    int curr_routerid = nodePathList[curr_n].idRouter;
+                    int next_routerid = nodePathList[next_n].idRouter;
+
+                    Enlace temp = new Enlace();
+                    temp = tempModel.listadoEnlaces.Find(
+                                x => (x.idRouterA == curr_routerid && x.idRouterB == next_routerid) ||
+                                    (x.idRouterB == curr_routerid && x.idRouterA == next_routerid));
+                    if (temp != null)
+                    {
+                        Enlace new_temp = new Enlace();
+                        new_temp = nodePathList[cont].listaEnlaces.Find(x => x.idEnlace == temp.idEnlace);
+                        if (new_temp != null)
+                            listaEnlacesLSP.Add(new_temp);
+                    }
+                        
+                }
+            }
+            return listaEnlacesLSP;
+        }
+
+        /// <summary>
+        /// Parsea los Hostnames del listado de nodos en un string, en orden
+        /// </summary>
+        /// <param name="nodePathList"></param>
+        /// <returns></returns>
+        public static string ToString(this List<NodoDijkstra> nodePathList)
+        {
+            string cRutaHostnames = "[";
+            foreach (var router in nodePathList)
+            {
+                cRutaHostnames += router.cHostname + " > ";
+            }
+            if (cRutaHostnames.Length > 1)
+            {
+                cRutaHostnames = cRutaHostnames.Substring(0, cRutaHostnames.Length - 3);
+                cRutaHostnames += "]";
+            }
+            else
+            {
+                cRutaHostnames = "";
+            }
+            return cRutaHostnames;
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Priority_Queue;
+using ProyectoMPLS.Models;
 
 namespace ProyectoMPLS.Controllers
 {
@@ -62,11 +63,13 @@ namespace ProyectoMPLS.Controllers
 
                 List<NodoDijkstra> result = new List<NodoDijkstra>();
                 result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
-                return Json(new {path = result, success = true});
+                List<Enlace> listaEnlacesLSP = result.ToEnlaces(newModel.idProyecto);
+
+                return Json(new { path = listaEnlacesLSP, node_string = result.ToString(), success = true });
             }
             else
             {
-                return Json(new {path = new List<NodoDijkstra>(), success = false});
+                return Json(new { path = new List<NodoDijkstra>(), node_string = "", success = false });
             }
             
         }
@@ -76,11 +79,24 @@ namespace ProyectoMPLS.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Actualiza el LSP 
-                return Json(new {success = true});
-            }
+                //TODO: Completar esta funcion
+                List<Enlace> listaEnlacesLSP = newModel.calculatedPath.ToEnlaces(newModel.idProyecto);
 
-            return PartialView(newModel);
+                try
+                {
+                    //Agregar/actualizar LSP_header
+                    foreach (var item in listaEnlacesLSP)
+                    {
+                        //Agregar LSP_detalle uno por uno
+                    }
+                    return Json(new { success = true });
+                }
+                catch (Exception ex)
+                {
+                    return Json(new {success = false });
+                }
+            }
+            return Json(new { success = false });
         }
 
         #endregion
