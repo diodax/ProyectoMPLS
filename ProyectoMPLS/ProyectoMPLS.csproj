@@ -4753,6 +4753,7 @@
     <Content Include="Views\Topologia\_CrearAfinidad.cshtml" />
     <Content Include="Views\Enrutamiento\_InlineIndexLSPs.cshtml" />
     <Content Include="Views\Enrutamiento\_CrearCSPF.cshtml" />
+    <Content Include="Views\Shared\_LayoutLanding.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
