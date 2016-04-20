@@ -101,8 +101,16 @@ namespace ProyectoMPLS.Models
                 temp.idProyecto = item.id_proyecto;
                 temp.cHostname = item.name;
                 temp.cRouterID = item.loopback_ip;
-                //temp.cx = item.loc;
-                //temp.cy = item.loc;
+                string[] coordenadas = item.loc != null ? item.loc.Split(' ') : new string[] { };
+                if (coordenadas.Count() == 2)
+                {
+                    int result;
+                    Int32.TryParse(coordenadas[0], out result);
+                    temp.cx = result;
+
+                    Int32.TryParse(coordenadas[1], out result);
+                    temp.cy = result;
+                }
                 listaRouters.Add(temp);
             }
 

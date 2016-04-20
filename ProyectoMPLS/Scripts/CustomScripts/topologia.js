@@ -28,7 +28,7 @@ $(document).ready(function () {
     // define a simple Node template
     myDiagram.nodeTemplate =
         $$(go.Node, "Auto",
-        new go.Binding("location", "loc"),  // get the Node.location from the data.loc value
+        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),  // get the Node.location from the data.loc value
         // the entire node will have a light-blue background
         //{ background: "#44CCFF" },
         $$(go.Picture,
@@ -93,35 +93,6 @@ $(document).ready(function () {
         }
     });
 
-    /*
-    $.ajax({
-        url: '/Topologia/GetJsonTopologia',
-        contentType: "application/json",
-        data: { idProyecto: $("#tbxIdProyecto").val() },
-        success: function (result) {
-            //Inicio AJAX --
-            var image2 = '/Content/Images/' + 'router.png';
-            var arrayRouters = [];
-            $.each(result.routers, function (i, item) {
-                arrayRouters.push({ "key": result.routers[i].idRouter, "name": result.routers[i].cHostname, "source": image2 });
-            });
-            model.nodeDataArray = arrayRouters;
-            var arrayLinks = [];
-     
-            $.each(result.enlaces, function (i, item) {
-                arrayLinks.push({ "from": result.enlaces[i].idRouterA, "to": result.enlaces[i].idRouterB, toArrow: "", "idEnlace": result.enlaces[i].idEnlace});
-            });
-            model.linkDataArray = arrayLinks;
-            myDiagram.model = model;
-            //Fin AJAX --
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            $("#error").html(jqXHR.responseText);
-            console.log(jqXHR.responseText);
-        }
-    });
-    */
-
     var myPalette = $$(go.Palette, "myPaletteDiv", {
         allowZoom: false,
         scale: 2
@@ -149,8 +120,8 @@ $(document).ready(function () {
 
     $('#save').click(function () {
         var modelAsText = myDiagram.model.toJson();
-        delete modelAsText.class;
-        console.log(modelAsText);
+        delete modelAsText['class'];
+        //console.log(modelAsText);
 
         //var nodeDataArray = [];
         //nodeDataArray= modelAsText.nodeDataArray;
@@ -167,17 +138,20 @@ $(document).ready(function () {
             type: 'POST',
             //dataType: 'text/json',
             contentType: "application/json",
-            data: { modelAsText },
+            data: modelAsText,
             success: function (result) {
                 if (result.success) {
                     myDiagram.isModified = false;
+                    $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
                 } else {
                     myDiagram.isModified = true;
+                    $.Notification.autoHideNotify('success', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $("#error").html(jqXHR.responseText);
                 console.log(jqXHR.responseText);
+                $.Notification.autoHideNotify('success', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
             }
         });
     })

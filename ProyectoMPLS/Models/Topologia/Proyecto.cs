@@ -188,7 +188,7 @@ namespace ProyectoMPLS.Models.Topologia
 
             foreach(var item in this.listadoRouters)
             {
-                Adapter.InsertarActualizarRouter(this.idProyecto, item.idRouter, item.cHostname, item.cRouterID);
+                Adapter.InsertarActualizarRouter(this.idProyecto, item.idRouter, item.cHostname, item.cRouterID, item.cx, item.cy);
             }
         }
 
@@ -224,10 +224,15 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 LSR temp = new LSR();
                 temp.idRouter = dr.idRouter;
+                temp.idProyecto = dr.idProyecto;
                 if (!dr.IscHostnameNull())
                     temp.cHostname = dr.cHostname.Trim();
                 if (!dr.IscRouterIDNull())
                     temp.cRouterID = dr.cRouterID.Trim();
+                if (!dr.IscXNull())
+                    temp.cx = dr.cX;
+                if (!dr.IscYNull())
+                    temp.cy = dr.cY;
                 listaRouters.Add(temp);
             }
 
@@ -250,6 +255,7 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 Enlace temp = new Enlace();
                 temp.idEnlace = dr.idEnlace;
+                temp.idProyecto = dr.idProyecto;
                 if (!dr.IscNombreNull())
                     temp.cNombre = dr.cNombre.Trim();
                 if (!dr.IsidRouterANull())

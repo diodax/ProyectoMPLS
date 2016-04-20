@@ -64,10 +64,15 @@ namespace ProyectoMPLS.Models.Topologia
             foreach (var dr in dt)
             {
                 this.idRouter = dr.idRouter;
+                this.idProyecto = dr.idProyecto;
                 if (!dr.IscHostnameNull())
                     this.cHostname = dr.cHostname.Trim();
                 if (!dr.IscRouterIDNull())
                     this.cRouterID = dr.cRouterID.Trim();
+                if (!dr.IscXNull())
+                    this.cx = dr.cX;
+                if (!dr.IscYNull())
+                    this.cy = dr.cY;
             }
         }
     }
@@ -87,10 +92,15 @@ namespace ProyectoMPLS.Models.Topologia
             foreach (var dr in dt)
             {
                 this.idRouter = dr.idRouter;
+                this.idProyecto = dr.idProyecto;
                 if (!dr.IscHostnameNull())
                     this.cHostname = dr.cHostname.Trim();
                 if (!dr.IscRouterIDNull())
                     this.cRouterID = dr.cRouterID.Trim();
+                if (!dr.IscXNull())
+                    this.cx = dr.cX;
+                if (!dr.IscYNull())
+                    this.cy = dr.cY;
             }
         }
     }

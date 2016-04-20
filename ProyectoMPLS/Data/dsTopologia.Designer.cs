@@ -889,6 +889,10 @@ namespace ProyectoMPLS.Data {
             
             private global::System.Data.DataColumn columncRouterID;
             
+            private global::System.Data.DataColumn columncX;
+            
+            private global::System.Data.DataColumn columncY;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RoutersDataTable() {
@@ -956,6 +960,22 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn cXColumn {
+                get {
+                    return this.columncX;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn cYColumn {
+                get {
+                    return this.columncY;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -991,13 +1011,15 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RoutersRow AddRoutersRow(int idProyecto, int idRouter, string cHostname, string cRouterID) {
+            public RoutersRow AddRoutersRow(int idProyecto, int idRouter, string cHostname, string cRouterID, int cX, int cY) {
                 RoutersRow rowRoutersRow = ((RoutersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         idProyecto,
                         idRouter,
                         cHostname,
-                        cRouterID};
+                        cRouterID,
+                        cX,
+                        cY};
                 rowRoutersRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowRoutersRow);
                 return rowRoutersRow;
@@ -1032,6 +1054,8 @@ namespace ProyectoMPLS.Data {
                 this.columnidRouter = base.Columns["idRouter"];
                 this.columncHostname = base.Columns["cHostname"];
                 this.columncRouterID = base.Columns["cRouterID"];
+                this.columncX = base.Columns["cX"];
+                this.columncY = base.Columns["cY"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1045,6 +1069,10 @@ namespace ProyectoMPLS.Data {
                 base.Columns.Add(this.columncHostname);
                 this.columncRouterID = new global::System.Data.DataColumn("cRouterID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncRouterID);
+                this.columncX = new global::System.Data.DataColumn("cX", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncX);
+                this.columncY = new global::System.Data.DataColumn("cY", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncY);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnidProyecto,
                                 this.columnidRouter}, true));
@@ -2541,6 +2569,10 @@ namespace ProyectoMPLS.Data {
             
             private global::System.Data.DataColumn columncRouterID;
             
+            private global::System.Data.DataColumn columncX;
+            
+            private global::System.Data.DataColumn columncY;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RouterDataTable() {
@@ -2608,6 +2640,22 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn cXColumn {
+                get {
+                    return this.columncX;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn cYColumn {
+                get {
+                    return this.columncY;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2643,13 +2691,15 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RouterRow AddRouterRow(int idProyecto, int idRouter, string cHostname, string cRouterID) {
+            public RouterRow AddRouterRow(int idProyecto, int idRouter, string cHostname, string cRouterID, int cX, int cY) {
                 RouterRow rowRouterRow = ((RouterRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         idProyecto,
                         idRouter,
                         cHostname,
-                        cRouterID};
+                        cRouterID,
+                        cX,
+                        cY};
                 rowRouterRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowRouterRow);
                 return rowRouterRow;
@@ -2684,6 +2734,8 @@ namespace ProyectoMPLS.Data {
                 this.columnidRouter = base.Columns["idRouter"];
                 this.columncHostname = base.Columns["cHostname"];
                 this.columncRouterID = base.Columns["cRouterID"];
+                this.columncX = base.Columns["cX"];
+                this.columncY = base.Columns["cY"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2697,6 +2749,10 @@ namespace ProyectoMPLS.Data {
                 base.Columns.Add(this.columncHostname);
                 this.columncRouterID = new global::System.Data.DataColumn("cRouterID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncRouterID);
+                this.columncX = new global::System.Data.DataColumn("cX", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncX);
+                this.columncY = new global::System.Data.DataColumn("cY", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncY);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnidProyecto,
                                 this.columnidRouter}, true));
@@ -3573,6 +3629,38 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int cX {
+                get {
+                    try {
+                        return ((int)(this[this.tableRouters.cXColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'cX\' in table \'Routers\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRouters.cXColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int cY {
+                get {
+                    try {
+                        return ((int)(this[this.tableRouters.cYColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'cY\' in table \'Routers\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRouters.cYColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IscHostnameNull() {
                 return this.IsNull(this.tableRouters.cHostnameColumn);
             }
@@ -3593,6 +3681,30 @@ namespace ProyectoMPLS.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetcRouterIDNull() {
                 this[this.tableRouters.cRouterIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscXNull() {
+                return this.IsNull(this.tableRouters.cXColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcXNull() {
+                this[this.tableRouters.cXColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscYNull() {
+                return this.IsNull(this.tableRouters.cYColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcYNull() {
+                this[this.tableRouters.cYColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4205,6 +4317,38 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int cX {
+                get {
+                    try {
+                        return ((int)(this[this.tableRouter.cXColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'cX\' in table \'Router\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRouter.cXColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int cY {
+                get {
+                    try {
+                        return ((int)(this[this.tableRouter.cYColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'cY\' in table \'Router\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRouter.cYColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IscHostnameNull() {
                 return this.IsNull(this.tableRouter.cHostnameColumn);
             }
@@ -4225,6 +4369,30 @@ namespace ProyectoMPLS.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetcRouterIDNull() {
                 this[this.tableRouter.cRouterIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscXNull() {
+                return this.IsNull(this.tableRouter.cXColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcXNull() {
+                this[this.tableRouter.cXColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscYNull() {
+                return this.IsNull(this.tableRouter.cYColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcYNull() {
+                this[this.tableRouter.cYColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -5122,6 +5290,8 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             tableMapping.ColumnMappings.Add("idRouter", "idRouter");
             tableMapping.ColumnMappings.Add("cHostname", "cHostname");
             tableMapping.ColumnMappings.Add("cRouterID", "cRouterID");
+            tableMapping.ColumnMappings.Add("cX", "cX");
+            tableMapping.ColumnMappings.Add("cY", "cY");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -5151,6 +5321,8 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idRouter", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cHostname", global::System.Data.SqlDbType.VarChar, 47, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cRouterID", global::System.Data.SqlDbType.VarChar, 15, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cX", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cY", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5173,7 +5345,7 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int InsertarActualizarRouter(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idRouter, string cHostname, string cRouterID) {
+        public virtual int InsertarActualizarRouter(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idRouter, string cHostname, string cRouterID, global::System.Nullable<int> cX, global::System.Nullable<int> cY) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((idProyecto.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(idProyecto.Value));
@@ -5198,6 +5370,18 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             }
             else {
                 command.Parameters[4].Value = ((string)(cRouterID));
+            }
+            if ((cX.HasValue == true)) {
+                command.Parameters[5].Value = ((int)(cX.Value));
+            }
+            else {
+                command.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((cY.HasValue == true)) {
+                command.Parameters[6].Value = ((int)(cY.Value));
+            }
+            else {
+                command.Parameters[6].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -6152,6 +6336,8 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             tableMapping.ColumnMappings.Add("idRouter", "idRouter");
             tableMapping.ColumnMappings.Add("cHostname", "cHostname");
             tableMapping.ColumnMappings.Add("cRouterID", "cRouterID");
+            tableMapping.ColumnMappings.Add("cX", "cX");
+            tableMapping.ColumnMappings.Add("cY", "cY");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
