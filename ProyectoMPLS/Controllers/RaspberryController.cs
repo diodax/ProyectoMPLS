@@ -132,13 +132,6 @@ namespace ProyectoMPLS.Controllers
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-            //string root = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/uploads");
-            //var provider = new MultipartFormDataStreamProvider(root);
-            //var provider = new MultipartMemoryStreamProvider();
-            //var provider = new MultipartFormDataStreamProvider<InMemoryMultipartFormDataStreamProvider>(new InMemoryMultipartFormDataStreamProvider());
-
-            //await Request.Content.ReadAsMultipartAsync(provider);
-
             var provider = await Request.Content.ReadAsMultipartAsync<InMemoryMultipartFormDataStreamProvider>(new InMemoryMultipartFormDataStreamProvider());
 
             //access form data
@@ -150,39 +143,7 @@ namespace ProyectoMPLS.Controllers
             string userName = formData.GetValues("cUserName")[0];
             string projectName = formData.GetValues("cFileName")[0];
 
-            // This illustrates how to get the file names.
-            //foreach (MultipartFileData file in provider.FileData)
-            //{
-            //    Trace.WriteLine(file.Headers.ContentDisposition.FileName);
-            //    Trace.WriteLine("Server file path: " + file.LocalFileName);
-            //}
-
-            // Show all the key-value pairs.
-            //foreach (var key in provider.FormData.AllKeys)
-            //{
-            //    foreach (var val in provider.FormData.GetValues(key))
-            //    {
-            //        Debug.WriteLine(string.Format("{0}: {1}", key, val));
-            //    }
-            //}
-
-            //provider.Contents[0] --> Archivo CSV
-            //provider.Contents[1] --> cUserName
-            //provider.Contents[2] --> cFileName (Nombre del proyecto)
-            //var memFile = provider.Contents[0];
-            //string filename = memFile.Headers.ContentDisposition.FileName.Trim('\"');
-            //byte[] buffer = await memFile.ReadAsByteArrayAsync();
-
-            //var userNameContainer = provider.Contents[1].ReadAsFormDataAsync();
-            //var userName = userNameContainer.GetValues("cUserName");
-            //var projectName = provider.Contents[2].ToString();
-
-            //byte[] buffer;
-            string fileString = await provider.Files[0].ReadAsStringAsync();
-            //Stream stream = new MemoryStream();
-            //await provider.Files[0].CopyToAsync(stream);
-
-            byte[] byteArray = Convert.FromBase64String(fileString);
+            byte[] byteArray = await provider.Files[0].ReadAsByteArrayAsync();
             MemoryStream myStream = new MemoryStream(byteArray);
 
             //Proceso de parsing del archivo CSV
@@ -206,64 +167,61 @@ namespace ProyectoMPLS.Controllers
                 tablaDatos.Add(row);
             }
 
-            ////Llama al SP para crear el nuevo proyecto en la DB
-            //Data.dsTopologiaTableAdapters.ProyectosTableAdapter Adapter = new Data.dsTopologiaTableAdapters.ProyectosTableAdapter();
-            //int idProyecto = (int)Adapter.CrearProyectoLocal(cUsername, cFileName);
+            //Llama al SP para crear el nuevo proyecto en la DB
+            Data.dsTopologiaTableAdapters.ProyectosTableAdapter Adapter = new Data.dsTopologiaTableAdapters.ProyectosTableAdapter();
+            int idProyecto = (int)Adapter.CrearProyectoLocal(userName, projectName);
 
-            ////Creación del nuevo objeto de proyecto
-            //Proyecto newProyecto = new Proyecto(idProyecto);
-            //newProyecto.GenerarTopologia(tablaDatos);
-            //return Request.CreateResponse(HttpStatusCode.OK);
-
-            //File.Delete(@"~/App_Data/uploads/" + fil);
+            //Creación del nuevo objeto de proyecto
+            Proyecto newProyecto = new Proyecto(idProyecto);
+            newProyecto.GenerarTopologia(tablaDatos);
 
             return Ok();
         }
         // POST api/raspberry
-        [System.Web.Http.AllowAnonymous]
-        public HttpResponseMessage Post([FromBody]HttpPostedFileBase fArchivoCSV, string cUsername, string cFileName)
-        {
-            if (fArchivoCSV == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-            }
-            try
-            {
-                //Llama al SP para crear el nuevo proyecto en la DB
-                Data.dsTopologiaTableAdapters.ProyectosTableAdapter Adapter = new Data.dsTopologiaTableAdapters.ProyectosTableAdapter();
-                int idProyecto = (int)Adapter.CrearProyectoLocal(cUsername, cFileName);
+        //[System.Web.Http.AllowAnonymous]
+        //public HttpResponseMessage Post([FromBody]HttpPostedFileBase fArchivoCSV, string cUsername, string cFileName)
+        //{
+        //    if (fArchivoCSV == null)
+        //    {
+        //        throw new HttpResponseException(HttpStatusCode.BadRequest);
+        //    }
+        //    try
+        //    {
+        //        //Llama al SP para crear el nuevo proyecto en la DB
+        //        Data.dsTopologiaTableAdapters.ProyectosTableAdapter Adapter = new Data.dsTopologiaTableAdapters.ProyectosTableAdapter();
+        //        int idProyecto = (int)Adapter.CrearProyectoLocal(cUsername, cFileName);
 
-                //Proceso de parsing del archivo CSV
-                List<Tabla> tablaDatos = new List<Tabla>();
-                StreamReader csvreader = new StreamReader(fArchivoCSV.InputStream);    // Use the InputStream to get the actual stream sent.
+        //        //Proceso de parsing del archivo CSV
+        //        List<Tabla> tablaDatos = new List<Tabla>();
+        //        StreamReader csvreader = new StreamReader(fArchivoCSV.InputStream);    // Use the InputStream to get the actual stream sent.
 
-                //Primera linea
-                var line = csvreader.ReadLine();
-                var values = line.Split(';');
+        //        //Primera linea
+        //        var line = csvreader.ReadLine();
+        //        var values = line.Split(';');
 
-                while (!csvreader.EndOfStream)
-                {
-                    Tabla row = new Tabla();
-                    line = csvreader.ReadLine();
-                    values = line.Split(';');
+        //        while (!csvreader.EndOfStream)
+        //        {
+        //            Tabla row = new Tabla();
+        //            line = csvreader.ReadLine();
+        //            values = line.Split(';');
 
-                    row.Hostname = values[0];
-                    row.OSPFRouterID = values[1];
-                    row.OSPFNeighborRouterID = values[2];
-                    row.OSPFNeighborIP = values[3];
-                    tablaDatos.Add(row);
-                }
+        //            row.Hostname = values[0];
+        //            row.OSPFRouterID = values[1];
+        //            row.OSPFNeighborRouterID = values[2];
+        //            row.OSPFNeighborIP = values[3];
+        //            tablaDatos.Add(row);
+        //        }
 
-                //Creación del nuevo objeto de proyecto
-                Proyecto newProyecto = new Proyecto(idProyecto);
-                newProyecto.GenerarTopologia(tablaDatos);
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+        //        //Creación del nuevo objeto de proyecto
+        //        Proyecto newProyecto = new Proyecto(idProyecto);
+        //        newProyecto.GenerarTopologia(tablaDatos);
+        //        return Request.CreateResponse(HttpStatusCode.OK);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+        //    }
+        //}
     }
 
     public class ApiLoginController : ApiController
