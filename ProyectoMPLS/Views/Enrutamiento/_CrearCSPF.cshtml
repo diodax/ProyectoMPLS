@@ -114,8 +114,12 @@
 
         <div id="dijkstraResults">
             <p>Camino: </p>
-            @Html.DisplayFor(model => model.cRutaHostnames)
-            <table>
+            
+            <div id="txtHostnames">
+               @Html.DisplayFor(model => model.cRutaHostnames) 
+            </div>
+
+            <table class="table table-condensed dataTable m-0">
                 <thead>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().idEnlace)</th>
@@ -156,6 +160,9 @@
     $(document).ready(function () {
         //Inicializa todos los tooltips
         $('[data-toggle="tooltip"]').tooltip();
+        var t = $('.dataTable').DataTable();
+        //TODO: Agregar a DataTables a la lista de dependencias del layout
+        //TODO: Disable el boton de guardar
 
         //Evento para ejecutar el algoritmo de Dijkstra server-side
         $('#runDijkstra').click(function() {
@@ -167,8 +174,21 @@
                 data: formData,
                 success: function (result) {
                     if (result.success) {
-                        //Crear la tabla en el div 
+                        $("#txtHostnames").html(result.node_string);
+                        t.clear();
                         //Popular la tabla de dijkstraResults
+                        result.path.each(function () {
+                            t.row.add(
+                                [
+                                    this.idEnlace,
+                                    this.cNombre,
+                                    this.nBandwidth,
+                                    parseFloat(this.nBandwidth) - parseFloat(this.nBandwidthDisponible),
+                                    (parseFloat(this.nBandwidth) - parseFloat(this.nBandwidthDisponible)) / this.nBandwidth * 100
+                                ]).draw();
+                        });
+                        //TODO: enable boton de guardar
+
                     } else {
                         //
                     }
@@ -192,11 +212,17 @@
                     if (result.success) {
                         $('#myModal').modal('hide');
                         window.location.reload(true);   //refresh page
+                        $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
                     } else {
                         $('#myModalContent').html(result);
+                        $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
                     }
                 },
-                error: function (error) { $("#error").html(error); }
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#error").html(jqXHR.responseText);
+                    console.log(jqXHR.responseText);
+                    $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
+                }
             });
         });
     });

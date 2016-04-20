@@ -237,6 +237,7 @@
     <Compile Include="Models\Comunicacion\JsonObjects.cs" />
     <Compile Include="Models\Comunicacion\Tabla.cs" />
     <Compile Include="Models\Estadisticas\EnlaceStats.cs" />
+    <Compile Include="Models\Estadisticas\SettingsConsumo.cs" />
     <Compile Include="Models\ListExtensions.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModuleAuthorize.cs" />
