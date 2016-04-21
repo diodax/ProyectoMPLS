@@ -134,6 +134,8 @@ namespace ProyectoMPLS.Controllers
 
             var provider = await Request.Content.ReadAsMultipartAsync<InMemoryMultipartFormDataStreamProvider>(new InMemoryMultipartFormDataStreamProvider());
 
+            //Debug.Write(provider.Contents.ToString());
+
             //access form data
             NameValueCollection formData = provider.FormData;
 
@@ -150,6 +152,8 @@ namespace ProyectoMPLS.Controllers
             List<Tabla> tablaDatos = new List<Tabla>();
             StreamReader csvreader = new StreamReader(myStream);
 
+            //Debug.Write(csvreader.ReadToEnd());
+
             //Primera linea
             var line = csvreader.ReadLine();
             var values = line.Split(';');
@@ -158,13 +162,16 @@ namespace ProyectoMPLS.Controllers
             {
                 Tabla row = new Tabla();
                 line = csvreader.ReadLine();
-                values = line.Split(';');
+                if (line != "")
+                {
+                    values = line.Split(';');
 
-                row.Hostname = values[0];
-                row.OSPFRouterID = values[1];
-                row.OSPFNeighborRouterID = values[2];
-                row.OSPFNeighborIP = values[3];
-                tablaDatos.Add(row);
+                    row.Hostname = values[0];
+                    row.OSPFRouterID = values[1];
+                    row.OSPFNeighborRouterID = values[2];
+                    row.OSPFNeighborIP = values[3];
+                    tablaDatos.Add(row);
+                }                
             }
 
             //Llama al SP para crear el nuevo proyecto en la DB
