@@ -18,8 +18,13 @@
                 @Html.LabelFor(model => model.cFileName)
             </label>
             <div class="col-md-9">
-                @Html.EditorFor(model => model.cFileName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cFileName, "", new { @class = "text-danger" }).ToHtmlString()))
+                <div class="fileupload btn btn-purple waves-effect waves-light">
+                    <span><i class="ion-upload m-r-5"></i>Subir</span>
+                    @*<input type="file" class="upload">*@
+                    @Html.EditorFor(model => model.cFileName, new { htmlAttributes = new { @class = "form-control upload" } })
+                </div>
+                
+                @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cFileName, "", new {@class = "text-danger"}).ToHtmlString()))
             </div>
         </div>
 

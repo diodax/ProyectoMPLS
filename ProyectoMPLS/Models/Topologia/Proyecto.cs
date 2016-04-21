@@ -295,5 +295,35 @@ namespace ProyectoMPLS.Models.Topologia
             Adapter.BorrarProyecto(idProyecto);
         }
 
+        public static List<Enlace> SelectListaEnlacesRouter(int idProyecto, int idRouter)
+        {
+            List<Enlace> listaEnlaces = new List<Enlace>();
+
+            Data.dsEnrutamientoTableAdapters.EnlacesRouterTableAdapter Adapter = new Data.dsEnrutamientoTableAdapters.EnlacesRouterTableAdapter();
+            Data.dsEnrutamiento.EnlacesRouterDataTable dt = Adapter.SelectEnlacesRouter(idProyecto, idRouter);
+
+            foreach (var dr in dt)
+            {
+                Enlace temp = new Enlace();
+                temp.idEnlace = dr.idEnlace;
+                temp.idProyecto = dr.idProyecto;
+                if (!dr.IscNombreNull())
+                    temp.cNombre = dr.cNombre.Trim();
+                if (!dr.IsidRouterANull())
+                    temp.idRouterA = dr.idRouterA;
+                if (!dr.IsidRouterBNull())
+                    temp.idRouterB = dr.idRouterB;
+                if (!dr.IsnBandwidthNull())
+                    temp.nBandwidth = dr.nBandwidth;
+                if (!dr.IsnPesoAdministrativoNull())
+                    temp.nPesoAdministrativo = dr.nPesoAdministrativo;
+                if (!dr.IsidAfinidadNull())
+                    temp.idAfinidad = dr.idAfinidad;
+                listaEnlaces.Add(temp);
+            }
+
+            return listaEnlaces;
+        }
+
     }
 }

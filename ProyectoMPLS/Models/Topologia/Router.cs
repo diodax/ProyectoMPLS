@@ -46,7 +46,26 @@ namespace ProyectoMPLS.Models.Topologia
 
         public NodoDijkstra() { }
 
-        public NodoDijkstra(int idRouter, int idProyecto) { }
+        public NodoDijkstra(int idRouter, int idProyecto)
+        {
+            Data.dsTopologiaTableAdapters.RouterTableAdapter Adapter = new Data.dsTopologiaTableAdapters.RouterTableAdapter();
+            Data.dsTopologia.RouterDataTable dt = Adapter.SelectRouter(idProyecto, idRouter);
+
+            foreach (var dr in dt)
+            {
+                this.idRouter = dr.idRouter;
+                this.idProyecto = dr.idProyecto;
+                if (!dr.IscHostnameNull())
+                    this.cHostname = dr.cHostname.Trim();
+                if (!dr.IscRouterIDNull())
+                    this.cRouterID = dr.cRouterID.Trim();
+                if (!dr.IscXNull())
+                    this.cx = dr.cX;
+                if (!dr.IscYNull())
+                    this.cy = dr.cY;
+            }
+            this.listaEnlaces = Proyecto.SelectListaEnlacesRouter(idProyecto, idRouter);
+        }
     }
 
     /// <summary>

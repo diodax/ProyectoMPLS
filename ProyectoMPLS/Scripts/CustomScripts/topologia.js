@@ -145,13 +145,13 @@ $(document).ready(function () {
                     $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
                 } else {
                     myDiagram.isModified = true;
-                    $.Notification.autoHideNotify('success', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
+                    $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $("#error").html(jqXHR.responseText);
                 console.log(jqXHR.responseText);
-                $.Notification.autoHideNotify('success', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
+                $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
             }
         });
     })

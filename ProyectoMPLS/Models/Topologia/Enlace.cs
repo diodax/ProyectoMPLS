@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -12,11 +13,14 @@ namespace ProyectoMPLS.Models.Topologia
     {
         public int idProyecto { get; set; }
 
+        [Display(Name = "#")]
         public int idEnlace { get; set; }
+        [Display(Name = "Enlace")]
         public string cNombre { get; set; }
         public int idRouterA { get; set; }
         public int idRouterB { get; set; }
 
+        [Display(Name = "Capacidad")]
         public double nBandwidth { get; set; }
         public double nPesoAdministrativo { get; set; }
         public int idAfinidad { get; set; }

@@ -27,11 +27,21 @@ namespace ProyectoMPLS
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/assets/js/modernizr.min.js"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-            //            "~/bower_components/bootstrap/dist/js/bootstrap.js",
-            //            "~/bower_components/bootstrap-modal/js/bootstrap-modalmanager.js",
-            //            "~/bower_components/bootstrap-modal/js/bootstrap-modal.js",
-            //            "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                        "~/assets/plugins/datatables/jquery.dataTables.min.js",
+                        "~/assets/plugins/datatables/dataTables.bootstrap.js",
+                        "~/assets/plugins/datatables/dataTables.buttons.min.js",
+                        "~/assets/plugins/datatables/buttons.bootstrap.min.js",
+                        "~/assets/plugins/datatables/jszip.min.js",
+                        "~/assets/plugins/datatables/pdfmake.min.js",
+                        "~/assets/plugins/datatables/vfs_fonts.js",
+                        "~/assets/plugins/datatables/buttons.html5.min.js",
+                        "~/assets/plugins/datatables/buttons.print.min.js",
+                        "~/assets/plugins/datatables/dataTables.fixedHeader.min.js",
+                        "~/assets/plugins/datatables/dataTables.keyTable.min.js",
+                        "~/assets/plugins/datatables/dataTables.responsive.min.js",
+                        "~/assets/plugins/datatables/responsive.bootstrap.min.js",
+                        "~/assets/plugins/datatables/dataTables.scroller.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/assets/plugins/jquery-circliful/css/jquery.circliful.css",
