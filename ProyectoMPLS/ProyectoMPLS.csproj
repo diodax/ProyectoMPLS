@@ -204,7 +204,6 @@
     <Compile Include="Controllers\TopologiaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\RaspberryController.cs" />
-    <Compile Include="Controllers\ValidatMimeMultipartContentFilter.cs" />
     <Compile Include="Data\dsEnrutamiento.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -224,9 +223,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\FileUploadResult.cs" />
-    <Compile Include="Infrastructure\MimeMultipart.cs" />
-    <Compile Include="Infrastructure\UploadMultipartFormProvider.cs" />
     <Compile Include="Models\Accounts\AccountsViewModel.cs" />
     <Compile Include="Models\Accounts\Usuario.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
