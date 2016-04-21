@@ -49,54 +49,60 @@ namespace ProyectoMPLS.Controllers
         }
 
         [HttpPost]
-        public ActionResult _EjecutarDijkstra(CSPFViewModel newModel)
+        public ActionResult _CrearCSPF(CSPFViewModel newModel, string runDijkstra)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(runDijkstra))
             {
-                //Inicializa el nodo que servira como punto de partida para el algoritmo
-                NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
+                //Ejecuta codigo del algoritmo
+                if (ModelState.IsValid)
+                {
+                    //Inicializa el nodo que servira como punto de partida para el algoritmo
+                    NodoDijkstra RouterOrigen = new NodoDijkstra(newModel.nRouterOrigen, newModel.idProyecto);
 
-                List<NodoDijkstra> routerQueue = new List<NodoDijkstra>();
-                routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto, newModel.nBandwidth);
+                    List<NodoDijkstra> routerQueue = new List<NodoDijkstra>();
+                    routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto, newModel.nBandwidth);
 
-                NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
+                    NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
 
-                List<NodoDijkstra> result = new List<NodoDijkstra>();
-                result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
-                List<Enlace> listaEnlacesLSP = result.ToEnlaces(newModel.idProyecto);
+                    List<NodoDijkstra> result = new List<NodoDijkstra>();
+                    result = Dijkstra.GetRutaMasCortaHasta(RouterDestino);
+                    List<Enlace> listaEnlacesLSP = result.ToEnlaces(newModel.idProyecto);
 
-                return Json(new { path = listaEnlacesLSP, node_string = result.ToString(), success = true });
+                    return Json(new { path = listaEnlacesLSP, node_string = result.ToString(), success = true });
+                }
+                else
+                {
+                    return Json(new { path = new List<NodoDijkstra>(), node_string = "", success = false });
+                }
             }
             else
             {
-                return Json(new { path = new List<NodoDijkstra>(), node_string = "", success = false });
-            }
-            
-        }
-
-        [HttpPost]
-        public ActionResult _CrearCSPF(CSPFViewModel newModel)
-        {
-            if (ModelState.IsValid)
-            {
-                //TODO: Completar esta funcion
-                List<Enlace> listaEnlacesLSP = newModel.calculatedPath.ToEnlaces(newModel.idProyecto);
-
-                try
+                if (ModelState.IsValid)
                 {
-                    //Agregar/actualizar LSP_header
-                    foreach (var item in listaEnlacesLSP)
+                    //TODO: Completar esta funcion
+                    List<Enlace> listaEnlacesLSP = newModel.calculatedPath.ToEnlaces(newModel.idProyecto);
+
+                    try
                     {
-                        //Agregar LSP_detalle uno por uno
+                        //Agregar/actualizar LSP_header
+                        foreach (var item in listaEnlacesLSP)
+                        {
+                            //Agregar LSP_detalle uno por uno
+                        }
+                        return Json(new { success = true });
                     }
-                    return Json(new { success = true });
+                    catch (Exception ex)
+                    {
+                        return Json(new { success = false });
+                    }
                 }
-                catch (Exception ex)
-                {
-                    return Json(new {success = false });
-                }
+                return Json(new { success = false });
             }
-            return Json(new { success = false });
+
+
+
+
+            
         }
 
         #endregion

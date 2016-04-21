@@ -112,9 +112,12 @@
             </div>
         </div>
 
+        <hr />
+
         <div id="dijkstraResults">
             <p>Camino: </p>
-            
+            <br />
+
             <div id="txtHostnames">
                @Html.DisplayFor(model => model.cRutaHostnames) 
             </div>
@@ -150,9 +153,9 @@
 
     <div class="modal-footer">
 
-        <a class="btn btn-info pull-left" id="runDijkstra">Ejecutar Algoritmo</a>
+        <button type='submit' name="runDijkstra" class="btn btn-info pull-left" id="runDijkstra" value="Ejecutar Algoritmo">Ejecutar Algoritmo</button>
         <button class="btn" data-dismiss="modal">Cerrar</button>
-        <a class="btn btn-primary" id="submitCSPF">Guardar</a>
+        <button type='submit' name="submitCSPF" class="btn btn-primary" id="submitCSPF" value="Guardar">Guardar</button>
     </div>
 }
 
@@ -160,20 +163,29 @@
     $(document).ready(function () {
         //Inicializa todos los tooltips
         $('[data-toggle="tooltip"]').tooltip();
-        var t = $('.dataTable').DataTable();
-        //TODO: Agregar a DataTables a la lista de dependencias del layout
-        //TODO: Disable el boton de guardar
+        var t = $('.dataTable').DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "searching": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+            }
+        });
 
-        //Evento para ejecutar el algoritmo de Dijkstra server-side
-        $('#runDijkstra').click(function() {
+        $('#submitCSPF').prop('disabled', true);
+
+        $('form').submit(function (event) {
             var form = $("#DataFormCSPF")[0];
             var formData = new FormData(form);
+            //console.log(formData);
             $.ajax({
-                url: '@Url.Action("_EjecutarDijkstra", new { controller = "Enrutamiento" })',
+                url: '@Url.Action("_CrearCSPF", new { controller = "Enrutamiento" })',
                 type: 'POST',
                 data: formData,
+                //processData: false,
                 success: function (result) {
-                    if (result.success) {
+                    if (result.success && result.operation == "run_algorithm") {
                         $("#txtHostnames").html(result.node_string);
                         t.clear();
                         //Popular la tabla de dijkstraResults
@@ -187,44 +199,28 @@
                                     (parseFloat(this.nBandwidth) - parseFloat(this.nBandwidthDisponible)) / this.nBandwidth * 100
                                 ]).draw();
                         });
-                        //TODO: enable boton de guardar
+                        $('#submitCSPF').prop('disabled', false);
 
-                    } else {
-                        //
-                    }
-                },
-                error: function (error) { $("#error").html(error); }
-            });
-
-        });
-
-
-        $("#submitCSPF").click(function () {
-            var form = $("#DataFormCSPF")[0];
-            var formData = new FormData(form);
-            $.ajax({
-                url: '@Url.Action("_CrearCSPF", new { controller = "Enrutamiento" })',
-                type: 'POST',
-                //contentType: false,
-                //processData: false,
-                data: formData,
-                success: function (result) {
-                    if (result.success) {
+                    } else if (result.success && result.operation == "save") {
                         $('#myModal').modal('hide');
-                        window.location.reload(true);   //refresh page
+                        //window.location.reload(true);   //refresh page
                         $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
                     } else {
                         $('#myModalContent').html(result);
-                        $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
+                        $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'La operación no pudo ser completada.');
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     $("#error").html(jqXHR.responseText);
                     console.log(jqXHR.responseText);
-                    $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
+                    $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'La operación no pudo ser completada.');
                 }
+
             });
+
+            event.preventDefault();
         });
+       
     });
 </script>
 

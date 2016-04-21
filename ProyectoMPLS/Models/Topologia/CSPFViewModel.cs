@@ -47,6 +47,8 @@ namespace ProyectoMPLS.Models.Topologia
         public string cRutaHostnames { get; set; }
         public List<Enlace> listaEnlacesPath { get; set; } 
 
+        public CSPFViewModel() { }
+
         /// <summary>
         /// Constructor para inicializar la plantilla con el ID de un proyecto específico
         /// </summary>
@@ -70,6 +72,10 @@ namespace ProyectoMPLS.Models.Topologia
 
             List<Afinidad> listaAfinidades = Afinidad.SelectListaAfinidades(this.idProyecto);
             this.listaAfinidades = Afinidad.ConvertDropdownListaAfinidades(listaAfinidades);
+
+            this.calculatedPath = new List<NodoDijkstra>();
+            this.cRutaHostnames = "";
+            this.listaEnlacesPath = new List<Enlace>();
         }
     }
 }

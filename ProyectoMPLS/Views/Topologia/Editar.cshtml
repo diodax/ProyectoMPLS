@@ -104,7 +104,7 @@
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in">
                                 <div class="panel-body">
-                                    <div id="myPaletteDiv" style="width: 180px; height: 427px; position: relative;"></div>
+                                    <div id="myPaletteDiv" style="width: 180px; height: 207px; position: relative;"></div>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in">
                                 <div class="panel-body">
-                                    @*@{ Html.RenderPartial("~/Views/Enrutamiento/_InlineIndexLSPs.cshtml", new InlineLSPViewModel(Model.idProyecto)); }*@
+                                    @{ Html.RenderPartial("~/Views/Enrutamiento/_InlineIndexLSPs.cshtml", new InlineLSPViewModel(Model.idProyecto)); }
                                 </div>
                             </div>
                         </div>
@@ -223,7 +223,7 @@
 
 @section scripts
 {
-    @*@Scripts.Render("~/bundles/modalform")*@
+    @Scripts.Render("~/bundles/datatables")
     @Scripts.Render("~/Scripts/CustomScripts/topologia.js")
 
 <script>
