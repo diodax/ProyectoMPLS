@@ -13,6 +13,8 @@ using ProyectoMPLS.Controllers;
 using ProyectoMPLS.Models.Accounts;
 using ProyectoMPLS.Models.Comunicacion;
 using ProyectoMPLS.Models.Topologia;
+using ProyectoMPLS.Filters;
+using ProyectoMPLS.Results;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Collections;
@@ -33,7 +35,7 @@ namespace ProyectoMPLS.Controllers
             //listaProyectos = Proyecto.GetListaProyectos(cUsuarioActual);
             return listaProyectos;
         }
-
+        
         public class InMemoryMultipartFormDataStreamProvider : MultipartStreamProvider
         {
             private NameValueCollection _formData = new NameValueCollection();
@@ -123,6 +125,8 @@ namespace ProyectoMPLS.Controllers
             }
         }
 
+        [IdentityBasicAuthentication]
+        [System.Web.Http.Authorize]
         [System.Web.Http.Route("api/raspberry")]
         [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> PostFile()
@@ -133,6 +137,8 @@ namespace ProyectoMPLS.Controllers
             }
 
             var provider = await Request.Content.ReadAsMultipartAsync<InMemoryMultipartFormDataStreamProvider>(new InMemoryMultipartFormDataStreamProvider());
+
+            //Debug.Write(provider.Contents.ToString());
 
             //access form data
             NameValueCollection formData = provider.FormData;
@@ -150,6 +156,8 @@ namespace ProyectoMPLS.Controllers
             List<Tabla> tablaDatos = new List<Tabla>();
             StreamReader csvreader = new StreamReader(myStream);
 
+            //Debug.Write(csvreader.ReadToEnd());
+
             //Primera linea
             var line = csvreader.ReadLine();
             var values = line.Split(';');
@@ -158,13 +166,16 @@ namespace ProyectoMPLS.Controllers
             {
                 Tabla row = new Tabla();
                 line = csvreader.ReadLine();
-                values = line.Split(';');
+                if (line != "")
+                {
+                    values = line.Split(';');
 
-                row.Hostname = values[0];
-                row.OSPFRouterID = values[1];
-                row.OSPFNeighborRouterID = values[2];
-                row.OSPFNeighborIP = values[3];
-                tablaDatos.Add(row);
+                    row.Hostname = values[0];
+                    row.OSPFRouterID = values[1];
+                    row.OSPFNeighborRouterID = values[2];
+                    row.OSPFNeighborIP = values[3];
+                    tablaDatos.Add(row);
+                }                
             }
 
             //Llama al SP para crear el nuevo proyecto en la DB
