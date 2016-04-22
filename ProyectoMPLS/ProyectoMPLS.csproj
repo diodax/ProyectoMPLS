@@ -5031,7 +5031,6 @@
     <Content Include="bower_components\bootbox.js\.travis.yml" />
     <Content Include="bower_components\bootbox.js\bower.json" />
     <Content Include="bower_components\bootbox.js\CONTRIBUTING.md" />
-    <Content Include="bower_components\bootbox.js\LICENSE.md" />
     <Content Include="bower_components\bootbox.js\package.json" />
     <Content Include="bower_components\bootbox.js\README.md" />
     <Content Include="bower_components\mjolnic-bootstrap-colorpicker\.bower.json" />
