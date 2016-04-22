@@ -1099,6 +1099,7 @@ namespace ProyectoMPLS.Data.dsEnrutamientoTableAdapters {
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idProyecto", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idLSP", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idEnlace", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nBandwidthReservado", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Connection = new global::System.Data.SqlClient.SqlConnection(global::ProyectoMPLS.Properties.Settings.Default.ProyectoMPLSConnectionString);
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).CommandText = "dbo.spR_EliminarDetalleLSP";
@@ -1188,7 +1189,7 @@ namespace ProyectoMPLS.Data.dsEnrutamientoTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int InsertarDetalleLSP(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idLSP, global::System.Nullable<int> idEnlace) {
+        public virtual int InsertarDetalleLSP(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idLSP, global::System.Nullable<int> idEnlace, global::System.Nullable<int> nBandwidthReservado) {
             global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[1]));
             if ((idProyecto.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(idProyecto.Value));
@@ -1207,6 +1208,12 @@ namespace ProyectoMPLS.Data.dsEnrutamientoTableAdapters {
             }
             else {
                 command.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((nBandwidthReservado.HasValue == true)) {
+                command.Parameters[4].Value = ((int)(nBandwidthReservado.Value));
+            }
+            else {
+                command.Parameters[4].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 

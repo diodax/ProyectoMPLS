@@ -15,7 +15,7 @@ namespace ProyectoMPLS.Models.Topologia
         /// <param name="idProyecto"></param>
         /// <param name="minBW"></param>
         /// <returns></returns>
-        public static List<NodoDijkstra> GenerarRutas(NodoDijkstra idRouterOrigen, int idProyecto, double minBW)
+        public static List<NodoDijkstra> GenerarRutas(NodoDijkstra idRouterOrigen, int idProyecto, double minBW, int nTipoMetrica = 2, int idAfinidad = 0)
         {
             idRouterOrigen.nMinDistancia = 0.0;
             SimplePriorityQueue<NodoDijkstra> routerQueue = new SimplePriorityQueue<NodoDijkstra>();
@@ -47,20 +47,63 @@ namespace ProyectoMPLS.Models.Topologia
 
                     NodoDijkstra vecino = enlace.target;
 
-                    double nPesoBandwidth = enlace.nPesoAdministrativo;     //ignore var name, aqui va lo del tipo de peso
+                    double nPesoBandwidth = 0;
+                    switch(nTipoMetrica)        //ignore var name, aqui va lo del tipo de peso
+                    {
+                        case 1: //Pesos Administrativos
+                            nPesoBandwidth = enlace.nPesoAdministrativo;
+                            break;
+                        case 2: //Minima Cantidad de Saltos
+                            nPesoBandwidth = 1;
+                            break;
+                        case 3: // 1/BW Reservado
+                            nPesoBandwidth = 1.00 / (enlace.nBandwidth - enlace.nBandwidthDisponible);
+                            break;
+                        case 4: // 1/BW Disponible 
+                            nPesoBandwidth = 1.00 / enlace.nBandwidthDisponible;
+                            break;
+                        default:
+                            nPesoBandwidth = 1;
+                            break;
+                    }
+                    
+                                              
                     double nDistanciaTotal = currentRouter.nMinDistancia + nPesoBandwidth;
                     
-                    //En este if ocurre el filtro por BW disponible
-                    if (nDistanciaTotal < vecino.nMinDistancia && minBW < enlace.nBandwidth) //Constraint check
+                    //Aqui ocurre el filtro por afinidad
+                    if (idAfinidad == 0)    //No afinidad definida
                     {
-                        if (routerQueue.Contains(vecino))
-                            routerQueue.Remove(vecino);
-                        vecino.nMinDistancia = nDistanciaTotal;
-                        vecino.idRouterPrevio = currentRouter;
-                        enlace.nBandwidthDisponible -= minBW; //reservar el BW en el enlace
-                        
-                        routerQueue.Enqueue(vecino, 1);
+                        //En este if ocurre el filtro por BW disponible
+                        if (nDistanciaTotal < vecino.nMinDistancia && minBW < enlace.nBandwidth) //Constraint check
+                        {
+                            if (routerQueue.Contains(vecino))
+                                routerQueue.Remove(vecino);
+                            vecino.nMinDistancia = nDistanciaTotal;
+                            vecino.idRouterPrevio = currentRouter;
+                            enlace.nBandwidthDisponible -= minBW; //reservar el BW en el enlace
+
+                            routerQueue.Enqueue(vecino, 1);
+                        }
                     }
+                    else  //Afinidad definida
+                    {
+                        if (idAfinidad == enlace.idAfinidad)    //Afinidad check
+                        {
+                            //En este if ocurre el filtro por BW disponible
+                            if (nDistanciaTotal < vecino.nMinDistancia && minBW < enlace.nBandwidth) //Constraint check
+                            {
+                                if (routerQueue.Contains(vecino))
+                                    routerQueue.Remove(vecino);
+                                vecino.nMinDistancia = nDistanciaTotal;
+                                vecino.idRouterPrevio = currentRouter;
+                                enlace.nBandwidthDisponible -= minBW; //reservar el BW en el enlace
+
+                                routerQueue.Enqueue(vecino, 1);
+                            }
+                        }
+                    }
+
+                    
 
                     //Agrega el router (bueno, los 2) al registro
                     int indexTarget = routerList.FindIndex(n => n.idRouter == vecino.idRouter);

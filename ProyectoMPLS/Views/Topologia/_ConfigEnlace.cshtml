@@ -104,8 +104,8 @@
 
 <script>
     $(document).ready(function () {
-        console.log("IDRouterA " + $("#tbxIdRouterA").val());
-        console.log("IDRouterB " + $("#tbxIdRouterA").val());
+        //console.log("IDRouterA " + $("#tbxIdRouterA").val());
+        //console.log("IDRouterB " + $("#tbxIdRouterA").val());
             $("#submitConfigEnlace").click(function () {
                 var form = $("#DataFormEnlace")[0];
                 var formData = new FormData(form);
@@ -120,13 +120,14 @@
                     processData: false,
                     data: formData,
                     success: function (result) {
-                        console.log('Funciona');
+                        //console.log('Funciona');
                         if (result.success) {
-                            //whatever
-                            $('#myModal').modal('hide');
+                            $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
+                            $('#myEnlaceModal').modal('hide');
                             // window.location.reload(true);   //refresh page
                         } else {
-                            $('#myModalContent').html(result);
+                            $('#modal_content_enlace').html(result);
+                            $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -134,6 +135,7 @@
                         console.log(errorThrown);
                         console.log(jqXHR.responseText);
                         //$("#error").html(jqXHR.responseText);
+                        $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');
                     },
                     //error: function (error) { console.log('no funciona'); $("#error").html(error); }
                 });

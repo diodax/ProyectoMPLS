@@ -53,15 +53,10 @@ $(document).ready(function () {
         var href = '/Topologia/_ConfigEnlace?idEnlace=' + idEnlace + '&idProyecto=' + idProyecto;
 
         // hide dropdown if any
-        $(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
+        //$(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
 
-        $('#myModalContent').load(href, function () {
-            $('#myModal').modal({
-                /*backdrop: 'static',*/
-                keyboard: true
-            }, 'show');
-
-            bindForm(this);
+        $('#modal_content_enlace').load(href, function () {
+            $('#myEnlaceModal').modal('show');
         });
 
         return false;
@@ -142,7 +137,7 @@ $(document).ready(function () {
             success: function (result) {
                 if (result.success) {
                     myDiagram.isModified = false;
-                    $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
+                    $.Notification.autoHideNotify('success', 'top right', 'Guardando...', 'Los cambios han sido guardados exitosamente.');
                 } else {
                     myDiagram.isModified = true;
                     $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'Los cambios no pudieron ser guardados.');

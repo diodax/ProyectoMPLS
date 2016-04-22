@@ -5263,6 +5263,8 @@
     <Folder Include="Scripts\plugins\" />
     <Folder Include="Views\Estadisticas\" />
     <Folder Include="Views\ValidatMimeMultipartContentFilter\" />
+    <Folder Include="Views\Values\" />
+    <Folder Include="Views\WebApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

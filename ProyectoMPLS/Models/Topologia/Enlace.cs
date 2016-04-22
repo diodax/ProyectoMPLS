@@ -22,6 +22,7 @@ namespace ProyectoMPLS.Models.Topologia
 
         [Display(Name = "Capacidad")]
         public double nBandwidth { get; set; }
+        [Display(Name = "Peso Adm.")]
         public double nPesoAdministrativo { get; set; }
         public int idAfinidad { get; set; }
 

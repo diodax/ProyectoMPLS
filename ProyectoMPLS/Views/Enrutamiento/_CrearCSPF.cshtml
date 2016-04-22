@@ -47,27 +47,28 @@
                         @Html.LabelFor(model => model.nTipoMetrica)
                     </label>
                     <div class="col-md-6">
-                        <div class="radio">
+                        <div class="radio radio-primary">
+                            @Html.RadioButtonFor(model => model.nTipoMetrica, "1")
                             <label for="nTipoMetrica_1" data-toggle="tooltip" data-placement="right" title="Emplea los pesos definidos manualmente para cada enlace.">
-                                @Html.RadioButtonFor(model => model.nTipoMetrica, "1")
                                 Pesos Administrativos
                             </label>
                         </div>
-                        <div class="radio">
+                        <div class="radio radio-primary">
+                            @Html.RadioButtonFor(model => model.nTipoMetrica, "2")
                             <label for="nTipoMetrica_2" data-toggle="tooltip" data-placement="right" title="Emplea la cantidad de saltos como métrica.">
-                                @Html.RadioButtonFor(model => model.nTipoMetrica, "2")
+                                
                                 Mínima Cantidad de Saltos
                             </label>
                         </div>
-                        <div class="radio">
+                        <div class="radio radio-primary">
+                            @Html.RadioButtonFor(model => model.nTipoMetrica, "3")
                             <label for="nTipoMetrica_3" data-toggle="tooltip" data-placement="right" title="Da preferencia a los enlaces con mayor BW Reservado.">
-                                @Html.RadioButtonFor(model => model.nTipoMetrica, "3")
                                 BW Reservado
                             </label>
                         </div>
-                        <div class="radio">
+                        <div class="radio radio-primary">
+                            @Html.RadioButtonFor(model => model.nTipoMetrica, "4")
                             <label for="nTipoMetrica_4" data-toggle="tooltip" data-placement="right" title="Da preferencia a los enlaces con mayor BW Disponible.">
-                                @Html.RadioButtonFor(model => model.nTipoMetrica, "4")
                                 BW Disponible
                             </label>
                         </div>
@@ -127,7 +128,8 @@
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().idEnlace)</th>
                     <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().cNombre)</th>
-                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().nBandwidth)</th>
+                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().nPesoAdministrativo)</th>
+                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().nBandwidth) (Mbps)</th>
                     <th>BW Utilizado (Mbps)</th>
                     <th>BW Utilizado (%)</th>
                 </tr>
@@ -138,6 +140,7 @@
                     <tr>
                         <td>@Html.DisplayFor(model => item.idEnlace)</td>
                         <td>@Html.DisplayFor(model => item.cNombre)</td>
+                        <td>@Html.DisplayFor(model => item.nPesoAdministrativo)</td>
                         <td>@Html.DisplayFor(model => item.nBandwidth)</td>
                         <td>@(item.nBandwidth - item.nBandwidthDisponible)</td>
                         <td>@((item.nBandwidth - item.nBandwidthDisponible)/item.nBandwidth*100)</td>
@@ -147,6 +150,8 @@
                 </tbody>
             </table>
 
+            <table id="hidden_table"></table>
+            
         </div>
 
     </div>
@@ -163,6 +168,7 @@
 }
 
 <script>
+    //$("#save").trigger("click");
     $(document).ready(function () {
         
         //I know this smells 
@@ -215,21 +221,57 @@
                         //alert("success");
                         t.clear();
                         //Popular la tabla de dijkstraResults
-                        $(result.path).each(function () {
+                        $('#hidden_table').empty();
+                        $(result.path).each(function ( index ) {
                             t.row.add(
                                 [
                                     this.idEnlace,
                                     this.cNombre,
+                                    this.nPesoAdministrativo,
                                     this.nBandwidth,
-                                    parseFloat(this.nBandwidth) - parseFloat(this.nBandwidthDisponible),
-                                    ((parseFloat(this.nBandwidth) - parseFloat(this.nBandwidthDisponible)) / this.nBandwidth * 100) + "%"
+                                    (parseFloat(this.nBandwidth) - parseFloat(this.nBandwidthDisponible)).toFixed(2),
+                                    ((parseFloat(this.nBandwidth) - parseFloat(this.nBandwidthDisponible)) / this.nBandwidth * 100).toFixed(2) + "%"
                                 ]).draw();
+                            //
+                            $("#number").val(parseFloat($("#number").val()).toFixed(2));
+                            
+                            $('#hidden_table').append(
+                                '<tr>' +
+                                    '<td style="display:none;">' +
+                                        '<input type="hidden" name="listaEnlacesPath.Index" value="' + index + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].idEnlace" value="' + this.idEnlace + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].cNombre" value="' + this.cNombre + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].idRouterA" value="' + this.idRouterA + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].idRouterB" value="' + this.idRouterB + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].nBandwidth" value="' + this.nBandwidth + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].nPesoAdministrativo" value="' + this.nPesoAdministrativo + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].nBandwidthDisponible" value="' + this.nBandwidthDisponible + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].idAfinidad" value="' + this.idAfinidad + '" />' +
+                                    '</td>' +
+                                '</tr>'
+                            );
                         });
                         $('#submitCSPF').prop('disabled', false);
 
                     } else if ((result.success) && result.operation == "save") {
-                        $('#myModal').modal('hide');
-                        //window.location.reload(true);   //refresh page
+                        $('#myCSPFModal').modal('hide');
+                        window.location.reload(true);
                         $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
                     } else {
                         //$('#myModalContent').html(result);

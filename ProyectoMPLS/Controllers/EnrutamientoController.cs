@@ -96,7 +96,7 @@ namespace ProyectoMPLS.Controllers
                     NodoDijkstra RouterOrigen = listaNodos.Find(x => x.idRouter == newModel.nRouterOrigen);
                     
                     List<NodoDijkstra> routerQueue = new List<NodoDijkstra>();
-                    routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto, newModel.nBandwidth);
+                    routerQueue = Dijkstra.GenerarRutas(RouterOrigen, newModel.idProyecto, newModel.nBandwidth, newModel.nTipoMetrica, newModel.idAfinidad);
 
                     NodoDijkstra RouterDestino = routerQueue.FirstOrDefault(x => x.idRouter == newModel.nRouterDestino);
 
@@ -134,7 +134,7 @@ namespace ProyectoMPLS.Controllers
                     {
                         LSP newlink = new LSP();
                         newlink.idProyecto = newModel.idProyecto;
-                        newlink.idLSP = newlink.idLSP;
+                        newlink.idLSP = newModel.idLSP;
                         newlink.cNombre = newModel.cNombre;
                         newlink.idRouterOrigen = newModel.nRouterOrigen;
                         newlink.idRouterDestino = newModel.nRouterDestino;
@@ -146,15 +146,12 @@ namespace ProyectoMPLS.Controllers
 
                         foreach(var item in newModel.listaEnlacesPath)
                         {
-                            newThingModel.idProyecto = item.idProyecto;
+                            newThingModel.idProyecto = newModel.idProyecto;
                             newThingModel.idLSP = newEnlace;
-                            newThingModel.DeleteDetalleLSP(item.idEnlace);
-                            newThingModel.InsertDetalleLSP(item.idEnlace);
-
-                            //newThingModel.InsertDetalleLSP(item.idEnlace);
+                            int reservado = (int)(item.nBandwidth - item.nBandwidthDisponible);
+                            newThingModel.InsertDetalleLSP(item.idEnlace, reservado);
                         }
-
-                        
+         
                         return Json(new { success = true, operation = "save" });
                     }
                     catch (Exception ex)

@@ -80,10 +80,15 @@
                 data: formData,
                 success: function (result) {
                     $('#afinidad').modal('hide');
-                    $("#seccionAfinidades").html(result);
+                    //$("#seccionAfinidades").html(result);
                     //$('#afinidadContent').html(result);
+                    window.location.reload(true);
+                    $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
                 },
-                error: function (error) { $("#error").html(error); }
+                error: function (error) {
+                    $("#error").html(error);
+                    $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'La operación no pudo ser completada.');
+                }
             });
         });
 

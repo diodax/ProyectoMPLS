@@ -180,10 +180,10 @@ namespace ProyectoMPLS.Models.Topologia
             return (int)Adapter.InsertarActualizarHeaderLSP(this.idProyecto, this.idLSP, this.cNombre, (int)this.nBandwidth, this.idRouterOrigen, this.idRouterDestino, this.nSetupPriority, this.nHoldPriority);
         }
 
-        public void InsertDetalleLSP(int idEnlace)
+        public void InsertDetalleLSP(int idEnlace, int nBandwidthReservado)
         {
             Data.dsEnrutamientoTableAdapters.OperationsTableAdapter Adapter = new Data.dsEnrutamientoTableAdapters.OperationsTableAdapter();
-            Adapter.InsertarDetalleLSP(this.idProyecto, this.idLSP, idEnlace);
+            Adapter.InsertarDetalleLSP(this.idProyecto, this.idLSP, idEnlace, nBandwidthReservado);
         }
 
         public void DeleteDetalleLSP(int idEnlace)

@@ -144,6 +144,11 @@ namespace ProyectoMPLS.Models
                                     (x.idRouterB == curr_routerid && x.idRouterA == next_routerid));
                     if (temp != null)
                     {
+                        EnlaceDijkstra justforBW = nodePathList[curr_n].listaEnlacesDijkstra.Find(
+                                x => (x.idRouterA == curr_routerid && x.idRouterB == next_routerid) ||
+                                    (x.idRouterB == curr_routerid && x.idRouterA == next_routerid));
+
+                        temp.nBandwidthDisponible = justforBW.nBandwidthDisponible;
                         listaEnlacesLSP.Add(temp);
                         //EnlaceDijkstra new_temp = new EnlaceDijkstra();
                         //new_temp = nodePathList[cont].listaEnlacesDijkstra.Find(x => x.idEnlace == temp.idEnlace);
