@@ -232,6 +232,7 @@
             bootbox.confirm('¿Está seguro de que desea eliminar esta afinidad?', function (result) {
                 if (result) {
                     currentForm.submit();
+                    window.location.reload(true);
                 }
             });
         });
