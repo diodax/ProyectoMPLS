@@ -104,7 +104,7 @@ namespace ProyectoMPLS.Controllers
         public ActionResult Logout()//LoginViewModel usuario)
         {
             Session["Usuario"] = null;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Usuario");
         }
 
         // GET: /Account/Settings
@@ -117,7 +117,7 @@ namespace ProyectoMPLS.Controllers
             }
             catch
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Topologia");
             }
         }
 
