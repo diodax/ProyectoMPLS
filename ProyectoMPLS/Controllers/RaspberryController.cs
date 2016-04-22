@@ -13,6 +13,8 @@ using ProyectoMPLS.Controllers;
 using ProyectoMPLS.Models.Accounts;
 using ProyectoMPLS.Models.Comunicacion;
 using ProyectoMPLS.Models.Topologia;
+using ProyectoMPLS.Filters;
+using ProyectoMPLS.Results;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Collections;
@@ -33,7 +35,7 @@ namespace ProyectoMPLS.Controllers
             //listaProyectos = Proyecto.GetListaProyectos(cUsuarioActual);
             return listaProyectos;
         }
-
+        
         public class InMemoryMultipartFormDataStreamProvider : MultipartStreamProvider
         {
             private NameValueCollection _formData = new NameValueCollection();
@@ -123,6 +125,8 @@ namespace ProyectoMPLS.Controllers
             }
         }
 
+        [IdentityBasicAuthentication]
+        [System.Web.Http.Authorize]
         [System.Web.Http.Route("api/raspberry")]
         [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> PostFile()
