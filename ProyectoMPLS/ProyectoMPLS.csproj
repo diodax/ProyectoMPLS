@@ -4621,6 +4621,10 @@
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\router.png" />
     <Content Include="Content\styles.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\ionicons.svg" />
+    <Content Include="fonts\Material-Design-Iconic-Font.svg" />
+    <Content Include="fonts\themify.svg" />
     <Content Include="Scripts\CustomScripts\topologia.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -5155,6 +5159,21 @@
     <Content Include="Data\dsEstadisticas.xss">
       <DependentUpon>dsEstadisticas.xsd</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\ionicons.eot" />
+    <Content Include="fonts\ionicons.ttf" />
+    <Content Include="fonts\ionicons.woff" />
+    <Content Include="fonts\Material-Design-Iconic-Font.eot" />
+    <Content Include="fonts\Material-Design-Iconic-Font.ttf" />
+    <Content Include="fonts\Material-Design-Iconic-Font.woff" />
+    <Content Include="fonts\themify.eot" />
+    <Content Include="fonts\themify.ttf" />
+    <Content Include="fonts\themify.woff" />
     <None Include="Properties\PublishProfiles\AWS.pubxml" />
     <Content Include="Views\Usuario\Settings.cshtml" />
     <Content Include="Views\Topologia\_ConfigEnlace.cshtml" />
