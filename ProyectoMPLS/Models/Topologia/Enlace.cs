@@ -27,6 +27,8 @@ namespace ProyectoMPLS.Models.Topologia
 
         //Nuevos parametros
         public double nBandwidthDisponible { get; set; }
+        //Solo para uso del algoritmo de Dijkstra
+        //public NodoDijkstra target { get; set; }
 
         //Coodernadas para la interfaz gráfica
         //No se usa
@@ -35,7 +37,10 @@ namespace ProyectoMPLS.Models.Topologia
         //public int x2 { get; set; }
         //public int y2 { get; set; }
 
-        public Enlace() { }
+        public Enlace()
+        {
+            //this.target = new NodoDijkstra();
+        }
 
         public Enlace(int idEnlace, int idProyecto)
         {
@@ -60,9 +65,25 @@ namespace ProyectoMPLS.Models.Topologia
                     this.nBandwidth = dr.nBandwidth;
                 if (!dr.IsnPesoAdministrativoNull())
                     this.nPesoAdministrativo = dr.nPesoAdministrativo;
+                if (!dr.IsidAfinidadNull())
+                    this.idAfinidad = dr.idAfinidad;
                 this.nBandwidthDisponible = nBandwidth;
+                //this.target = new NodoDijkstra();
             }
         }
+    }
+
+    public class EnlaceDijkstra : Enlace
+    {
+        //Solo para uso del algoritmo de Dijkstra
+        public NodoDijkstra targetA { get; set; }
+        public NodoDijkstra targetB { get; set; }
+
+        public NodoDijkstra target { get; set; }
+
+        public EnlaceDijkstra() : base() { }
+
+        public EnlaceDijkstra(int idEnlace, int idProyecto) : base(idEnlace, idProyecto) { }
     }
 }
 

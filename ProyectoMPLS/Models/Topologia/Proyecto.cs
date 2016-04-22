@@ -295,16 +295,16 @@ namespace ProyectoMPLS.Models.Topologia
             Adapter.BorrarProyecto(idProyecto);
         }
 
-        public static List<Enlace> SelectListaEnlacesRouter(int idProyecto, int idRouter)
+        public static List<EnlaceDijkstra> SelectListaEnlacesRouter(int idProyecto, int idRouter)
         {
-            List<Enlace> listaEnlaces = new List<Enlace>();
+            List<EnlaceDijkstra> listaEnlaces = new List<EnlaceDijkstra>();
 
             Data.dsEnrutamientoTableAdapters.EnlacesRouterTableAdapter Adapter = new Data.dsEnrutamientoTableAdapters.EnlacesRouterTableAdapter();
             Data.dsEnrutamiento.EnlacesRouterDataTable dt = Adapter.SelectEnlacesRouter(idProyecto, idRouter);
 
             foreach (var dr in dt)
             {
-                Enlace temp = new Enlace();
+                EnlaceDijkstra temp = new EnlaceDijkstra();
                 temp.idEnlace = dr.idEnlace;
                 temp.idProyecto = dr.idProyecto;
                 if (!dr.IscNombreNull())
@@ -319,11 +319,77 @@ namespace ProyectoMPLS.Models.Topologia
                     temp.nPesoAdministrativo = dr.nPesoAdministrativo;
                 if (!dr.IsidAfinidadNull())
                     temp.idAfinidad = dr.idAfinidad;
+                temp.nBandwidthDisponible = dr.nBandwidth;
+
+                //Solo para uso del algoritmo de Dijkstra
+                temp.target = new NodoDijkstra();
+                if (temp.idRouterA != idRouter)
+                    temp.target = new NodoDijkstra(temp.idRouterA, idProyecto);
+                else if (temp.idRouterB != idRouter)
+                    temp.target = new NodoDijkstra(temp.idRouterB, idProyecto);
+
                 listaEnlaces.Add(temp);
             }
 
             return listaEnlaces;
         }
 
+        public static List<NodoDijkstra> SelectListaRoutersDijkstra(int idProyecto)
+        {
+            List<NodoDijkstra> listaRouters = new List<NodoDijkstra>();
+
+            Data.dsTopologiaTableAdapters.RoutersTableAdapter Adapter = new Data.dsTopologiaTableAdapters.RoutersTableAdapter();
+            Data.dsTopologia.RoutersDataTable dt = Adapter.SelectRoutersProyecto(idProyecto);
+
+            foreach (var dr in dt)
+            {
+                NodoDijkstra temp = new NodoDijkstra();
+                temp.idRouter = dr.idRouter;
+                temp.idProyecto = dr.idProyecto;
+                if (!dr.IscHostnameNull())
+                    temp.cHostname = dr.cHostname.Trim();
+                if (!dr.IscRouterIDNull())
+                    temp.cRouterID = dr.cRouterID.Trim();
+                if (!dr.IscXNull())
+                    temp.cx = dr.cX;
+                if (!dr.IscYNull())
+                    temp.cy = dr.cY;
+                listaRouters.Add(temp);
+            }
+
+            return listaRouters;
+        }
+
+        public static List<EnlaceDijkstra> SelectListaEnlacesDijkstra(int idProyecto)
+        {
+            List<EnlaceDijkstra> listaEnlaces = new List<EnlaceDijkstra>();
+
+            Data.dsTopologiaTableAdapters.EnlacesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.EnlacesTableAdapter();
+            Data.dsTopologia.EnlacesDataTable dt = Adapter.SelectEnlacesProyecto(idProyecto);
+
+            foreach (var dr in dt)
+            {
+                EnlaceDijkstra temp = new EnlaceDijkstra();
+                temp.idEnlace = dr.idEnlace;
+                temp.idProyecto = dr.idProyecto;
+                if (!dr.IscNombreNull())
+                    temp.cNombre = dr.cNombre.Trim();
+                if (!dr.IsidRouterANull())
+                    temp.idRouterA = dr.idRouterA;
+                if (!dr.IsidRouterBNull())
+                    temp.idRouterB = dr.idRouterB;
+                if (!dr.IsnBandwidthNull())
+                    temp.nBandwidth = dr.nBandwidth;
+                if (!dr.IsnPesoAdministrativoNull())
+                    temp.nPesoAdministrativo = dr.nPesoAdministrativo;
+                if (!dr.IscAfinidadNull())
+                    temp.idAfinidad = dr.idAfinidad;
+                if (!dr.IsnBandwidthReservadoNull())
+                    temp.nBandwidthDisponible = temp.nBandwidth - dr.nBandwidthReservado;
+                listaEnlaces.Add(temp);
+            }
+
+            return listaEnlaces;
+        }
     }
 }

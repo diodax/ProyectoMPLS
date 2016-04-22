@@ -136,6 +136,7 @@
               <Mapping SourceColumn="nPesoAdministrativo" DataSetColumn="nPesoAdministrativo" />
               <Mapping SourceColumn="cAfinidad" DataSetColumn="cAfinidad" />
               <Mapping SourceColumn="idAfinidad" DataSetColumn="idAfinidad" />
+              <Mapping SourceColumn="nBandwidthReservado" DataSetColumn="nBandwidthReservado" />
             </Mappings>
             <Sources>
               <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spT_InsertarActualizarEnlace" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="InsertarActualizarEnlace" Modifier="Public" Name="InsertarActualizarEnlace" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="InsertarActualizarEnlace">
@@ -347,7 +348,7 @@
   <xs:element name="dsTopologia" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsTopologia" msprop:Generator_UserDSName="dsTopologia">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Proyectos" msprop:Generator_TableClassName="ProyectosDataTable" msprop:Generator_TableVarName="tableProyectos" msprop:Generator_RowChangedName="ProyectosRowChanged" msprop:Generator_TablePropName="Proyectos" msprop:Generator_RowDeletingName="ProyectosRowDeleting" msprop:Generator_RowChangingName="ProyectosRowChanging" msprop:Generator_RowEvHandlerName="ProyectosRowChangeEventHandler" msprop:Generator_RowDeletedName="ProyectosRowDeleted" msprop:Generator_RowClassName="ProyectosRow" msprop:Generator_UserTableName="Proyectos" msprop:Generator_RowEvArgName="ProyectosRowChangeEvent">
+        <xs:element name="Proyectos" msprop:Generator_TableClassName="ProyectosDataTable" msprop:Generator_TableVarName="tableProyectos" msprop:Generator_TablePropName="Proyectos" msprop:Generator_RowDeletingName="ProyectosRowDeleting" msprop:Generator_RowChangingName="ProyectosRowChanging" msprop:Generator_RowEvHandlerName="ProyectosRowChangeEventHandler" msprop:Generator_RowDeletedName="ProyectosRowDeleted" msprop:Generator_UserTableName="Proyectos" msprop:Generator_RowChangedName="ProyectosRowChanged" msprop:Generator_RowEvArgName="ProyectosRowChangeEvent" msprop:Generator_RowClassName="ProyectosRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idProyecto" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnidProyecto" msprop:Generator_ColumnPropNameInRow="idProyecto" msprop:Generator_ColumnPropNameInTable="idProyectoColumn" msprop:Generator_UserColumnName="idProyecto" type="xs:int" />
@@ -370,7 +371,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Routers" msprop:Generator_TableClassName="RoutersDataTable" msprop:Generator_TableVarName="tableRouters" msprop:Generator_TablePropName="Routers" msprop:Generator_RowDeletingName="RoutersRowDeleting" msprop:Generator_RowChangingName="RoutersRowChanging" msprop:Generator_RowEvHandlerName="RoutersRowChangeEventHandler" msprop:Generator_RowDeletedName="RoutersRowDeleted" msprop:Generator_UserTableName="Routers" msprop:Generator_RowChangedName="RoutersRowChanged" msprop:Generator_RowEvArgName="RoutersRowChangeEvent" msprop:Generator_RowClassName="RoutersRow">
+        <xs:element name="Routers" msprop:Generator_TableClassName="RoutersDataTable" msprop:Generator_TableVarName="tableRouters" msprop:Generator_RowChangedName="RoutersRowChanged" msprop:Generator_TablePropName="Routers" msprop:Generator_RowDeletingName="RoutersRowDeleting" msprop:Generator_RowChangingName="RoutersRowChanging" msprop:Generator_RowEvHandlerName="RoutersRowChangeEventHandler" msprop:Generator_RowDeletedName="RoutersRowDeleted" msprop:Generator_RowClassName="RoutersRow" msprop:Generator_UserTableName="Routers" msprop:Generator_RowEvArgName="RoutersRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idProyecto" msprop:Generator_ColumnVarNameInTable="columnidProyecto" msprop:Generator_ColumnPropNameInRow="idProyecto" msprop:Generator_ColumnPropNameInTable="idProyectoColumn" msprop:Generator_UserColumnName="idProyecto" type="xs:int" />
@@ -394,7 +395,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Enlaces" msprop:Generator_TableClassName="EnlacesDataTable" msprop:Generator_TableVarName="tableEnlaces" msprop:Generator_TablePropName="Enlaces" msprop:Generator_RowDeletingName="EnlacesRowDeleting" msprop:Generator_RowChangingName="EnlacesRowChanging" msprop:Generator_RowEvHandlerName="EnlacesRowChangeEventHandler" msprop:Generator_RowDeletedName="EnlacesRowDeleted" msprop:Generator_UserTableName="Enlaces" msprop:Generator_RowChangedName="EnlacesRowChanged" msprop:Generator_RowEvArgName="EnlacesRowChangeEvent" msprop:Generator_RowClassName="EnlacesRow">
+        <xs:element name="Enlaces" msprop:Generator_TableClassName="EnlacesDataTable" msprop:Generator_TableVarName="tableEnlaces" msprop:Generator_RowChangedName="EnlacesRowChanged" msprop:Generator_TablePropName="Enlaces" msprop:Generator_RowDeletingName="EnlacesRowDeleting" msprop:Generator_RowChangingName="EnlacesRowChanging" msprop:Generator_RowEvHandlerName="EnlacesRowChangeEventHandler" msprop:Generator_RowDeletedName="EnlacesRowDeleted" msprop:Generator_RowClassName="EnlacesRow" msprop:Generator_UserTableName="Enlaces" msprop:Generator_RowEvArgName="EnlacesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idProyecto" msprop:Generator_ColumnVarNameInTable="columnidProyecto" msprop:Generator_ColumnPropNameInRow="idProyecto" msprop:Generator_ColumnPropNameInTable="idProyectoColumn" msprop:Generator_UserColumnName="idProyecto" type="xs:int" />
@@ -418,10 +419,11 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="idAfinidad" msprop:Generator_ColumnVarNameInTable="columnidAfinidad" msprop:Generator_ColumnPropNameInRow="idAfinidad" msprop:Generator_ColumnPropNameInTable="idAfinidadColumn" msprop:Generator_UserColumnName="idAfinidad" type="xs:int" minOccurs="0" />
+              <xs:element name="nBandwidthReservado" msprop:Generator_ColumnVarNameInTable="columnnBandwidthReservado" msprop:Generator_ColumnPropNameInRow="nBandwidthReservado" msprop:Generator_ColumnPropNameInTable="nBandwidthReservadoColumn" msprop:Generator_UserColumnName="nBandwidthReservado" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="LSPs" msprop:Generator_TableClassName="LSPsDataTable" msprop:Generator_TableVarName="tableLSPs" msprop:Generator_RowChangedName="LSPsRowChanged" msprop:Generator_TablePropName="LSPs" msprop:Generator_RowDeletingName="LSPsRowDeleting" msprop:Generator_RowChangingName="LSPsRowChanging" msprop:Generator_RowEvHandlerName="LSPsRowChangeEventHandler" msprop:Generator_RowDeletedName="LSPsRowDeleted" msprop:Generator_RowClassName="LSPsRow" msprop:Generator_UserTableName="LSPs" msprop:Generator_RowEvArgName="LSPsRowChangeEvent">
+        <xs:element name="LSPs" msprop:Generator_TableClassName="LSPsDataTable" msprop:Generator_TableVarName="tableLSPs" msprop:Generator_TablePropName="LSPs" msprop:Generator_RowDeletingName="LSPsRowDeleting" msprop:Generator_RowChangingName="LSPsRowChanging" msprop:Generator_RowEvHandlerName="LSPsRowChangeEventHandler" msprop:Generator_RowDeletedName="LSPsRowDeleted" msprop:Generator_UserTableName="LSPs" msprop:Generator_RowChangedName="LSPsRowChanged" msprop:Generator_RowEvArgName="LSPsRowChangeEvent" msprop:Generator_RowClassName="LSPsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idProyecto" msprop:Generator_ColumnVarNameInTable="columnidProyecto" msprop:Generator_ColumnPropNameInRow="idProyecto" msprop:Generator_ColumnPropNameInTable="idProyectoColumn" msprop:Generator_UserColumnName="idProyecto" type="xs:int" />
@@ -441,7 +443,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="EnlacesLSPs" msprop:Generator_TableClassName="EnlacesLSPsDataTable" msprop:Generator_TableVarName="tableEnlacesLSPs" msprop:Generator_RowChangedName="EnlacesLSPsRowChanged" msprop:Generator_TablePropName="EnlacesLSPs" msprop:Generator_RowDeletingName="EnlacesLSPsRowDeleting" msprop:Generator_RowChangingName="EnlacesLSPsRowChanging" msprop:Generator_RowEvHandlerName="EnlacesLSPsRowChangeEventHandler" msprop:Generator_RowDeletedName="EnlacesLSPsRowDeleted" msprop:Generator_RowClassName="EnlacesLSPsRow" msprop:Generator_UserTableName="EnlacesLSPs" msprop:Generator_RowEvArgName="EnlacesLSPsRowChangeEvent">
+        <xs:element name="EnlacesLSPs" msprop:Generator_TableClassName="EnlacesLSPsDataTable" msprop:Generator_TableVarName="tableEnlacesLSPs" msprop:Generator_TablePropName="EnlacesLSPs" msprop:Generator_RowDeletingName="EnlacesLSPsRowDeleting" msprop:Generator_RowChangingName="EnlacesLSPsRowChanging" msprop:Generator_RowEvHandlerName="EnlacesLSPsRowChangeEventHandler" msprop:Generator_RowDeletedName="EnlacesLSPsRowDeleted" msprop:Generator_UserTableName="EnlacesLSPs" msprop:Generator_RowChangedName="EnlacesLSPsRowChanged" msprop:Generator_RowEvArgName="EnlacesLSPsRowChangeEvent" msprop:Generator_RowClassName="EnlacesLSPsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idPathDetalle" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnidPathDetalle" msprop:Generator_ColumnPropNameInRow="idPathDetalle" msprop:Generator_ColumnPropNameInTable="idPathDetalleColumn" msprop:Generator_UserColumnName="idPathDetalle" type="xs:int" />
@@ -451,7 +453,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="NodosAdyacentes" msprop:Generator_TableClassName="NodosAdyacentesDataTable" msprop:Generator_TableVarName="tableNodosAdyacentes" msprop:Generator_RowChangedName="NodosAdyacentesRowChanged" msprop:Generator_TablePropName="NodosAdyacentes" msprop:Generator_RowDeletingName="NodosAdyacentesRowDeleting" msprop:Generator_RowChangingName="NodosAdyacentesRowChanging" msprop:Generator_RowEvHandlerName="NodosAdyacentesRowChangeEventHandler" msprop:Generator_RowDeletedName="NodosAdyacentesRowDeleted" msprop:Generator_RowClassName="NodosAdyacentesRow" msprop:Generator_UserTableName="NodosAdyacentes" msprop:Generator_RowEvArgName="NodosAdyacentesRowChangeEvent">
+        <xs:element name="NodosAdyacentes" msprop:Generator_TableClassName="NodosAdyacentesDataTable" msprop:Generator_TableVarName="tableNodosAdyacentes" msprop:Generator_TablePropName="NodosAdyacentes" msprop:Generator_RowDeletingName="NodosAdyacentesRowDeleting" msprop:Generator_RowChangingName="NodosAdyacentesRowChanging" msprop:Generator_RowEvHandlerName="NodosAdyacentesRowChangeEventHandler" msprop:Generator_RowDeletedName="NodosAdyacentesRowDeleted" msprop:Generator_UserTableName="NodosAdyacentes" msprop:Generator_RowChangedName="NodosAdyacentesRowChanged" msprop:Generator_RowEvArgName="NodosAdyacentesRowChangeEvent" msprop:Generator_RowClassName="NodosAdyacentesRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idProyecto" msprop:Generator_ColumnVarNameInTable="columnidProyecto" msprop:Generator_ColumnPropNameInRow="idProyecto" msprop:Generator_ColumnPropNameInTable="idProyectoColumn" msprop:Generator_UserColumnName="idProyecto" type="xs:int" />
@@ -461,7 +463,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Router" msprop:Generator_TableClassName="RouterDataTable" msprop:Generator_TableVarName="tableRouter" msprop:Generator_RowChangedName="RouterRowChanged" msprop:Generator_TablePropName="Router" msprop:Generator_RowDeletingName="RouterRowDeleting" msprop:Generator_RowChangingName="RouterRowChanging" msprop:Generator_RowEvHandlerName="RouterRowChangeEventHandler" msprop:Generator_RowDeletedName="RouterRowDeleted" msprop:Generator_RowClassName="RouterRow" msprop:Generator_UserTableName="Router" msprop:Generator_RowEvArgName="RouterRowChangeEvent">
+        <xs:element name="Router" msprop:Generator_TableClassName="RouterDataTable" msprop:Generator_TableVarName="tableRouter" msprop:Generator_TablePropName="Router" msprop:Generator_RowDeletingName="RouterRowDeleting" msprop:Generator_RowChangingName="RouterRowChanging" msprop:Generator_RowEvHandlerName="RouterRowChangeEventHandler" msprop:Generator_RowDeletedName="RouterRowDeleted" msprop:Generator_UserTableName="Router" msprop:Generator_RowChangedName="RouterRowChanged" msprop:Generator_RowEvArgName="RouterRowChangeEvent" msprop:Generator_RowClassName="RouterRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idProyecto" msprop:Generator_ColumnVarNameInTable="columnidProyecto" msprop:Generator_ColumnPropNameInRow="idProyecto" msprop:Generator_ColumnPropNameInTable="idProyectoColumn" msprop:Generator_UserColumnName="idProyecto" type="xs:int" />
@@ -485,7 +487,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SelectAfinidad" msprop:Generator_TableClassName="SelectAfinidadDataTable" msprop:Generator_TableVarName="tableSelectAfinidad" msprop:Generator_RowChangedName="SelectAfinidadRowChanged" msprop:Generator_TablePropName="SelectAfinidad" msprop:Generator_RowDeletingName="SelectAfinidadRowDeleting" msprop:Generator_RowChangingName="SelectAfinidadRowChanging" msprop:Generator_RowEvHandlerName="SelectAfinidadRowChangeEventHandler" msprop:Generator_RowDeletedName="SelectAfinidadRowDeleted" msprop:Generator_RowClassName="SelectAfinidadRow" msprop:Generator_UserTableName="SelectAfinidad" msprop:Generator_RowEvArgName="SelectAfinidadRowChangeEvent">
+        <xs:element name="SelectAfinidad" msprop:Generator_TableClassName="SelectAfinidadDataTable" msprop:Generator_TableVarName="tableSelectAfinidad" msprop:Generator_TablePropName="SelectAfinidad" msprop:Generator_RowDeletingName="SelectAfinidadRowDeleting" msprop:Generator_RowChangingName="SelectAfinidadRowChanging" msprop:Generator_RowEvHandlerName="SelectAfinidadRowChangeEventHandler" msprop:Generator_RowDeletedName="SelectAfinidadRowDeleted" msprop:Generator_UserTableName="SelectAfinidad" msprop:Generator_RowChangedName="SelectAfinidadRowChanged" msprop:Generator_RowEvArgName="SelectAfinidadRowChangeEvent" msprop:Generator_RowClassName="SelectAfinidadRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="cDescripcion" msprop:Generator_ColumnVarNameInTable="columncDescripcion" msprop:Generator_ColumnPropNameInRow="cDescripcion" msprop:Generator_ColumnPropNameInTable="cDescripcionColumn" msprop:Generator_UserColumnName="cDescripcion">
@@ -505,7 +507,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SelectListaAfinidades" msprop:Generator_TableClassName="SelectListaAfinidadesDataTable" msprop:Generator_TableVarName="tableSelectListaAfinidades" msprop:Generator_RowChangedName="SelectListaAfinidadesRowChanged" msprop:Generator_TablePropName="SelectListaAfinidades" msprop:Generator_RowDeletingName="SelectListaAfinidadesRowDeleting" msprop:Generator_RowChangingName="SelectListaAfinidadesRowChanging" msprop:Generator_RowEvHandlerName="SelectListaAfinidadesRowChangeEventHandler" msprop:Generator_RowDeletedName="SelectListaAfinidadesRowDeleted" msprop:Generator_RowClassName="SelectListaAfinidadesRow" msprop:Generator_UserTableName="SelectListaAfinidades" msprop:Generator_RowEvArgName="SelectListaAfinidadesRowChangeEvent">
+        <xs:element name="SelectListaAfinidades" msprop:Generator_TableClassName="SelectListaAfinidadesDataTable" msprop:Generator_TableVarName="tableSelectListaAfinidades" msprop:Generator_TablePropName="SelectListaAfinidades" msprop:Generator_RowDeletingName="SelectListaAfinidadesRowDeleting" msprop:Generator_RowChangingName="SelectListaAfinidadesRowChanging" msprop:Generator_RowEvHandlerName="SelectListaAfinidadesRowChangeEventHandler" msprop:Generator_RowDeletedName="SelectListaAfinidadesRowDeleted" msprop:Generator_UserTableName="SelectListaAfinidades" msprop:Generator_RowChangedName="SelectListaAfinidadesRowChanged" msprop:Generator_RowEvArgName="SelectListaAfinidadesRowChangeEvent" msprop:Generator_RowClassName="SelectListaAfinidadesRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idProyecto" msprop:Generator_ColumnVarNameInTable="columnidProyecto" msprop:Generator_ColumnPropNameInRow="idProyecto" msprop:Generator_ColumnPropNameInTable="idProyectoColumn" msprop:Generator_UserColumnName="idProyecto" type="xs:int" />

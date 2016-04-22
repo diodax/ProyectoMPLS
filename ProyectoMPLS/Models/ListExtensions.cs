@@ -122,10 +122,10 @@ namespace ProyectoMPLS.Models
         /// </summary>
         /// <param name="nodeList"></param>
         /// <returns></returns>
-        public static List<Enlace> ToEnlaces(this List<NodoDijkstra> nodePathList, int idProyecto)
+        public static List<EnlaceDijkstra> ToEnlaces(this List<NodoDijkstra> nodePathList, List<EnlaceDijkstra> linkPathList)
         {
-            Proyecto tempModel = new Proyecto(idProyecto);
-            List<Enlace> listaEnlacesLSP = new List<Enlace>();
+            //Proyecto tempModel = new Proyecto(idProyecto);
+            List<EnlaceDijkstra> listaEnlacesLSP = new List<EnlaceDijkstra>();
 
             //Genera una lista de Enlaces en base a la lista de Nodos Dijkstra
             for (int cont = 0; cont < nodePathList.Count; ++cont)
@@ -138,16 +138,17 @@ namespace ProyectoMPLS.Models
                     int curr_routerid = nodePathList[curr_n].idRouter;
                     int next_routerid = nodePathList[next_n].idRouter;
 
-                    Enlace temp = new Enlace();
-                    temp = tempModel.listadoEnlaces.Find(
+                    EnlaceDijkstra temp = new EnlaceDijkstra();
+                    temp = linkPathList.Find(
                                 x => (x.idRouterA == curr_routerid && x.idRouterB == next_routerid) ||
                                     (x.idRouterB == curr_routerid && x.idRouterA == next_routerid));
                     if (temp != null)
                     {
-                        Enlace new_temp = new Enlace();
-                        new_temp = nodePathList[cont].listaEnlaces.Find(x => x.idEnlace == temp.idEnlace);
-                        if (new_temp != null)
-                            listaEnlacesLSP.Add(new_temp);
+                        listaEnlacesLSP.Add(temp);
+                        //EnlaceDijkstra new_temp = new EnlaceDijkstra();
+                        //new_temp = nodePathList[cont].listaEnlacesDijkstra.Find(x => x.idEnlace == temp.idEnlace);
+                        //if (new_temp != null)
+                        //    listaEnlacesLSP.Add(new_temp);
                     }
                         
                 }
@@ -160,7 +161,7 @@ namespace ProyectoMPLS.Models
         /// </summary>
         /// <param name="nodePathList"></param>
         /// <returns></returns>
-        public static string ToString(this List<NodoDijkstra> nodePathList)
+        public static string To_String(this List<NodoDijkstra> nodePathList)
         {
             string cRutaHostnames = "[";
             foreach (var router in nodePathList)
@@ -177,6 +178,25 @@ namespace ProyectoMPLS.Models
                 cRutaHostnames = "";
             }
             return cRutaHostnames;
+        }
+
+        public static EnlaceDijkstra Clone(this EnlaceDijkstra enlace)
+        {
+            EnlaceDijkstra newModel = new EnlaceDijkstra();
+
+            newModel.idEnlace = enlace.idEnlace;
+            newModel.idProyecto = enlace.idProyecto;
+            newModel.cNombre = enlace.cNombre;
+            newModel.idAfinidad = enlace.idAfinidad;
+            newModel.idRouterA = enlace.idRouterA;
+            newModel.idRouterB = enlace.idRouterB;
+            newModel.nBandwidth = enlace.nBandwidth;
+            newModel.nBandwidthDisponible = enlace.nBandwidthDisponible;
+            newModel.nPesoAdministrativo = enlace.nPesoAdministrativo;
+            newModel.targetA = enlace.targetA;
+            newModel.targetB = enlace.targetB;
+
+            return newModel;
         }
     }
 }

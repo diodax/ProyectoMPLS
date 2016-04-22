@@ -36,7 +36,7 @@
           </TableAdapter>
         </Tables>
         <Sources>
-          <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spR_InsertarActualizarHeaderLSP" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="InsertarActualizarHeaderLSP" MethodsParameterType="CLR" Modifier="Public" Name="InsertarActualizarHeaderLSP" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="InsertarActualizarHeaderLSP">
+          <DbSource ConnectionRef="ProyectoMPLSConnectionString (Settings)" DbObjectName="ProyectoMPLS.dbo.spR_InsertarActualizarHeaderLSP" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="InsertarActualizarHeaderLSP" MethodsParameterType="CLR" Modifier="Public" Name="InsertarActualizarHeaderLSP" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="InsertarActualizarHeaderLSP">
             <SelectCommand>
               <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                 <CommandText>dbo.spR_InsertarActualizarHeaderLSP</CommandText>
@@ -87,7 +87,7 @@
   <xs:element name="dsEnrutamiento" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsEnrutamiento" msprop:Generator_UserDSName="dsEnrutamiento">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="EnlacesRouter" msprop:Generator_TableClassName="EnlacesRouterDataTable" msprop:Generator_TableVarName="tableEnlacesRouter" msprop:Generator_TablePropName="EnlacesRouter" msprop:Generator_RowDeletingName="EnlacesRouterRowDeleting" msprop:Generator_RowChangingName="EnlacesRouterRowChanging" msprop:Generator_RowEvHandlerName="EnlacesRouterRowChangeEventHandler" msprop:Generator_RowDeletedName="EnlacesRouterRowDeleted" msprop:Generator_UserTableName="EnlacesRouter" msprop:Generator_RowChangedName="EnlacesRouterRowChanged" msprop:Generator_RowEvArgName="EnlacesRouterRowChangeEvent" msprop:Generator_RowClassName="EnlacesRouterRow">
+        <xs:element name="EnlacesRouter" msprop:Generator_TableClassName="EnlacesRouterDataTable" msprop:Generator_TableVarName="tableEnlacesRouter" msprop:Generator_RowChangedName="EnlacesRouterRowChanged" msprop:Generator_TablePropName="EnlacesRouter" msprop:Generator_RowDeletingName="EnlacesRouterRowDeleting" msprop:Generator_RowChangingName="EnlacesRouterRowChanging" msprop:Generator_RowEvHandlerName="EnlacesRouterRowChangeEventHandler" msprop:Generator_RowDeletedName="EnlacesRouterRowDeleted" msprop:Generator_RowClassName="EnlacesRouterRow" msprop:Generator_UserTableName="EnlacesRouter" msprop:Generator_RowEvArgName="EnlacesRouterRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idProyecto" msprop:Generator_ColumnVarNameInTable="columnidProyecto" msprop:Generator_ColumnPropNameInRow="idProyecto" msprop:Generator_ColumnPropNameInTable="idProyectoColumn" msprop:Generator_UserColumnName="idProyecto" type="xs:int" />

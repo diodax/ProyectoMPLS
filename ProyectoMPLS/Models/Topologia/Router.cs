@@ -39,6 +39,7 @@ namespace ProyectoMPLS.Models.Topologia
     {
         public NodoDijkstra idRouterPrevio { get; set; }
         public double nMinDistancia = Double.PositiveInfinity;
+        public List<EnlaceDijkstra> listaEnlacesDijkstra { get; set; }
         public int CompareTo(NodoDijkstra other)
         {
             return this.nMinDistancia.CompareTo(other.nMinDistancia);
@@ -64,7 +65,7 @@ namespace ProyectoMPLS.Models.Topologia
                 if (!dr.IscYNull())
                     this.cy = dr.cY;
             }
-            this.listaEnlaces = Proyecto.SelectListaEnlacesRouter(idProyecto, idRouter);
+            //this.listaEnlacesDijkstra = Proyecto.SelectListaEnlacesRouter(idProyecto, idRouter);
         }
     }
 

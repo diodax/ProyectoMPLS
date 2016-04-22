@@ -1112,7 +1112,7 @@ namespace ProyectoMPLS.Data.dsEnrutamientoTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int InsertarActualizarHeaderLSP(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idLSP, string cNombre, global::System.Nullable<int> nBandwidth, global::System.Nullable<int> idRouterOrigen, global::System.Nullable<int> idRouterDestino, global::System.Nullable<int> nSetupPriority, global::System.Nullable<int> nHoldPriority) {
+        public virtual object InsertarActualizarHeaderLSP(global::System.Nullable<int> idProyecto, global::System.Nullable<int> idLSP, string cNombre, global::System.Nullable<int> nBandwidth, global::System.Nullable<int> idRouterOrigen, global::System.Nullable<int> idRouterDestino, global::System.Nullable<int> nSetupPriority, global::System.Nullable<int> nHoldPriority) {
             global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[0]));
             if ((idProyecto.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(idProyecto.Value));
@@ -1167,16 +1167,22 @@ namespace ProyectoMPLS.Data.dsEnrutamientoTableAdapters {
                         != global::System.Data.ConnectionState.Open)) {
                 command.Connection.Open();
             }
-            int returnValue;
+            object returnValue;
             try {
-                returnValue = command.ExecuteNonQuery();
+                returnValue = command.ExecuteScalar();
             }
             finally {
                 if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
                     command.Connection.Close();
                 }
             }
-            return returnValue;
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return null;
+            }
+            else {
+                return ((object)(returnValue));
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
