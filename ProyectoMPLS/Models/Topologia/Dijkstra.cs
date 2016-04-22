@@ -29,10 +29,25 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 NodoDijkstra currentRouter = routerQueue.Dequeue();
                 //Visita cada enlace adyacente al router u
-                foreach (var enlace in currentRouter.listaEnlaces)
+                foreach (var enlace in currentRouter.listaEnlacesDijkstra)
                 {
-                    NodoDijkstra vecino = new NodoDijkstra(enlace.idRouterB, idProyecto);
-                    double nPesoBandwidth = enlace.nBandwidth;
+                    int idRouterVecino = 0;
+                    //Fix: Asegurandose de que se use el id del router adyacente en el enlace
+                    if (enlace.idRouterB != currentRouter.idRouter)
+                    {
+                        idRouterVecino = enlace.idRouterB;
+                        //enlace.target = enlace.targetB;
+                    }
+                    else
+                    {
+                        idRouterVecino = enlace.idRouterA;
+                        //enlace.target = enlace.targetA;
+                    }   
+                    //NodoDijkstra vecino = new NodoDijkstra(idRouterVecino, idProyecto);
+
+                    NodoDijkstra vecino = enlace.target;
+
+                    double nPesoBandwidth = enlace.nPesoAdministrativo;     //ignore var name, aqui va lo del tipo de peso
                     double nDistanciaTotal = currentRouter.nMinDistancia + nPesoBandwidth;
                     
                     //En este if ocurre el filtro por BW disponible

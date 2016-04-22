@@ -1231,6 +1231,8 @@ namespace ProyectoMPLS.Data {
             
             private global::System.Data.DataColumn columnidAfinidad;
             
+            private global::System.Data.DataColumn columnnBandwidthReservado;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public EnlacesDataTable() {
@@ -1338,6 +1340,14 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn nBandwidthReservadoColumn {
+                get {
+                    return this.columnnBandwidthReservado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1373,7 +1383,7 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public EnlacesRow AddEnlacesRow(int idProyecto, int idEnlace, string cNombre, int idRouterA, int idRouterB, int nBandwidth, int nPesoAdministrativo, string cAfinidad, int idAfinidad) {
+            public EnlacesRow AddEnlacesRow(int idProyecto, int idEnlace, string cNombre, int idRouterA, int idRouterB, int nBandwidth, int nPesoAdministrativo, string cAfinidad, int idAfinidad, int nBandwidthReservado) {
                 EnlacesRow rowEnlacesRow = ((EnlacesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         idProyecto,
@@ -1384,7 +1394,8 @@ namespace ProyectoMPLS.Data {
                         nBandwidth,
                         nPesoAdministrativo,
                         cAfinidad,
-                        idAfinidad};
+                        idAfinidad,
+                        nBandwidthReservado};
                 rowEnlacesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowEnlacesRow);
                 return rowEnlacesRow;
@@ -1424,6 +1435,7 @@ namespace ProyectoMPLS.Data {
                 this.columnnPesoAdministrativo = base.Columns["nPesoAdministrativo"];
                 this.columncAfinidad = base.Columns["cAfinidad"];
                 this.columnidAfinidad = base.Columns["idAfinidad"];
+                this.columnnBandwidthReservado = base.Columns["nBandwidthReservado"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1447,6 +1459,8 @@ namespace ProyectoMPLS.Data {
                 base.Columns.Add(this.columncAfinidad);
                 this.columnidAfinidad = new global::System.Data.DataColumn("idAfinidad", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnidAfinidad);
+                this.columnnBandwidthReservado = new global::System.Data.DataColumn("nBandwidthReservado", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnBandwidthReservado);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnidProyecto,
                                 this.columnidEnlace}, true));
@@ -3858,6 +3872,22 @@ namespace ProyectoMPLS.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int nBandwidthReservado {
+                get {
+                    try {
+                        return ((int)(this[this.tableEnlaces.nBandwidthReservadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'nBandwidthReservado\' in table \'Enlaces\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEnlaces.nBandwidthReservadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IscNombreNull() {
                 return this.IsNull(this.tableEnlaces.cNombreColumn);
             }
@@ -3938,6 +3968,18 @@ namespace ProyectoMPLS.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetidAfinidadNull() {
                 this[this.tableEnlaces.idAfinidadColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsnBandwidthReservadoNull() {
+                return this.IsNull(this.tableEnlaces.nBandwidthReservadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetnBandwidthReservadoNull() {
+                this[this.tableEnlaces.nBandwidthReservadoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -5531,6 +5573,7 @@ namespace ProyectoMPLS.Data.dsTopologiaTableAdapters {
             tableMapping.ColumnMappings.Add("nPesoAdministrativo", "nPesoAdministrativo");
             tableMapping.ColumnMappings.Add("cAfinidad", "cAfinidad");
             tableMapping.ColumnMappings.Add("idAfinidad", "idAfinidad");
+            tableMapping.ColumnMappings.Add("nBandwidthReservado", "nBandwidthReservado");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

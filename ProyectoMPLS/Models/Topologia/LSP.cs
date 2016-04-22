@@ -174,6 +174,24 @@ namespace ProyectoMPLS.Models.Topologia
             return listaEnlaces;
         }
 
+        public int InsertUpdateLSPHeader()
+        {
+            Data.dsEnrutamientoTableAdapters.OperationsTableAdapter Adapter = new Data.dsEnrutamientoTableAdapters.OperationsTableAdapter();
+            return (int)Adapter.InsertarActualizarHeaderLSP(this.idProyecto, this.idLSP, this.cNombre, (int)this.nBandwidth, this.idRouterOrigen, this.idRouterDestino, this.nSetupPriority, this.nHoldPriority);
+        }
+
+        public void InsertDetalleLSP(int idEnlace)
+        {
+            Data.dsEnrutamientoTableAdapters.OperationsTableAdapter Adapter = new Data.dsEnrutamientoTableAdapters.OperationsTableAdapter();
+            Adapter.InsertarDetalleLSP(this.idProyecto, this.idLSP, idEnlace);
+        }
+
+        public void DeleteDetalleLSP(int idEnlace)
+        {
+            Data.dsEnrutamientoTableAdapters.OperationsTableAdapter Adapter = new Data.dsEnrutamientoTableAdapters.OperationsTableAdapter();
+            Adapter.EliminarDetalleLSP(this.idProyecto, this.idLSP, idEnlace);
+        }
+
         
     }
 

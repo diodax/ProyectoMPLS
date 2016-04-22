@@ -47,6 +47,9 @@ namespace ProyectoMPLS.Models.Topologia
         public string cRutaHostnames { get; set; }
         public List<Enlace> listaEnlacesPath { get; set; } 
 
+        //force
+        public string saveDijkstra { get; set; }
+
         public CSPFViewModel() { }
 
         /// <summary>
@@ -76,6 +79,7 @@ namespace ProyectoMPLS.Models.Topologia
             this.calculatedPath = new List<NodoDijkstra>();
             this.cRutaHostnames = "";
             this.listaEnlacesPath = new List<Enlace>();
+            this.saveDijkstra = "false";
         }
     }
 }
