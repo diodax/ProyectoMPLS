@@ -26,7 +26,8 @@
     "blueimp-file-upload": "jquery-file-upload#~9.12.1",
     "jquery": "^2.2.2",
     "gojs": "^1.6.2",
-    "pick-a-color": "^1.2.3"
+    "pick-a-color": "^1.2.3",
+    "Chart.js": "^2.0.2"
   },
   "resolutions": {
     "jquery": "^2.2.2"

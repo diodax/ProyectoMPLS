@@ -12,7 +12,7 @@ namespace ProyectoMPLS.Controllers
         public ActionResult GetJsonEnlace(int idProyecto, int idEnlace)
         {
             EnlaceStats newModel = new EnlaceStats(idProyecto, idEnlace);
-            return Json(newModel, JsonRequestBehavior.AllowGet);
+            return Json(newModel.listaElementos, JsonRequestBehavior.AllowGet);
         }
 
     }

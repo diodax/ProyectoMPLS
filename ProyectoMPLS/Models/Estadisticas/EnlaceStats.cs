@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoMPLS.Models.Topologia;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,7 @@ namespace ProyectoMPLS.Models.Estadisticas
         public class Elemento
         {
             public int idLSP { get; set; }
+            public string cNombre { get; set; }
             public double nBWElemento { get; set; }
 
             public Elemento() { }
@@ -42,6 +44,7 @@ namespace ProyectoMPLS.Models.Estadisticas
             {
                 Elemento temp = new Elemento();
                 temp.idLSP = dr.idLSP;
+                temp.cNombre = new LSP(this.idProyecto, temp.idLSP).cNombre;
                 temp.nBWElemento = dr.nBandwidthLSP;
                 this.nBWReservadoTotal += dr.nBandwidthReservado;
                 this.listaElementos.Add(temp);

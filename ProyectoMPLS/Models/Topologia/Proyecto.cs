@@ -281,8 +281,8 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 SelectListItem temp = new SelectListItem();
                 temp.Value = item.idEnlace.ToString();
-                string tempRouterA = new LER(item.idRouterA, item.idProyecto).cHostname;
-                string tempRouterB = new LER(item.idRouterB, item.idProyecto).cHostname;
+                string tempRouterA = new LER(item.idProyecto, item.idRouterA).cHostname;
+                string tempRouterB = new LER(item.idProyecto, item.idRouterB).cHostname;
                 temp.Text = "Enlace #" + item.idEnlace.ToString() + " [" + tempRouterA + " - " + tempRouterB + "]";
                 listaEnlaces.Add(temp);
             }
