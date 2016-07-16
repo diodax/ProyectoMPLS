@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers.Crypto;
+
 
 namespace ProyectoMPLS.Models.Accounts
 {
@@ -20,8 +22,10 @@ namespace ProyectoMPLS.Models.Accounts
         /// <param name="usuario"></param>
         public void InsertarUsuario(RegistroViewModel usuario)
         {
+            var hashedPassword = Crypto.HashPassword(usuario.cPassword);
+
             Data.dsUsuariosTableAdapters.Operaciones op = new Data.dsUsuariosTableAdapters.Operaciones();
-            op.InsertarUsuario(usuario.cUserName, usuario.cEmail, false, usuario.cPassword);
+            op.InsertarUsuario(usuario.cUserName, usuario.cEmail, false, hashedPassword);
         }
 
         /// <summary>
@@ -41,10 +45,15 @@ namespace ProyectoMPLS.Models.Accounts
         /// <param name="cUserName"></param>
         /// <param name="cPassword"></param>
         /// <returns></returns>
-        public static bool EsLoginValido(string cUserName, string cPasswordHash)
+        public static bool EsLoginValido(string cUserName, string cEnteredPassword)
         {
             Data.dsUsuariosTableAdapters.Operaciones op = new Data.dsUsuariosTableAdapters.Operaciones();
-            return (bool)op.EsClaveValida(cUserName, cPasswordHash);
+            //cPasswordHash = ;//select usuario
+            var doesPasswordMatch = Crypto.VerifyHashedPassword(cPasswordHash, cEnteredPassword);
+            return doesPasswordMatch;
+            
+            //return (bool)op.EsClaveValida(cUserName, cPasswordHash);
+            
         }
 
     }
