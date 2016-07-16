@@ -1,0 +1,91 @@
+﻿@model ProyectoMPLS.Models.Topologia.Afinidad
+
+<div class="modal-header" id="editarafinidad">
+    <h4 class="modal-title">Editar Afinidad</h4>
+</div>
+
+@using (Html.BeginForm("_EditarAfinidad", "Topologia", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "EditarAfinidadDataForm" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.idProyecto)
+        @Html.HiddenFor(model => model.idAfinidad)
+
+        <div class="row">
+            <div class="form-group">
+                <label for="focusedinput" class="col-sm-3 control-label">
+                    @Html.LabelFor(model => model.cDescripcion)
+                </label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.cDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cDescripcion, "", new { @class = "text-danger" }).ToHtmlString()))
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="focusedinput" class="col-sm-3 control-label">
+                    @Html.LabelFor(model => model.cColor)
+                </label>
+                <div class="col-md-3">
+                    <div id="editar_color" class="input-group colorpicker-component">
+                        @Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })
+                        @*<input type="text" value="#FFFFFF" class="form-control" />*@
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                    @*@Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "pick-a-color form-control" } })*@
+                    @*<input type="text" value="fff" name="cColor" class="pick-a-color form-control">*@
+                    @*@Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cColor, "", new { @class = "text-danger" }).ToHtmlString()))*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <input id="submitEditarAfinidad" class="btn btn-primary" type="submit" value="Guardar" />
+        <button class="btn" data-dismiss="modal">Cerrar</button>
+    </div>
+}
+
+<script>
+    //alert("co;o");
+    $(document).ready(function () {
+        //alert("its wolking");
+        $('#editar_color').colorpicker();
+        $("#submitEditarAfinidad").click(function () {
+            var form = $("#EditarAfinidadDataForm")[0];
+            var formData = new FormData(form);
+            //console.log(form);
+            //console.log(formData);
+            $.ajax({
+                url: '@Url.Action("_EditarAfinidad", new { controller = "Topologia" })',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    $('#afinidad').modal('hide');
+                    //$("#seccionAfinidades").html(result);
+                    //$('#afinidadContent').html(result);
+                    window.location.reload(true);
+                    $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
+                },
+                error: function (error) {
+                    $("#error").html(error);
+                    $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'La operación no pudo ser completada.');
+                }
+            });
+        });
+
+    });
+</script>
+
+<style>
+    .colorpicker, .colorpicker * {
+        z-index: 9999;
+    }
+</style>

@@ -2,75 +2,66 @@
 
 @{
     ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-@*<h2>Login</h2>*@
+<div class="text-center">
+    <a href="index.html" class="logo logo-lg"><i class="md md-equalizer"></i> <span>Mpls Tools</span> </a>
+</div>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Login", "Usuario", FormMethod.Post, new { @class = "form-horizontal m-t-20" }))
 {
     @Html.AntiForgeryToken()
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Login</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form">
-                            <fieldset>
-                                <div class="form-horizontal">
-                                    @*<h4>LoginViewModel</h4>*@
-                                    <hr />
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.cUserName, htmlAttributes: new { @class = "control-label col-md-6" })
-                                        <div class="col-md-6">
-                                            @Html.EditorFor(model => model.cUserName, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.cUserName, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.cPassword, htmlAttributes: new { @class = "control-label col-md-6" })
-                                        <div class="col-md-6">
-                                            @Html.EditorFor(model => model.cPassword, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.cPassword, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.bRecordarUsuario, htmlAttributes: new { @class = "control-label col-md-8" })
-                                        <div class="col-md-2">
-                                            <div class="checkbox">
-                                                @Html.EditorFor(model => model.bRecordarUsuario)
-                                                @Html.ValidationMessageFor(model => model.bRecordarUsuario, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-offset-1 col-md-5">
-                                            <input type="submit" value="Ingresar" class="btn btn-lg btn-success btn-block"/>
-                                        </div>
-                                        <div class="col-md-offset-0 col-md-5">
-                                            @Html.ActionLink("Volver atrás", "Index", "Home", "", new {@class = "btn btn-lg btn-success btn-block"})
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            @Html.TextBoxFor(model => model.cUserName, new { @class = "form-control", @required = "", @placeholder = "Usuario" })
+            <i class="md md-account-circle form-control-feedback l-h-34"></i>
+            @Html.ValidationMessageFor(model => model.cUserName, "", new { @class = "text-danger" })
         </div>
     </div>
-}
 
-@*<div>
-        @Html.ActionLink("Volver al dashboard", "~/Views/Home/Welcome.cshtml")
-</div>*@
+    <div class="form-group">
+        <div class="col-xs-12">
+            @Html.PasswordFor(model => model.cPassword, new { @class = "form-control", @required = "", @placeholder = "Contraseña" })
+            <i class="md md-vpn-key form-control-feedback l-h-34"></i>
+            @Html.ValidationMessageFor(model => model.cPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="checkbox checkbox-primary">
+                @Html.CheckBoxFor(model => model.bRecordarUsuario, new { @id = "checkbox-signup" })
+                <label for="checkbox-signup">
+                    Recordarme
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group text-right m-t-20">
+        <div class="col-xs-12">
+            <button class="btn btn-primary btn-custom w-md waves-effect waves-light" type="submit">
+                Iniciar Sesión
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group m-t-30">
+        <div class="col-sm-7">
+            <a href="#" class="text-muted">
+                <i class="fa fa-lock m-r-5"></i> ¿Olvidó su contraseña?
+            </a>
+        </div>
+        <div class="col-sm-5 text-right">
+            @Html.ActionLink("Crear una cuenta", "Registrar", "Usuario", null, new { @class = "text-muted" })
+        </div>
+    </div>
+
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

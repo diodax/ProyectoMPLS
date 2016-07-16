@@ -1,0 +1,93 @@
+﻿@model ProyectoMPLS.Models.Topologia.AfinidadViewModel
+
+<!-- modal placeholder -->
+<div id='afinidad' class='modal fade '>
+    <div id='afinidadContent'></div>
+</div>
+
+<!--  Modal content para editar afinidad -->
+<div class="modal fade editar-afinidad" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<!--  Modal content para agregar afinidad -->
+<div class="modal fade agregar-afinidad" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<h4 class="m-t-0 header-title"><b>Afinidades</b></h4>
+<p class="text-muted m-b-15 font-13">
+    Etiquetas utilizadas para categorizar ciertos tipos de tráfico.
+</p>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="m-b-0">
+            <a href='@Url.Action("_CrearAfinidad", "Topologia", new { idProyecto = Model.idProyecto })'
+               role="button"
+               class="btn btn-primary waves-effect waves-light"
+               data-toggle="modal" data-target=".agregar-afinidad">
+                Agregar <i class="fa fa-plus"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="panel panel-default m-t-20 col-sm-8">
+        <div class="panel-body p-0">
+            <div class="table-responsive">
+                <table class="table table table-hover m-0" id="datatable-editable">
+                    <tbody>
+                        @foreach (var item in Model.listaAfinidades)
+                        {
+                            <tr>
+                                <td class="mail-select" scope="row" style="white-space: nowrap;">
+                                    <i class="fa fa-circle m-l-5" style="color: @(item.cColor)"></i>
+                                </td>
+                                <td class="descripcion">@Html.DisplayFor(modelItem => item.cDescripcion)</td>
+
+                                <td>
+                                    @using (Html.BeginForm("_BorrarAfinidad", "Topologia", FormMethod.Post))
+                                    {
+                                        <div class="btn-group" role="group">
+                                            <a class="btn btn-default waves-effect waves-light"
+                                               id="linkEditarAfinidad"
+                                               data-toggle="modal"
+                                               data-target=".editar-afinidad"
+                                               href="@Url.Action("_EditarAfinidad", "Topologia", new { idProyecto = item.idProyecto, idAfinidad = item.idAfinidad })">Editar</a>
+                                            @Html.Hidden("idProyecto", item.idProyecto)
+                                            @Html.Hidden("idAfinidad", item.idAfinidad)
+                                            <button type="submit" class="btn btn-danger waves-effect waves-light">Eliminar</button>
+                                        </div>
+                                    }
+                                </td>
+
+                                @*<td style="white-space: nowrap;">
+                                    <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                </td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .colorpicker, .colorpicker * {
+        z-index: 9999;
+    }
+</style>
+
+

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Helpers;
 
 namespace ProyectoMPLS.Controllers
 {
@@ -97,6 +98,50 @@ namespace ProyectoMPLS.Controllers
             }
 
             return View(newUser);
+        }
+
+        // GET: /Account/Logout
+        public ActionResult Logout()//LoginViewModel usuario)
+        {
+            Session["Usuario"] = null;
+            return RedirectToAction("Login", "Usuario");
+        }
+
+        // GET: /Account/Settings
+        public ActionResult Settings(string cUsername)
+        {
+            try {
+                string cUsuarioActual = Session["Usuario"].ToString();
+                SettingsViewModel changedUser = new SettingsViewModel(cUsuarioActual);
+                return View(changedUser);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Topologia");
+            }
+        }
+
+        // POST /Account/Settings
+        [HttpPost]
+        public ActionResult Settings(SettingsViewModel changedUser)
+        {
+            /*try
+            {*/
+                if (ModelState.IsValid)
+                {
+                    changedUser.ActualizarUsuario();
+                    return RedirectToAction("Index", "Topologia");
+
+                }
+                else
+                {
+                    return View(changedUser);
+                }
+            /*}
+            catch
+            {
+                return View(changedUser);
+            }*/
         }
     }
 }

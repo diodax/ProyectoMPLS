@@ -1,57 +1,69 @@
 ﻿@model ProyectoMPLS.Models.Accounts.RegistroViewModel
 @{
     ViewBag.Title = "Registrar";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<div class="text-center">
+    <a href="index.html" class="logo logo-lg"><i class="md md-equalizer"></i> <span>Mpls Tools</span> </a>
+</div>
 
 @using (Html.BeginForm("Registrar", "Usuario", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) 
 {
     @Html.AntiForgeryToken()
-    
-        <h4>Crea una nueva cuenta.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.cUserName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.cUserName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.cUserName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.cEmail, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.cEmail, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.cEmail, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @*@Html.TextBoxFor(model => model.cPassword, new { @class = "form-control" })*@
-                @Html.PasswordFor(model => model.cPassword, new { @class = "form-control"} )
-                @Html.ValidationMessageFor(model => model.cPassword, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            @Html.TextBoxFor(model => model.cUserName, new { @class = "form-control", @required = "", @placeholder = "Usuario" })
+            <i class="md md-account-circle form-control-feedback l-h-34"></i>
+            @Html.ValidationMessageFor(model => model.cUserName, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cConfirmarPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @*@Html.TextBoxFor(model => model.cConfirmarPassword, new { @class = "form-control" })*@
-                @Html.PasswordFor(model => model.cConfirmarPassword, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.cConfirmarPassword, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            @Html.TextBoxFor(model => model.cEmail, new { @class = "form-control", @required = "", @placeholder = "E-Mail" })
+            <i class="md md-email form-control-feedback l-h-34"></i>
+            @Html.ValidationMessageFor(model => model.cEmail, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Crear" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            @Html.PasswordFor(model => model.cPassword, new { @class = "form-control", @required = "", @placeholder = "Contraseña" })
+            <i class="md md-vpn-key form-control-feedback l-h-34"></i>
+            @Html.ValidationMessageFor(model => model.cPassword, "", new { @class = "text-danger" })
         </div>
-    
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12">
+            @Html.PasswordFor(model => model.cConfirmarPassword, new { @class = "form-control", @required = "", @placeholder = "Confirmar contraseña" })
+            <i class="md md-vpn-key form-control-feedback l-h-34"></i>
+            @Html.ValidationMessageFor(model => model.cConfirmarPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group text-right m-t-20">
+        <div class="col-xs-12">
+            <button class="btn btn-primary btn-custom w-md waves-effect waves-light" type="submit">
+                Crear Cuenta
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group m-t-30">
+        <div class="col-sm-7">
+            @*<a href="pages-recoverpw.html" class="text-muted">
+                <i class="fa fa-lock m-r-5"></i> ¿Olvidó su contraseña?
+            </a>*@
+        </div>
+        <div class="col-sm-5 text-right">
+            @Html.ActionLink("Iniciar Sesión", "Login", "Usuario", null, new { @class = "text-muted" })
+        </div>
+    </div>
+
 }
 
 @*<div>

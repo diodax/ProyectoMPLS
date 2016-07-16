@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ProyectoMPLS.Models.Topologia
 {
@@ -22,6 +23,9 @@ namespace ProyectoMPLS.Models.Topologia
 
         public List<Router> listadoRouters { get; set; }
         public List<Enlace> listadoEnlaces { get; set; }
+        public List<LSP> listadoLSPs { get; set; }
+
+        public List<SelectListItem> listadoDPEnlaces { get; set; }
 
         public Proyecto() { }
 
@@ -48,6 +52,34 @@ namespace ProyectoMPLS.Models.Topologia
 
             this.listadoRouters = Proyecto.SelectListaRouters(this.idProyecto);
             this.listadoEnlaces = Proyecto.SelectListaEnlaces(this.idProyecto);
+            this.listadoLSPs = LSP.SelectListaLSP(this.idProyecto);
+            this.listadoDPEnlaces = Proyecto.ConvertDropdownEnlaces(this.listadoEnlaces);
+        }
+
+        /// <summary>
+        /// Constructor a usar cuando ya se conoce la topologia de un proyecto especifico
+        /// </summary>
+        /// <param name="idProyecto"></param>
+        /// <param name="listaRouters"></param>
+        /// <param name="listaEnlaces"></param>
+        public Proyecto(int idProyecto, List<Router> listaRouters, List<Enlace> listaEnlaces)
+        {
+            Data.dsTopologiaTableAdapters.ProyectosTableAdapter Adapter = new Data.dsTopologiaTableAdapters.ProyectosTableAdapter();
+            Data.dsTopologia.ProyectosDataTable dt = Adapter.SeleccionarListaProyectos(idProyecto, null);
+
+            if (dt.Rows.Count > 0)
+            {
+                Data.dsTopologia.ProyectosRow dr = dt[0];
+                this.idProyecto = dr.idProyecto;
+                this.cUserName = dr.cUserName.Trim();
+                this.cTitulo = dr.cFileName.Trim();
+                if (!dr.IsdtFechaCreacionNull())
+                    this.dtFechaCreacion = dr.dtFechaCreacion;
+                if (!dr.IsdtFechaUltEdicionNull())
+                    this.dtFechaUltEdicion = dr.dtFechaUltEdicion;
+            }
+            this.listadoRouters = listaRouters;
+            this.listadoEnlaces = listaEnlaces;
         }
 
         /// <summary>
@@ -156,7 +188,7 @@ namespace ProyectoMPLS.Models.Topologia
 
             foreach(var item in this.listadoRouters)
             {
-                Adapter.InsertarActualizarRouter(this.idProyecto, item.idRouter, item.cHostname, item.cRouterID);
+                Adapter.InsertarActualizarRouter(this.idProyecto, item.idRouter, item.cHostname, item.cRouterID, item.cx, item.cy);
             }
         }
 
@@ -172,7 +204,7 @@ namespace ProyectoMPLS.Models.Topologia
 
             foreach(var item in this.listadoEnlaces)
             {
-                Adapter.InsertarActualizarEnlace(this.idProyecto, item.idEnlace, item.cNombre, item.idRouterA, item.idRouterB, (int)item.nBandwidth, (int)item.nPesoAdministrativo, item.cAfinidad);
+                Adapter.InsertarActualizarEnlace(this.idProyecto, item.idEnlace, item.cNombre, item.idRouterA, item.idRouterB, (int)item.nBandwidth, (int)item.nPesoAdministrativo, item.idAfinidad);
             }
         }
 
@@ -192,10 +224,15 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 LSR temp = new LSR();
                 temp.idRouter = dr.idRouter;
+                temp.idProyecto = dr.idProyecto;
                 if (!dr.IscHostnameNull())
                     temp.cHostname = dr.cHostname.Trim();
                 if (!dr.IscRouterIDNull())
                     temp.cRouterID = dr.cRouterID.Trim();
+                if (!dr.IscXNull())
+                    temp.cx = dr.cX;
+                if (!dr.IscYNull())
+                    temp.cy = dr.cY;
                 listaRouters.Add(temp);
             }
 
@@ -218,6 +255,7 @@ namespace ProyectoMPLS.Models.Topologia
             {
                 Enlace temp = new Enlace();
                 temp.idEnlace = dr.idEnlace;
+                temp.idProyecto = dr.idProyecto;
                 if (!dr.IscNombreNull())
                     temp.cNombre = dr.cNombre.Trim();
                 if (!dr.IsidRouterANull())
@@ -229,10 +267,25 @@ namespace ProyectoMPLS.Models.Topologia
                 if (!dr.IsnPesoAdministrativoNull())
                     temp.nPesoAdministrativo = dr.nPesoAdministrativo;
                 if (!dr.IscAfinidadNull())
-                    temp.cAfinidad = dr.cAfinidad;
+                    temp.idAfinidad = dr.idAfinidad;
                 listaEnlaces.Add(temp);
             }
 
+            return listaEnlaces;
+        }
+
+        public static List<SelectListItem> ConvertDropdownEnlaces(List<Enlace> lista)
+        {
+            List<SelectListItem> listaEnlaces = new List<SelectListItem>();
+            foreach (var item in lista)
+            {
+                SelectListItem temp = new SelectListItem();
+                temp.Value = item.idEnlace.ToString();
+                string tempRouterA = new LER(item.idProyecto, item.idRouterA).cHostname;
+                string tempRouterB = new LER(item.idProyecto, item.idRouterB).cHostname;
+                temp.Text = "Enlace #" + item.idEnlace.ToString() + " [" + tempRouterA + " - " + tempRouterB + "]";
+                listaEnlaces.Add(temp);
+            }
             return listaEnlaces;
         }
 
@@ -242,5 +295,101 @@ namespace ProyectoMPLS.Models.Topologia
             Adapter.BorrarProyecto(idProyecto);
         }
 
+        public static List<EnlaceDijkstra> SelectListaEnlacesRouter(int idProyecto, int idRouter)
+        {
+            List<EnlaceDijkstra> listaEnlaces = new List<EnlaceDijkstra>();
+
+            Data.dsEnrutamientoTableAdapters.EnlacesRouterTableAdapter Adapter = new Data.dsEnrutamientoTableAdapters.EnlacesRouterTableAdapter();
+            Data.dsEnrutamiento.EnlacesRouterDataTable dt = Adapter.SelectEnlacesRouter(idProyecto, idRouter);
+
+            foreach (var dr in dt)
+            {
+                EnlaceDijkstra temp = new EnlaceDijkstra();
+                temp.idEnlace = dr.idEnlace;
+                temp.idProyecto = dr.idProyecto;
+                if (!dr.IscNombreNull())
+                    temp.cNombre = dr.cNombre.Trim();
+                if (!dr.IsidRouterANull())
+                    temp.idRouterA = dr.idRouterA;
+                if (!dr.IsidRouterBNull())
+                    temp.idRouterB = dr.idRouterB;
+                if (!dr.IsnBandwidthNull())
+                    temp.nBandwidth = dr.nBandwidth;
+                if (!dr.IsnPesoAdministrativoNull())
+                    temp.nPesoAdministrativo = dr.nPesoAdministrativo;
+                if (!dr.IsidAfinidadNull())
+                    temp.idAfinidad = dr.idAfinidad;
+                temp.nBandwidthDisponible = dr.nBandwidth;
+
+                //Solo para uso del algoritmo de Dijkstra
+                temp.target = new NodoDijkstra();
+                if (temp.idRouterA != idRouter)
+                    temp.target = new NodoDijkstra(temp.idRouterA, idProyecto);
+                else if (temp.idRouterB != idRouter)
+                    temp.target = new NodoDijkstra(temp.idRouterB, idProyecto);
+
+                listaEnlaces.Add(temp);
+            }
+
+            return listaEnlaces;
+        }
+
+        public static List<NodoDijkstra> SelectListaRoutersDijkstra(int idProyecto)
+        {
+            List<NodoDijkstra> listaRouters = new List<NodoDijkstra>();
+
+            Data.dsTopologiaTableAdapters.RoutersTableAdapter Adapter = new Data.dsTopologiaTableAdapters.RoutersTableAdapter();
+            Data.dsTopologia.RoutersDataTable dt = Adapter.SelectRoutersProyecto(idProyecto);
+
+            foreach (var dr in dt)
+            {
+                NodoDijkstra temp = new NodoDijkstra();
+                temp.idRouter = dr.idRouter;
+                temp.idProyecto = dr.idProyecto;
+                if (!dr.IscHostnameNull())
+                    temp.cHostname = dr.cHostname.Trim();
+                if (!dr.IscRouterIDNull())
+                    temp.cRouterID = dr.cRouterID.Trim();
+                if (!dr.IscXNull())
+                    temp.cx = dr.cX;
+                if (!dr.IscYNull())
+                    temp.cy = dr.cY;
+                listaRouters.Add(temp);
+            }
+
+            return listaRouters;
+        }
+
+        public static List<EnlaceDijkstra> SelectListaEnlacesDijkstra(int idProyecto)
+        {
+            List<EnlaceDijkstra> listaEnlaces = new List<EnlaceDijkstra>();
+
+            Data.dsTopologiaTableAdapters.EnlacesTableAdapter Adapter = new Data.dsTopologiaTableAdapters.EnlacesTableAdapter();
+            Data.dsTopologia.EnlacesDataTable dt = Adapter.SelectEnlacesProyecto(idProyecto);
+
+            foreach (var dr in dt)
+            {
+                EnlaceDijkstra temp = new EnlaceDijkstra();
+                temp.idEnlace = dr.idEnlace;
+                temp.idProyecto = dr.idProyecto;
+                if (!dr.IscNombreNull())
+                    temp.cNombre = dr.cNombre.Trim();
+                if (!dr.IsidRouterANull())
+                    temp.idRouterA = dr.idRouterA;
+                if (!dr.IsidRouterBNull())
+                    temp.idRouterB = dr.idRouterB;
+                if (!dr.IsnBandwidthNull())
+                    temp.nBandwidth = dr.nBandwidth;
+                if (!dr.IsnPesoAdministrativoNull())
+                    temp.nPesoAdministrativo = dr.nPesoAdministrativo;
+                if (!dr.IscAfinidadNull())
+                    temp.idAfinidad = dr.idAfinidad;
+                if (!dr.IsnBandwidthReservadoNull())
+                    temp.nBandwidthDisponible = temp.nBandwidth - dr.nBandwidthReservado;
+                listaEnlaces.Add(temp);
+            }
+
+            return listaEnlaces;
+        }
     }
 }

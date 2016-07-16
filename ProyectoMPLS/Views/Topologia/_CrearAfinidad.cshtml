@@ -1,0 +1,104 @@
+﻿@model ProyectoMPLS.Models.Topologia.Afinidad
+
+<script src="~/assets/js/jquery.min.js"></script>
+<script src="~/assets/js/bootstrap.min.js"></script>
+<script src="~/assets/js/detect.js"></script>
+<script src="~/assets/js/fastclick.js"></script>
+<script src="~/assets/js/jquery.blockUI.js"></script>
+<script src="~/assets/js/waves.js"></script>
+<script src="~/assets/js/wow.min.js"></script>
+<script src="~/assets/js/jquery.nicescroll.js"></script>
+<script src="~/assets/js/jquery.scrollTo.min.js"></script>
+<script src="~/assets/plugins/colorpicker/bootstrap-colorpicker.js"></script>
+
+<div class="modal-header" id="crearafinidad">
+    <h4 class="modal-title">Crear Afinidad</h4>
+</div>
+
+@using (Html.BeginForm("_CrearAfinidad", "Topologia", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "CrearAfinidadDataForm" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.idProyecto)
+        @Html.HiddenFor(model => model.idAfinidad)
+
+        <div class="row">
+            <div class="form-group">
+                <label for="focusedinput" class="col-sm-3 control-label">
+                    @Html.LabelFor(model => model.cDescripcion)
+                </label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.cDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cDescripcion, "", new { @class = "text-danger" }).ToHtmlString()))
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="focusedinput" class="col-sm-3 control-label">
+                    @Html.LabelFor(model => model.cColor)
+                </label>
+                <div class="col-md-3">
+                    <div id="agregar_color" class="input-group colorpicker-component">
+                        <input type="text" value="#FFFFFF" name="cColor" class="pick-a-color form-control">
+                        @*@Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @*<input type="text" value="#FFFFFF" class="form-control" />*@
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                    @*<input type="text" value="fff" name="cColor" class="pick-a-color form-control">*@
+                    @*@Html.EditorFor(model => model.cColor, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cColor, "", new { @class = "text-danger" }).ToHtmlString()))*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <input id="submitCrearAfinidad" class="btn btn-primary" type="submit" value="Guardar" />
+        <button class="btn" data-dismiss="modal">Cerrar</button>
+    </div>
+}
+
+<script>
+    //alert("co;o");
+    $(document).ready(function () {
+        //alert("its wolking");
+        $('#agregar_color').colorpicker();
+        //$('#cp2').colorpicker();
+
+        $("#submitCrearAfinidad").click(function () {
+            var form = $("#CrearAfinidadDataForm")[0];
+            var formData = new FormData(form);
+            //console.log(form);
+            //console.log(formData);
+            $.ajax({
+                url: '@Url.Action("_CrearAfinidad", new { controller = "Topologia" })',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    $('#afinidad').modal('hide');
+                    //$("#seccionAfinidades").html(result);
+                    //$('#afinidadContent').html(result);
+                    window.location.reload(true);
+                    $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
+                },
+                error: function (error) {
+                    $("#error").html(error);
+                    $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'La operación no pudo ser completada.');
+                }
+            });
+        });
+
+    });
+</script>
+
+<style>
+    .colorpicker, .colorpicker * {
+        z-index: 9999;
+    }
+</style>

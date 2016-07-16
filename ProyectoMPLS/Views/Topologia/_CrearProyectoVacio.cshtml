@@ -55,6 +55,8 @@
             $("#submitProyecto").click(function () {
                 var form = $("#DataForm")[0];
                 var formData = new FormData(form);
+                console.log(form);
+                console.log(formData);
                 $.ajax({
                     url: '@Url.Action("_CrearProyectoVacio", new { controller = "Topologia" })',
                     type: 'POST',

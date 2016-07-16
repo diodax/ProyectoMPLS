@@ -1,0 +1,162 @@
+﻿@model ProyectoMPLS.Models.Topologia.LSP
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Ruteo Explícito</h4>
+</div>
+
+@using (Html.BeginForm("_CrearLSP", "Enrutamiento", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "DataForm" }))
+{
+<div class="modal-body">
+   
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+     
+        @Html.HiddenFor(model => model.idProyecto, new { @id = "tbxProyecto" })
+        @Html.HiddenFor(model => model.idLSP)
+        
+            
+    <div class="form-group">
+        <label for="focusedinput" class="col-sm-3 control-label">
+            @Html.LabelFor(model => model.cNombre)
+        </label>
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.cNombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cNombre, "", new { @class = "text-danger" }).ToHtmlString()))
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="focusedinput" class="col-sm-3 control-label">
+            @Html.LabelFor(model => model.nBandwidth)
+        </label>
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.nBandwidth, new {htmlAttributes = new {@class = "form-control", @id = "tbxBandwidth", @type = "number", min = "0"}})
+            @Html.ValidationMessageFor(model => model.nBandwidth, "", new {@class = "text-danger"})
+        </div>
+        <div class="col-md-3">
+            <p class="help-block">Mbps</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="focusedinput" class="col-sm-3 control-label">
+            @Html.LabelFor(model => model.idRouterOrigen)
+        </label>
+        <div class="col-md-6">
+            @Html.DropDownListFor(model => model.idRouterOrigen, Model.listaNodosOrigen, new { @class = "form-control", @id = "dpxRouterOrigen" })
+            @Html.ValidationMessageFor(model => model.idRouterOrigen, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="focusedinput" class="col-sm-3 control-label">
+            @Html.LabelFor(model => model.idRouterDestino)
+        </label>
+        <div class="col-md-5">
+            @Html.DropDownListFor(model => model.idRouterDestino, Model.listaNextHop, new { @class = "form-control", @id = "dpxNextHop" })
+            @Html.ValidationMessageFor(model => model.idRouterDestino, "", new { @class = "text-danger" })
+            
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-info" id="btnAddSalto">
+                <p class="fa fa-plus"></p>
+            </button>
+        </div>
+    </div> 
+          
+
+    <br />
+
+    <ul class="timeline" id="timeline">
+        @foreach (var item in Model.listaNodos)
+        {
+            <li class="li complete">
+                <div class="timestamp">
+                    <span>Dirección IP:</span>
+                    <span class="ip-address">@item.cRouterID</span>
+                </div>
+                <div class="status"><h4>@item.cHostname</h4></div>
+                <input type="hidden" class="next-link" />
+                <input type="hidden" class="node-id" value="@(item.idRouter)" />
+            </li>
+        }
+    </ul>
+   
+
+        
+    
+
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Cerrar</button>
+    <input class="btn btn-primary" type="submit" value="Save" />
+</div>
+}
+
+
+    <script>
+        //Vista, agregar un dropdown que diga Next Hop (Proximo Salto)
+
+        //Obtener la lista de todos los nodos de la topologia
+        //SP que mande la lista de todos los nodos por default, y que mande los enlaces/nodos adyacentes si le
+        //  especifico un nodo
+
+        $(document).ready(function () {
+            $("#btnAddSalto").click(function () {
+                var cDescripcionNodo = $("#dpxRouterOrigen option:selected").text();
+                $("ul").append('<li class="list-group-item">' + cDescripcionNodo + '</li>');
+            });
+
+            //Listado de Eventos 
+            
+            //-Cuando se modifica el dropdown de Nodo de Origen, debe cambiar el primer elemento de la lista LSP
+            
+            //-Crear un blockquote de informacion del enlace, que se actualiza cada vez que se selecciona un Enlace/Nodo como Next Hop
+            //-Cuando se presiona el boton de Agregar Camino, debe aparecer en la lista LSP el ultimo nodo agregado.
+            //-Ademas, debe de refrescarse el nodo actual para el dropdown de Next Hop
+            //-El ultimo elemento de la lista LSP debe de tener un boton de Eliminar, los demas tambien, pero disabled
+            
+            $("#dpxRouterOrigen").change(function () {
+                var idProyecto = $("#tbxProyecto").val();
+                var idNodo = $("#dpxRouterOrigen option:selected").val();
+                var nBandwidth = $("#tbxBandwidth").val();
+                RefrescarListaNodos(idProyecto, idNodo, nBandwidth);
+            });
+
+            $("#tbxBandwidth").change(function () {
+                var idProyecto = $("#tbxProyecto").val();
+                var idNodo = $("#dpxRouterOrigen option:selected").val();
+                var nBandwidth = $("#tbxBandwidth").val();
+                RefrescarListaNodos(idProyecto, idNodo, nBandwidth);
+            });
+
+        });
+
+        function RefrescarListaNodos(idProyecto, idNodo, nBandwidth) {
+            $.ajax({
+                url: '/Topologia/_GetListaEnlaces',
+                //type: 'POST',
+                contentType: "application/json",
+                //datatype: "json",
+                data: { idProyecto: idProyecto, idRouter: idNodo, nBandwidth: nBandwidth },
+                success: function (result) {
+                    var nodos = $("#dpxNextHop");
+                    nodos.empty();
+                    $(result).each(function (index) {
+                        nodos.append($("<option />").val(this.idRouter).text(this.cHostname + " [" + this.cRouterID + "]"));
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    $("#error").html(jqXHR.responseText);
+                }
+            });
+        }
+
+    </script>    
+
+
+

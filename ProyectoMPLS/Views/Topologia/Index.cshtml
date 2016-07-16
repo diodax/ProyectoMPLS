@@ -4,37 +4,51 @@
     ViewBag.Title = "Dashboard";
 }
 
-<!-- modal placeholder-->
-<div id='myModal' class='modal fade in'>
+<!-- Modal content para el Proyecto Vacio -->
+<div id="myEmptyProjectModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myEmptyProjectModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div id='myModalContent'></div>
         </div>
     </div>
 </div>
+
+<!-- Modal content para el Proyecto Archivo -->
+<div id="myFileProjectModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myFileProjectModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<!-- Modal content para el Proyecto Pi -->
+<div id="myPiProjectModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myPiProjectModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Dashboard</h1>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
 
 <div class="row">
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-comments fa-5x"></i>
+                        <i class="fa fa-file-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        @*<div class="huge">26</div>*@
-                        @*<div>New Comments!</div>*@
+                      
                     </div>
                 </div>
             </div>
-            <a data-modal="" href="@Url.Action("_CrearProyectoVacio", "Topologia", null)">
+            <a data-toggle="modal" data-target="#myEmptyProjectModal" href="@Url.Action("_CrearProyectoVacio", "Topologia", null)">
                 <div class="panel-footer">
                     <span class="pull-left">Crear Proyecto Vacío</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -43,20 +57,19 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green">
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-tasks fa-5x"></i>
+                        <i style="color: #fff;" class="fa fa-file-excel-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        @*<div class="huge">12</div>*@
-                        @*<div>New Tasks!</div>*@
+                    
                     </div>
                 </div>
             </div>
-            <a data-modal="" href="@Url.Action("CrearProyectoArchivo", "Topologia", null)">
+            <a data-toggle="modal" data-target="#myFileProjectModal" href="@Url.Action("CrearProyectoArchivo", "Topologia", null)">
                 <div class="panel-footer">
                     <span class="pull-left">Importar Topología (archivo)</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -65,20 +78,19 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-yellow">
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-warning">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-shopping-cart fa-5x"></i>
+                        <i style="color: #fff;" class="fa fa-code fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        @*<div class="huge">124</div>*@
-                        @*<div>New Orders!</div>*@
+                       
                     </div>
                 </div>
             </div>
-            <a data-modal="" href="@Url.Action("CrearProyectoRP", "Topologia", null)">
+            <a data-toggle="modal" data-target="#myPiProjectModal" href="@Url.Action("CrearProyectoRP", "Topologia", null)">
                 <div class="panel-footer">
                     <span class="pull-left">Importar Topología (RPi)</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -87,7 +99,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    @*<div class="col-lg-3 col-md-6">
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">
@@ -95,8 +107,7 @@
                         <i class="fa fa-support fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        @*<div class="huge">13</div>*@
-                        @*<div>Support Tickets!</div>*@
+        
                     </div>
                 </div>
             </div>
@@ -108,7 +119,7 @@
                 </div>
             </a>
         </div>
-    </div>
+    </div>*@
 </div>
 <!-- /.row -->
 
@@ -120,90 +131,77 @@
                 <i class="fa fa-bar-chart-o fa-fw"></i> Listado de Proyectos
             </div>
             <div class="panel-body">
-                @*@Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-success" })*@
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.idProyecto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.cUserName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.cTitulo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.dtFechaCreacion)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.dtFechaUltEdicion)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach (var item in Model)
-                        {
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.idProyecto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.cUserName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.cTitulo)
-                                </td>
-                                <td>
-                                    @*@Html.DisplayFor(modelItem => item.dtFechaCreacion)*@
-                                    @((item.dtFechaCreacion != default(DateTime)) ? @item.dtFechaCreacion.ToString("MM/dd/yyyy") : string.Empty)
-                                </td>
-                                <td>
-                                    @*@Html.DisplayFor(modelItem => item.dtFechaUltEdicion)*@
-                                    @((item.dtFechaUltEdicion != default(DateTime)) ? @item.dtFechaUltEdicion.ToString("MM/dd/yyyy") : string.Empty)
-                                </td>
-                                @*<td>
-                                    @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" }) 
-                                    
-                                    @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-default" })
-                                </td>*@
-
-                                <td>
-                                    @using (Html.BeginForm("Eliminar", "Topologia", FormMethod.Post))
-                                    {
-                                        <div class="btn-group" role="group">
-                                            @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" }) 
-                                            @Html.Hidden("idProyecto", item.idProyecto)
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                        </div>
-                                    }
-
-
-                                </td>
-
-
-
+                                <th>
+                                    @Html.DisplayNameFor(model => model.idProyecto)
+                                </th>
+                                @*<th>
+                                    @Html.DisplayNameFor(model => model.cUserName)
+                                </th>*@
+                                <th>
+                                    @Html.DisplayNameFor(model => model.cTitulo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.dtFechaCreacion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.dtFechaUltEdicion)
+                                </th>
+                                <th></th>
                             </tr>
-                        }
-                    </tbody>
+                        </thead>
+                        <tbody>
 
-                </table>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.idProyecto)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.cUserName)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.cTitulo)
+                                    </td>
+                                    <td>
+                                        @*@Html.DisplayFor(modelItem => item.dtFechaCreacion)*@
+                                        @((item.dtFechaCreacion != default(DateTime)) ? @item.dtFechaCreacion.ToString("MM/dd/yyyy") : string.Empty)
+                                    </td>
+                                    <td>
+                                        @*@Html.DisplayFor(modelItem => item.dtFechaUltEdicion)*@
+                                        @((item.dtFechaUltEdicion != default(DateTime)) ? @item.dtFechaUltEdicion.ToString("MM/dd/yyyy") : string.Empty)
+                                    </td>
+
+
+                                    <td>
+                                        @using (Html.BeginForm("Eliminar", "Topologia", FormMethod.Post))
+                                        {
+                                            <div class="btn-group" role="group">
+                                                @Html.ActionLink("Editar", "Editar", new { idProyecto = item.idProyecto }, new { @class = "btn btn-default" })
+                                                @Html.Hidden("idProyecto", item.idProyecto)
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
             <!-- /.panel-body -->
-        </div>
-
-
-
-                
+        </div>    
         </div>
 </div>
 
 @section scripts
 {   
-@Scripts.Render("~/bundles/modalform")
 <script>
 
     $(document).ready(function () {
@@ -218,6 +216,5 @@
             });
         });
     });
-
 </script>
 }

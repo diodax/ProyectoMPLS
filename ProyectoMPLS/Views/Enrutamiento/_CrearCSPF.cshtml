@@ -1,0 +1,299 @@
+﻿@model ProyectoMPLS.Models.Topologia.CSPFViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Ruteo por CSPF</h4>
+</div>
+
+@using (Html.BeginForm("_CrearCSPF", "Enrutamiento", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "DataFormCSPF" }))
+{
+    <div class="modal-body">
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    @Html.HiddenFor(model => model.idProyecto)
+    @Html.HiddenFor(model => model.idLSP)
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.cNombre)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.cNombre, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.cNombre, "", new {@class = "text-danger"}).ToHtmlString()))
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.nBandwidth)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.nBandwidth, new {htmlAttributes = new {@class = "form-control", @type = "number", min = "0"}})
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nBandwidth, "", new {@class = "text-danger"}).ToHtmlString()))
+                    </div>
+                    <div class="col-md-3">
+                        <p class="help-block">Mbps</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.nTipoMetrica)
+                    </label>
+                    <div class="col-md-6">
+                        <div class="radio radio-primary">
+                            @Html.RadioButtonFor(model => model.nTipoMetrica, "1")
+                            <label for="nTipoMetrica_1" data-toggle="tooltip" data-placement="right" title="Emplea los pesos definidos manualmente para cada enlace.">
+                                Pesos Administrativos
+                            </label>
+                        </div>
+                        <div class="radio radio-primary">
+                            @Html.RadioButtonFor(model => model.nTipoMetrica, "2")
+                            <label for="nTipoMetrica_2" data-toggle="tooltip" data-placement="right" title="Emplea la cantidad de saltos como métrica.">
+                                
+                                Mínima Cantidad de Saltos
+                            </label>
+                        </div>
+                        <div class="radio radio-primary">
+                            @Html.RadioButtonFor(model => model.nTipoMetrica, "3")
+                            <label for="nTipoMetrica_3" data-toggle="tooltip" data-placement="right" title="Da preferencia a los enlaces con mayor BW Reservado.">
+                                BW Reservado
+                            </label>
+                        </div>
+                        <div class="radio radio-primary">
+                            @Html.RadioButtonFor(model => model.nTipoMetrica, "4")
+                            <label for="nTipoMetrica_4" data-toggle="tooltip" data-placement="right" title="Da preferencia a los enlaces con mayor BW Disponible.">
+                                BW Disponible
+                            </label>
+                        </div>
+
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nTipoMetrica, "", new { @class = "text-danger" }).ToHtmlString()))
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.nRouterOrigen)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.nRouterOrigen, Model.listaNodos, new {@class = "form-control", id = "dpxRouterOrigen"})
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nRouterOrigen, "", new {@class = "text-danger"}).ToHtmlString()))
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.nRouterDestino)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.nRouterDestino, Model.listaNodos, new {@class = "form-control", id = "dpxRouterDestino"})
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.nRouterDestino, "", new {@class = "text-danger"}).ToHtmlString()))
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-3 control-label">
+                        @Html.LabelFor(model => model.idAfinidad)
+                    </label>
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.idAfinidad, Model.listaAfinidades, new { @class = "form-control", @id = "dpxAfinidades" })
+                        @Html.Raw(HttpUtility.HtmlDecode(@Html.ValidationMessageFor(model => model.idAfinidad, "", new { @class = "text-danger" }).ToHtmlString()))
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <hr />
+
+        <div id="dijkstraResults">
+            <dl class="dl-horizontal">
+                <dt>Camino: </dt>
+                <dd id="txtHostnames">@Html.DisplayFor(model => model.cRutaHostnames)</dd>
+            </dl>
+            
+            <br />
+
+            <table class="table table-condensed dataTable m-0">
+                <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().idEnlace)</th>
+                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().cNombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().nPesoAdministrativo)</th>
+                    <th>@Html.DisplayNameFor(model => model.listaEnlacesPath.FirstOrDefault().nBandwidth) (Mbps)</th>
+                    <th>BW Utilizado (Mbps)</th>
+                    <th>BW Utilizado (%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.listaEnlacesPath)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.idEnlace)</td>
+                        <td>@Html.DisplayFor(model => item.cNombre)</td>
+                        <td>@Html.DisplayFor(model => item.nPesoAdministrativo)</td>
+                        <td>@Html.DisplayFor(model => item.nBandwidth)</td>
+                        <td>@(item.nBandwidth - item.nBandwidthDisponible)</td>
+                        <td>@((item.nBandwidth - item.nBandwidthDisponible)/item.nBandwidth*100)</td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+
+            <table id="hidden_table"></table>
+            
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+        <button type='submit' name="runDijkstra" class="btn btn-info pull-left" id="runDijkstra" value="Ejecutar Algoritmo">Ejecutar Algoritmo</button>
+        <button class="btn" data-dismiss="modal">Cerrar</button>
+        <button type='submit' name="submitCSPF" class="btn btn-primary" id="submitCSPF" value="Guardar">Guardar</button>
+    </div>
+
+    @*<input type="hidden" id="Run0_or_Save1" value="false"/>*@
+    @Html.HiddenFor(model => model.saveDijkstra, new { @id = "Run0_or_Save1" })
+}
+
+<script>
+    //$("#save").trigger("click");
+    $(document).ready(function () {
+        
+        //I know this smells 
+        $("#runDijkstra").click(function () {
+            $("#Run0_or_Save1").val('false');
+        });
+        //But it works
+        $("#submitCSPF").click(function () {
+            $("#Run0_or_Save1").val('true');
+        });
+
+        //Inicializa todos los tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+        var t = $('.dataTable').DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "searching": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+            }
+        });
+
+        $('#submitCSPF').prop('disabled', true);
+        
+        $('form').submit(function (event) {
+            var fields = $(this).serialize();
+            event.preventDefault();
+
+            //var data = { paramJson: JSON.stringify(fields) };
+
+            //event.preventDefault();
+            //var form = $("#DataFormCSPF")[0];
+            //var formData = new FormData(form
+
+            //var formData = $('#DataFormCSPF').serializeArray();
+
+            //event.preventDefault();
+            $.ajax({
+                url: '@Url.Action("_CrearCSPF", new { controller = "Enrutamiento" })',
+                type: 'POST',
+                data: fields,
+                //datatype: "html",
+                //contentType: "text/plain",
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    //alert("tira algo plis");
+                    if ((result.success) && result.operation == "run_algorithm") {
+                        $("#txtHostnames").html(result.node_string);
+                        //alert("success");
+                        t.clear();
+                        //Popular la tabla de dijkstraResults
+                        $('#hidden_table').empty();
+                        $(result.path).each(function ( index ) {
+                            t.row.add(
+                                [
+                                    this.idEnlace,
+                                    this.cNombre,
+                                    this.nPesoAdministrativo,
+                                    this.nBandwidth,
+                                    (parseFloat(this.nBandwidth) - parseFloat(this.nBandwidthDisponible)).toFixed(2),
+                                    ((parseFloat(this.nBandwidth) - parseFloat(this.nBandwidthDisponible)) / this.nBandwidth * 100).toFixed(2) + "%"
+                                ]).draw();
+                            //
+                            $("#number").val(parseFloat($("#number").val()).toFixed(2));
+                            
+                            $('#hidden_table').append(
+                                '<tr>' +
+                                    '<td style="display:none;">' +
+                                        '<input type="hidden" name="listaEnlacesPath.Index" value="' + index + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].idEnlace" value="' + this.idEnlace + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].cNombre" value="' + this.cNombre + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].idRouterA" value="' + this.idRouterA + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].idRouterB" value="' + this.idRouterB + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].nBandwidth" value="' + this.nBandwidth + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].nPesoAdministrativo" value="' + this.nPesoAdministrativo + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].nBandwidthDisponible" value="' + this.nBandwidthDisponible + '" />' +
+                                    '</td>' +
+                                    '<td style="display:none;">' +
+                                        '<input type=hidden" name="listaEnlacesPath[' + index + '].idAfinidad" value="' + this.idAfinidad + '" />' +
+                                    '</td>' +
+                                '</tr>'
+                            );
+                        });
+                        $('#submitCSPF').prop('disabled', false);
+
+                    } else if ((result.success) && result.operation == "save") {
+                        $('#myCSPFModal').modal('hide');
+                        window.location.reload(true);
+                        $.Notification.autoHideNotify('success', 'top right', 'Aviso:', 'Los cambios han sido guardados exitosamente.');
+                    } else {
+                        //$('#myModalContent').html(result);
+                        //alert("segunda prueba");
+                        //console.log(result);
+                        //alert("segunda prueba");
+                        //alert(result);
+                        //$.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'La operación no pudo ser completada.');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#error").html(jqXHR.responseText);
+                    console.log(jqXHR.responseText);
+                    //alert("prueba");
+                    $.Notification.autoHideNotify('error', 'top right', 'Algo salió mal...', 'La operación no pudo ser completada.');
+                }
+
+            });
+            //event.preventDefault();
+            return false;     
+        });
+       
+    });
+</script>
+

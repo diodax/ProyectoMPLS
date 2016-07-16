@@ -1,212 +1,403 @@
-﻿@model ProyectoMPLS.Models.Topologia.Proyecto
+﻿@using System.Data.Entity.Infrastructure
+@using ProyectoMPLS.Models.Topologia
+@model ProyectoMPLS.Models.Topologia.Proyecto
 
 @{
     ViewBag.Title = "Editar";
 }
 
-<h2>Editar Topología</h2>
+<!--Nombre del Archivo en Edicion-->
+<h2><i class="fa fa-folder-open"></i> <span id="txtTitulo">@Html.DisplayTextFor(model => model.cTitulo)</span></h2>
+
 @Html.HiddenFor(model => model.idProyecto, new { id = "tbxIdProyecto" })
 
 <!-- modal placeholder-->
-<div id='myModal' class='modal fade in'>
+<div id='myModal' class='modal container fade'>
+    <div id='myModalContent'></div>
+</div>
+
+<!-- Modal content para el Partial View de Config Enlaces -->
+<div id="myEnlaceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div id='myModalContent'></div>
+        <div class="modal-content" id="modal_content_enlace">
         </div>
     </div>
 </div>
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        @*<!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
-        </div>
+<!--  Modal content for the above example -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--Panel Principal-->
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-tabs tabs tabs-top">
+            <!--Header Tab de Topología-->
+            <li class="active tab">
+                <a href="#topologia-21" data-toggle="tab" aria-expanded="false">
+                    <span class="hidden-xs"><i class="fa fa-sitemap"></i>&nbsp;Topología</span>
+                </a>
+            </li>
+            <!--Fin Header Tab de Topología-->
+            <!--Header Tab de Estadísticas-->
+            <li class="tab">
+                <a href="#estadisticas-21" data-toggle="tab" aria-expanded="false">
+                    <span class="hidden-xs"><i class="fa fa-bar-chart"></i>&nbsp;Estadísticas</span>
+                </a>
+            </li>
+            <!--Fin Header Tab de Estadísticas-->
+            <!--Header Tab de Configuraciones-->
+            <li class="tab">
+                <a href="#configuracion-21" data-toggle="tab" aria-expanded="false">
+                    <span class="hidden-xs"><i class="fa fa-cogs"></i>&nbsp;Configuración</span>
+                </a>
+            </li>
+            <!--Fin Header Tab de Configuraciones-->
+        </ul>
+        <div class="tab-content">
+            <!--Contenido Tab de Topología-->
+            <div class="tab-pane active" id="topologia-21">
+                <!--Barra de Herramientas-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="btn-toolbar m-t-20 nav navbar-btn" role="toolbar">
+                            <div class="btn-group">
+                                <button id="file" type="button" class="btn btn-default btn-custom waves-light">
+                                    <i class="fa fa-2x fa-file"></i>
+                                </button>
+                                <button id="save" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-save"></i>
+                                </button>
+                                <button id="delete" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-trash-o"></i>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button id="cut" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-cut"></i>
+                                </button>
+                                <button id="copy" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-copy"></i>
+                                </button>
+                                <button id="paste" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-paste"></i>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button id="undo" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-arrow-circle-left"></i>
+                                </button>
+                                <button id="redo" type="button" class="btn btn-default btn-custom waves-effect waves-light">
+                                    <i class="fa fa-2x fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>*@
-            
+                <!--Fin Barra de Herramientas-->
+
+                <div class="container-fluid">
+                    <!--Barras Laterales-->
+                    <div class="sidebar right">
+                        <!--Barra de Componentes-->
+                        <div class="panel panel-border panel-primary">
+                            <div class="panel-heading">
+                                <a class="panel-title" data-toggle="collapse" data-target="#collapseOne" href="#collapseOne">Componentes</a>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div id="myPaletteDiv" style="width: 180px; height: 207px; position: relative;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Barra de LSPs-->
+                        <div class="panel panel-border panel-primary">
+                            <div class="panel-heading">
+                                <a class="panel-title" data-toggle="collapse" data-target="#collapseOne" href="#collapseOne">Listado de LSPs</a>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    @{ Html.RenderPartial("~/Views/Enrutamiento/_InlineIndexLSPs.cshtml", new InlineLSPViewModel(Model.idProyecto)); }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin Barras Laterales-->
+                    <!--Ventana Principal de Edicion-->
+                    <div class="content fluid-fixed">
+                        <div id="myDiagramDiv" class="well" style="width: auto; height: 500px; position: relative;"></div>
+                    </div>
+                    <!--Fin Ventana Principal de Edicion-->
+                </div>
+            </div>
+            <!--Fin Contenido Tab de Topología-->
+            <!--Contenido Tab de Estadísticas-->
+            <div class="tab-pane" id="estadisticas-21">
+                <h4 class="m-t-0 header-title"><b>Porcentajes de Uso</b></h4>
+                <p class="text-muted m-b-15 font-13">
+                    Muestra la distribución del tráfico reservado entre los LSPs que cruzan el enlace.
+                </p>
+                <div class="row">
+                    @Html.DropDownList("idEnlace", Model.listadoDPEnlaces, new { @class = "form-control", @id = "dpxEnlaceStats" })
+                    <div id="lol" class="col-sm-6 col-lg-3 text-center"><canvas id="linkChart" width="200" height="200"></canvas></div>
+                </div>
+
+
+                @*<div id="donut-chart">
+                    <div class="flot-chart" id="donut-chart-container" style="padding: 0px; width: 320px; height: 320px; position: relative;">        
+                    </div>
+                </div>*@
+            </div>
+            <!--Fin Contenido Tab de Estadísticas-->
+            <!--Contenido Tab de Configuraciones-->
+            <div class="tab-pane" id="configuracion-21">
+                
+                <div id="seccionAfinidades">
+                    @{ Html.RenderPartial("~/Views/Topologia/_ListaAfinidades.cshtml", new AfinidadViewModel(Model.idProyecto)); }
+                </div>
+                
+
+                
+
+
+                @*<h4 class="m-t-0 m-b-20 header-title"><b>Utilización</b></h4>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="text-muted m-b-30 font-13">
+                                Add an attribute to your input element and it will be converted into switch.
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="checkbox" checked data-plugin="switchery" data-color="#3bafda" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="range_04" class="col-sm-2 control-label"><b>Range</b><span class="font-normal text-muted f-s-12 clearfix">Set up range with negative values</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" id="range_04">
+                        </div>
+                    </div>*@
+
+            </div>
+            <!--Fin Contenido Tab de Configuraciones-->
+        </div>
+    </div>
+</div>
+<!--Fin Panel Principal-->
+<!--Barra de Menus-->
+@*<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
             <!--Actual Link to LSP list-->
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" href='@Url.Action("_IndexLSPs", "Topologia", new { idProyecto = Model.idProyecto })'>Lista de LSPs</a></li> 
+                <li><a data-modal="" href='@Url.Action("_IndexLSPs", "Enrutamiento", new { idProyecto = Model.idProyecto })'>Lista de LSPs</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a data-modal="" href='@Url.Action("_CrearLSP", "Topologia", new { idProyecto = Model.idProyecto })'>Agregar LSP</a></li>
+                <li><a data-modal="" class="size-lg" href='@Url.Action("_CrearLSP", "Enrutamiento", new { idProyecto = Model.idProyecto })'>Agregar LSP</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
                 <li><a data-modal="" href='@Url.Action("_CrearCSPF", "Topologia", new { idProyecto = Model.idProyecto })'>Aplicar CSPF</a></li>
             </ul>
 
-
-            @*<ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a data-modal=""
+                       data-toggle="modal"
+                       data-target=".bs-example-modal-lg"
+                       href='@Url.Action("_ListaAfinidades", "Topologia", new { idProyecto = Model.idProyecto })'>Lista de Afinidades</a>
                 </li>
-            </ul>*@
-</div><!-- /.navbar-collapse -->
+            </ul>
+      
+        </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
-</nav>
+</nav>*@
 
 
-<span id="paletteSpan" style="display: inline-block; vertical-align: top">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div id="myPaletteDiv" style="width: 120px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
-        </div>
-        </nav>
-</span>
-
-<span id="diagramSpan" style="display: inline-block; vertical-align: top">
-    
-    <div id="myDiagramDiv" style="width: 900px; height: 450px; position: relative; border-color: #e6e6e6; background-color: #f8f8f8;"></div>
-</span>
 
 @section scripts
-{   
-    @Scripts.Render("~/bundles/modalform")
+{
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/Scripts/CustomScripts/topologia.js")
+
     
-    <script type="text/javascript">
+    
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+
+<script>
+
     $(document).ready(function () {
-        var $$ = go.GraphObject.make;
-        //var myDiagram = $(go.Diagram, "myDiagramDiv");
+        var idProyecto = $("#tbxIdProyecto").val();
+        console.log(idProyecto);
+        var idEnlace = $("#dpxEnlaceStats").val();
+        console.log(idEnlace);
+        refreshDonut(idProyecto, idEnlace);
 
-        var myDiagram = $$(go.Diagram, "myDiagramDiv", {
-            initialContentAlignment: go.Spot.Center,        // center Diagram contents
-            "undoManager.isEnabled": true,                   // enable Ctrl-Z to undo and Ctrl-Y to redo
-            //layout: $(go.TreeLayout,                        // specify a Diagram.layout that arranges trees
-            //    { angle: 90, layerSpacing: 35 })
+        $("#dpxEnlaceStats").change(function () {
+            var idProyecto = $("#tbxIdProyecto").val();
+            var idEnlace = $("#dpxEnlaceStats").val();
+            refreshDonut(idProyecto, idEnlace);
         });
 
-        myDiagram.allowDrop = true;  // permit accepting drag-and-drops
-
-        // define a simple Node template
-        myDiagram.nodeTemplate =
-          $$(go.Node, "Auto",
-            // the entire node will have a light-blue background
-            //{ background: "#44CCFF" },
-            $$(go.Picture,
-              // Pictures should normally have an explicit width and height.
-              // This picture has a red background, only visible when there is no source set
-              // or when the image is partially transparent.
-              { margin: 10, width: 80, height: 80 },
-              // Picture.source is data bound to the "source" attribute of the model data
-              new go.Binding("source")),
-            $$(go.TextBlock,
-              "Router1",  // the initial value for TextBlock.text
-              // some room around the text, a larger font, and a white stroke:
-              { margin: 12, stroke: "black", font: "bold 16px sans-serif", editable: true },
-              // TextBlock.text is data bound to the "name" attribute of the model data
-              new go.Binding("text", "name"))
-          );
-
-        var image = '@Url.Content("~/Content/Images/")' + 'router.png';
-
-        $.ajax({
-            url: '@Url.Action("GetJsonTopologia", new { controller = "Topologia" })',
-            type: 'POST',
-            //contentType: "application/json",
-            //datatype: "json",
-            data: { idProyecto: $("#tbxIdProyecto").val() },
-            success: function (result) {
-                //Inicio AJAX --
-                var image2 = '@Url.Content("~/Content/Images/")' + 'router.png';
-                var model = $$(go.GraphLinksModel);
-
-                var arrayRouters = [];
-                $.each(result.routers, function (i, item) {
-                    arrayRouters.push({ "key": result.routers[i].idRouter, "name": result.routers[i].cHostname, "source": image2 });
-                });
-
-                //$(result.routers).each(function () {
-                //    arrayRouters.push({ "key": $(this).idRouter, "name": $(this).cHostname, source: image2 });
-                //});
-                model.nodeDataArray = arrayRouters;
-
-                var arrayLinks = [];
-                $.each(result.enlaces, function (i, item) {
-                    arrayLinks.push({ "from": result.enlaces[i].idRouterA, "to": result.enlaces[i].idRouterB });
-                });
-
-                //$(result.enlaces).each(function () {
-                //    arrayLinks.push({ "from": $(this).idRouterA, "to": $(this).idRouterB });
-                //});
-                console.log(arrayRouters);
-                console.log(arrayLinks);
-
-                model.linkDataArray = arrayLinks;
-                myDiagram.model = model;
-                //Fin AJAX --
-            },
-            error: function (error) { $("#error").html(error); }
+        //Scripts de la pagina de edicion
+        $('form').submit(function (e) {
+            var currentForm = this;
+            e.preventDefault();
+            bootbox.confirm('¿Está seguro de que desea eliminar esta afinidad?', function (result) {
+                if (result) {
+                    currentForm.submit();
+                    window.location.reload(true);
+                }
+            });
         });
 
-        var myPalette = $$(go.Palette, "myPaletteDiv");
+        $('.modal').on('hidden.bs.modal', function (e) {
+            $(this).removeData();
+            $(this).find("input,textarea,select").val('').end();
+        });
 
-        // the Palette's node template is different from the main Diagram's
-        myPalette.nodeTemplate =
-          $$(go.Node, "Horizontal",
-            $$(go.Picture,
-              { width: 40, height: 40 },
-              new go.Binding("source")),
-            $$(go.TextBlock,
-              new go.Binding("text", "color"))
-          );
+        //$('#agregar_color').colorpicker();
+        //$(".pick-a-color").pickAColor();
+        //$('#editar_color').colorpicker();
 
-        // the list of data to show in the Palette
-        myPalette.model.nodeDataArray = [
-          { source: image, color: "LER" },
-          { source: image, color: "LSR" },
-          //{ source: image, color: "aquamarine" },
-          //{ source: image, color: "turquoise" },
-          //{ source: image, color: "powderblue" },
-          //{ source: image, color: "lightblue" },
-          //{ source: image, color: "lightskyblue" },
-          //{ source: image, color: "deepskyblue" }
-        ];
+        //Scripts de estadisticas
 
+        //Donut pie graph data
+        //var donutlabels = ["Series 1", "Series 2", "Series 3", "Series 4"];
+        //var donutdatas = [35, 20, 10, 20];
+        //var donutcolors = ["#3bafda", "#26c6da", "#80deea", "#00b19d"];
+        //createDonutGraph("#donut-chart #donut-chart-container", donutlabels, donutdatas, donutcolors);
 
     });
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    function refreshDonut(idProyecto, idEnlace) {
+        //alert("entra a la funcion");
+        $.ajax({
+            url: '/Estadisticas/GetJsonEnlace',
+            contentType: "application/json",
+            data: { idProyecto: idProyecto, idEnlace: idEnlace },
+            success: function (result) {
+                //alert("sucesss");
+                //<div id="lol" class="col-lg-3"><canvas id="linkChart" width="200" height="200"></canvas></div>
+
+                $('#linkChart').remove(); // this is my <canvas> element
+                $('#lol').append('<canvas id="linkChart" width="200" height="200"></canvas>');
+
+                var dataDoughnut = [];
+                $(result).each(function (index) {
+                    dataDoughnut.push({ "value": this.nBWElemento, "label": this.cNombre, "color": getRandomColor(), });
+                });
+                console.log(dataDoughnut);
+                var ctx = $("#linkChart").get(0).getContext("2d");
+                var myDoughnutChart = new Chart(ctx).Pie(dataDoughnut, { responsive: true });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $("#error").html(jqXHR.responseText);
+                console.log(jqXHR.responseText);
+            }
+        });
+    }
+
+    //function createDonutGraph(selector, labels, datas, colors) {
+    //    var data = [{
+    //        label: labels[0],
+    //        data: datas[0]
+    //    }, {
+    //        label: labels[1],
+    //        data: datas[1]
+    //    }, {
+    //        label: labels[2],
+    //        data: datas[2]
+    //    }, {
+    //        label: labels[3],
+    //        data: datas[3]
+    //    }];
+    //    var options = {
+    //        series: {
+    //            pie: {
+    //                show: true,
+    //                innerRadius: 0.5
+    //            }
+    //        },
+    //        legend: {
+    //            show: true,
+    //            labelFormatter: function (label, series) {
+    //                return '<div style="font-size:14px;">&nbsp;' + label + '</div>'
+    //            },
+    //            labelBoxBorderColor: null,
+    //            margin: 50,
+    //            width: 20,
+    //            padding: 1
+    //        },
+    //        grid: {
+    //            hoverable: true,
+    //            clickable: true
+    //        },
+    //        colors: colors,
+    //        tooltip: true,
+    //        tooltipOpts: {
+    //            content: "%s, %p.0%"
+    //        }
+    //    };
+
+    //    $.plot($(selector), data, options);
+    //}
+
 </script>
 }
+
+<style>
+    .container-fluid > .sidebar {
+        position: relative;
+        top: 0;
+        left: auto;
+        width: 220px;
+        /*margin-top: 0px;*/
+    }
+
+    .left {
+        float: left;
+    }
+
+    .right {
+        float: right;
+    }
+
+    .fixed-fluid {
+        margin-left: 240px;
+    }
+
+    .fluid-fixed {
+        margin-right: 240px;
+        margin-left: auto !important;
+    }
+
+    .fixed-fixed {
+        margin: 0 240px;
+    }
+</style>
+
+
 
 
 

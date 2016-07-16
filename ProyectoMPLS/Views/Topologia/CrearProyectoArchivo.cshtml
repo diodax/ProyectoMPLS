@@ -23,30 +23,20 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            <label for="focusedinput">
-                @Html.LabelFor(model => model.cUserName, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="form-group">
+            <label for="focusedinput" class="col-sm-3 control-label">
+                @Html.LabelFor(model => model.topologiaCVS)
             </label>
-            
             <div class="col-md-9">
-                @Html.EditorFor(model => model.cUserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.cUserName, "", new { @class = "text-danger" })
+                <div class="fileupload btn btn-purple waves-effect waves-light">
+                    <span><i class="ion-upload m-r-5"></i>Subir</span>
+                    <input class="form-control upload" type="file" name="topologiaCVS" />
+                    @*@Html.EditorFor(model => model.cFileName, new { htmlAttributes = new { @class = "form-control upload" } })*@
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="focusedinput">
-                @Html.LabelFor(model => model.cFileName, htmlAttributes: new { @class = "control-label col-md-3" })
-            </label>
-            @Html.LabelFor(model => model.cFileName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-9">
-                @Html.EditorFor(model => model.cFileName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cFileName, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-
-        <div class="form-group">
+        @*<div class="form-group">
             <label for="focusedinput" class="col-sm-3 control-label">
                 @Html.LabelFor(model => model.topologiaCVS)
             </label>
@@ -54,7 +44,7 @@
                <input type="file" name="topologiaCVS" />
             </div>
             
-        </div>
+        </div>*@
 
     </div>
 
